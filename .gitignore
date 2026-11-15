@@ -51,3 +51,6 @@ storybook-static
 /.angular
 .claude/settings.local.json
 *.tar.gz
+
+# Notas pessoais do projeto (não vão para o GitHub)
+NOTAS-DO-PROJETO.md
