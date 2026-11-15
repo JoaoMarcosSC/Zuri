@@ -8,7 +8,7 @@ export type ZurButtonSize = 'sm' | 'md' | 'lg';
  * para preservar semântica e acessibilidade.
  *
  * ```html
- * <button zur-button variant="primary" size="md">Reservar</button>
+ * <button zur-button variant="primary" size="md">Comprar</button>
  * ```
  */
 @Component({

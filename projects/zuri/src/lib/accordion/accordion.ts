@@ -18,7 +18,7 @@ let nextId = 0;
  *
  * ```html
  * <zur-accordion>
- *   <zur-accordion-item title="Como funciona o check-in?">…</zur-accordion-item>
+ *   <zur-accordion-item title="Como cuidar da planta?">…</zur-accordion-item>
  *   <zur-accordion-item title="Posso cancelar?">…</zur-accordion-item>
  * </zur-accordion>
  * ```

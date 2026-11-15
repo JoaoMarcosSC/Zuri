@@ -15,10 +15,10 @@ const meta: Meta<ZurCard> = {
       <zur-card [interactive]="interactive" style="max-width:360px;">
         <zur-badge color="mint">DESTAQUE</zur-badge>
         <h3 style="font:var(--zur-font-title); color:var(--zur-ink); margin:12px 0 4px;">
-          Chalé na serra
+          Monstera deliciosa
         </h3>
         <p style="margin:0 0 16px;">
-          Vista para o vale, lareira e café da manhã incluso.
+          Folhas grandes, vaso de cerâmica incluso e guia de cuidados.
         </p>
         <button zur-button size="sm">Ver detalhes</button>
       </zur-card>

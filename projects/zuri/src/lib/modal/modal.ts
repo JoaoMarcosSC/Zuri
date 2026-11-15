@@ -12,7 +12,7 @@ import { ZUR_I18N } from '../i18n/i18n';
  * Fecha por ESC, clique no scrim ou no botão ×.
  *
  * ```html
- * <zur-modal [(open)]="aberto" title="Confirmar reserva">…</zur-modal>
+ * <zur-modal [(open)]="aberto" title="Confirmar pedido">…</zur-modal>
  * ```
  */
 @Component({

@@ -5,14 +5,14 @@ import { ZurSelect } from './select';
 
 @Component({
   imports: [ZurSelect, ReactiveFormsModule],
-  template: `<zur-select label="Destino" [options]="options" [formControl]="ctrl" />`,
+  template: `<zur-select label="Categoria" [options]="options" [formControl]="ctrl" />`,
 })
 class Host {
   options = [
-    { value: 'serra', label: 'Serra' },
-    { value: 'praia', label: 'Praia' },
+    { value: 'folhagem', label: 'Folhagem' },
+    { value: 'suculenta', label: 'Suculenta' },
   ];
-  ctrl = new FormControl('praia');
+  ctrl = new FormControl('suculenta');
 }
 
 describe('ZurSelect', () => {
@@ -21,17 +21,17 @@ describe('ZurSelect', () => {
     await fixture.whenStable();
     const select = fixture.nativeElement.querySelector('select') as HTMLSelectElement;
     const labels = Array.from(select.options).map((o) => o.textContent?.trim());
-    expect(labels).toContain('Serra');
-    expect(labels).toContain('Praia');
-    expect(select.value).toBe('praia');
+    expect(labels).toContain('Folhagem');
+    expect(labels).toContain('Suculenta');
+    expect(select.value).toBe('suculenta');
   });
 
   it('propaga a escolha para o formulário', async () => {
     const fixture = TestBed.createComponent(Host);
     await fixture.whenStable();
     const select = fixture.nativeElement.querySelector('select') as HTMLSelectElement;
-    select.value = 'serra';
+    select.value = 'folhagem';
     select.dispatchEvent(new Event('change'));
-    expect(fixture.componentInstance.ctrl.value).toBe('serra');
+    expect(fixture.componentInstance.ctrl.value).toBe('folhagem');
   });
 });

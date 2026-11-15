@@ -37,17 +37,17 @@ export const Input: Story = {
 export const Select: Story = {
   render: () => ({
     props: {
-      destino: '',
+      categoria: '',
       opcoes: [
-        { value: 'serra', label: 'Serra Gaúcha' },
-        { value: 'litoral', label: 'Litoral Norte' },
-        { value: 'chapada', label: 'Chapada dos Veadeiros' },
+        { value: 'folhagem', label: 'Folhagens' },
+        { value: 'suculenta', label: 'Suculentas' },
+        { value: 'ervas', label: 'Ervas e temperos' },
       ],
     },
     template: `
       <div style="max-width:360px;">
-        <zur-select label="Destino" placeholder="Escolha um destino"
-          [options]="opcoes" [(ngModel)]="destino" />
+        <zur-select label="Categoria" placeholder="Escolha uma categoria"
+          [options]="opcoes" [(ngModel)]="categoria" />
       </div>
     `,
   }),
@@ -75,7 +75,7 @@ export const Textarea: Story = {
     props: { mensagem: '' },
     template: `
       <div style="display:grid; gap:24px; max-width:420px;">
-        <zur-textarea label="Mensagem" placeholder="Conte um pouco sobre a viagem" [maxlength]="200" [(ngModel)]="mensagem" />
+        <zur-textarea label="Mensagem" placeholder="Escreva um recado para quem vai receber" [maxlength]="200" [(ngModel)]="mensagem" />
         <zur-textarea label="Observações" hint="Opcional." [rows]="3" />
         <zur-textarea label="Com erro" error="Escreva pelo menos 10 caracteres." />
       </div>

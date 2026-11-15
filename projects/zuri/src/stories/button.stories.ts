@@ -16,7 +16,7 @@ const meta: Meta<ZurButton> = {
   args: { variant: 'primary', size: 'md' },
   render: (args) => ({
     props: args,
-    template: `<button zur-button [variant]="variant" [size]="size">Reservar agora</button>`,
+    template: `<button zur-button [variant]="variant" [size]="size">Comprar agora</button>`,
   }),
 };
 export default meta;

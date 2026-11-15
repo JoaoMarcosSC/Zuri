@@ -29,10 +29,10 @@ body {
 }`;
 
   protected readonly stepShell = `<zur-navbar>
-  <strong zurNavbarLogo>Minha Marca</strong>
+  <strong zurNavbarLogo>Casa Verde</strong>
   <ng-container zurNavbarLinks>
     <a href="#">Início</a>
-    <a href="#">Explorar</a>
+    <a href="#">Plantas</a>
   </ng-container>
   <ng-container zurNavbarActions>
     <zur-theme-toggle />
@@ -45,7 +45,7 @@ body {
 
 @Component({
   imports: [ZurButton],
-  template: \`<button zur-button variant="primary">Reservar</button>\`,
+  template: \`<button zur-button variant="primary">Comprar</button>\`,
 })
 export class MinhaTela {}`;
 

@@ -38,7 +38,7 @@ const LAYOUTS: Omit<LayoutInfo, 'codigo'>[] = [
     nome: 'Lista e detalhe',
     componente: 'zur-list-detail-layout',
     descricao: 'Lista à esquerda, detalhe à direita. No mobile, um painel por vez.',
-    quando: 'Caixa de entrada, reservas, tickets: escolher um item e ver/editar sem trocar de página.',
+    quando: 'Caixa de entrada, pedidos, tickets: escolher um item e ver/editar sem trocar de página.',
     largura: 'fluid · lista 360px',
   },
   {
@@ -102,7 +102,7 @@ const CODIGOS: Record<string, string> = {
 
   <zur-page-header title="Visão geral">
     <zur-breadcrumb [items]="trilha" />
-    <button zurPageHeaderActions zur-button>Nova reserva</button>
+    <button zurPageHeaderActions zur-button>Novo pedido</button>
   </zur-page-header>
   …
 </zur-dashboard-layout>`,
@@ -118,7 +118,7 @@ const CODIGOS: Record<string, string> = {
   </article>
 </zur-list-detail-layout>`,
   formulario: `<zur-form-layout [steps]="['Dados', 'Pagamento', 'Revisão']" [current]="1">
-  <zur-page-header title="Nova reserva" />
+  <zur-page-header title="Novo pedido" />
   <zur-input label="Nome completo" />
 
   <div zurLayoutActions>

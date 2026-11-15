@@ -25,8 +25,8 @@ export const Drawer: Story = {
       <button zur-button variant="primary" (click)="aberto = true">Abrir filtros</button>
       <zur-drawer [(open)]="aberto" title="Filtros">
         <div style="display:grid; gap:16px;">
-          <zur-input label="Destino" placeholder="Serra, praia…" />
-          <zur-checkbox>Aceita pets</zur-checkbox>
+          <zur-input label="Categoria" placeholder="Folhagem, suculenta…" />
+          <zur-checkbox>Segura para pets</zur-checkbox>
         </div>
         <div zurDrawerActions>
           <button zur-button variant="primary" (click)="aberto = false">Aplicar</button>
@@ -45,15 +45,15 @@ export const Drawer: Story = {
 export const Popover: Story = {
   render: () => ({
     template: `
-      <zur-popover label="Hóspedes">
-        <button zur-button variant="secondary" zurPopoverTrigger>Hóspedes</button>
-        <p style="margin:0; color:var(--zur-ink);">Adultos: 2 · Crianças: 0</p>
+      <zur-popover label="Quantidade">
+        <button zur-button variant="secondary" zurPopoverTrigger>Quantidade</button>
+        <p style="margin:0; color:var(--zur-ink);">Unidades: 2 · Crianças: 0</p>
       </zur-popover>
     `,
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Hóspedes' }));
-    await expect(canvas.getByRole('dialog', { name: 'Hóspedes' })).toBeTruthy();
+    await userEvent.click(canvas.getByRole('button', { name: 'Quantidade' }));
+    await expect(canvas.getByRole('dialog', { name: 'Quantidade' })).toBeTruthy();
   },
 };

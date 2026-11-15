@@ -40,10 +40,10 @@ body {
 
 ```html
 <zur-navbar>
-  <strong zurNavbarLogo>Minha Marca</strong>
+  <strong zurNavbarLogo>Casa Verde</strong>
   <ng-container zurNavbarLinks>
     <a href="#">Início</a>
-    <a href="#">Explorar</a>
+    <a href="#">Plantas</a>
   </ng-container>
   <ng-container zurNavbarActions>
     <zur-theme-toggle />
@@ -73,22 +73,22 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 ### Exemplos
 
 ```html
-<button zur-button variant="primary" size="md">Reservar</button>
+<button zur-button variant="primary" size="md">Comprar</button>
 <button zur-button variant="secondary">Cancelar</button>
 
-<zur-badge color="success">Confirmado</zur-badge>
+<zur-badge color="success">Entregue</zur-badge>
 
 <zur-input label="E-mail" placeholder="voce@exemplo.com" [(ngModel)]="email" />
 
 <zur-switch [(ngModel)]="notificacoes">Receber notificações</zur-switch>
 
 <zur-tabs>
-  <zur-tab label="Visão geral">…</zur-tab>
+  <zur-tab label="Descrição">…</zur-tab>
   <zur-tab label="Avaliações">…</zur-tab>
 </zur-tabs>
 
-<zur-modal [(open)]="aberto" title="Confirmar reserva">
-  Deseja confirmar a reserva?
+<zur-modal [(open)]="aberto" title="Confirmar pedido">
+  Deseja confirmar o pedido?
   <div zurModalActions>
     <button zur-button variant="ghost" (click)="aberto = false">Voltar</button>
     <button zur-button variant="primary">Confirmar</button>
@@ -99,7 +99,7 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 ```ts
 // toasts
 private toast = inject(ZurToastService);
-this.toast.show('Reserva confirmada!', 'success');
+this.toast.show('Pedido confirmado!', 'success');
 ```
 
 ## Idioma

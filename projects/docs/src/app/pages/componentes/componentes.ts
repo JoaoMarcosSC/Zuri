@@ -98,49 +98,49 @@ export class Componentes {
 
   // estado dos demos interativos
   protected readonly email = signal('');
-  protected readonly destino = signal('');
+  protected readonly categoria = signal('');
   protected readonly aceito = signal(true);
   protected readonly plano = signal('mensal');
   protected readonly notificacoes = signal(true);
   protected readonly tabIndex = signal(0);
   protected readonly modalOpen = signal(false);
 
-  protected readonly destinoOptions: ZurSelectOption[] = [
-    { value: 'serra', label: 'Serra Gaúcha' },
-    { value: 'litoral', label: 'Litoral Norte' },
-    { value: 'chapada', label: 'Chapada dos Veadeiros' },
+  protected readonly categoriaOptions: ZurSelectOption[] = [
+    { value: 'folhagem', label: 'Folhagens' },
+    { value: 'suculenta', label: 'Suculentas' },
+    { value: 'ervas', label: 'Ervas e temperos' },
   ];
 
   protected readonly breadcrumbItems = [
     { label: 'Início', href: '#' },
-    { label: 'Serra Gaúcha', href: '#' },
-    { label: 'Chalé na serra' },
+    { label: 'Folhagens', href: '#' },
+    { label: 'Monstera deliciosa' },
   ];
 
   showToast(kind: 'neutral' | 'success' | 'error'): void {
     const messages = {
       neutral: 'Link copiado.',
-      success: 'Reserva confirmada!',
+      success: 'Pedido confirmado!',
       error: 'Algo deu errado.',
     };
     this.toast.show(messages[kind], kind);
   }
 
   // ── snippets exibidos nos blocos de código ──
-  protected readonly codeButton = `<button zur-button variant="primary">Reservar agora</button>
+  protected readonly codeButton = `<button zur-button variant="primary">Comprar agora</button>
 <button zur-button variant="secondary">Cancelar</button>
 <button zur-button variant="ghost">Saiba mais</button>
 <button zur-button variant="pill" size="sm">Pill</button>`;
 
   protected readonly codeBadge = `<zur-badge color="mint">NOVO</zur-badge>
-<zur-badge color="success">Confirmado</zur-badge>
-<zur-badge color="warning">Pendente</zur-badge>
+<zur-badge color="success">Entregue</zur-badge>
+<zur-badge color="warning">Em preparo</zur-badge>
 <zur-badge color="error">Cancelado</zur-badge>`;
 
   protected readonly codeCard = `<zur-card interactive>
   <zur-badge color="mint">DESTAQUE</zur-badge>
-  <h3>Chalé na serra</h3>
-  <p>Vista para o vale, lareira e café da manhã incluso.</p>
+  <h3>Monstera deliciosa</h3>
+  <p>Folhas grandes, vaso de cerâmica incluso e guia de cuidados.</p>
   <button zur-button size="sm">Ver detalhes</button>
 </zur-card>`;
 
@@ -156,10 +156,10 @@ export class Componentes {
 />`;
 
   protected readonly codeSelect = `<zur-select
-  label="Destino"
-  placeholder="Escolha um destino"
-  [options]="destinoOptions"
-  [(ngModel)]="destino"
+  label="Categoria"
+  placeholder="Escolha uma categoria"
+  [options]="categoriaOptions"
+  [(ngModel)]="categoria"
 />`;
 
   protected readonly codeCheckbox = `<zur-checkbox [(ngModel)]="aceito">
@@ -184,10 +184,10 @@ export class Componentes {
 </div>`;
 
   protected readonly codeNavbar = `<zur-navbar>
-  <strong zurNavbarLogo>Minha Marca</strong>
+  <strong zurNavbarLogo>Casa Verde</strong>
   <ng-container zurNavbarLinks>
     <a href="#">Início</a>
-    <a href="#">Explorar</a>
+    <a href="#">Plantas</a>
   </ng-container>
   <ng-container zurNavbarActions>
     <zur-theme-toggle />
@@ -195,22 +195,22 @@ export class Componentes {
 </zur-navbar>`;
 
   protected readonly codeTabs = `<zur-tabs>
-  <zur-tab label="Visão geral">Um refúgio na serra.</zur-tab>
-  <zur-tab label="Comodidades">Wi-Fi, lareira, cozinha completa.</zur-tab>
+  <zur-tab label="Descrição">Folhas grandes e recortadas.</zur-tab>
+  <zur-tab label="Cuidados">Rega a cada 7 dias, luz indireta.</zur-tab>
   <zur-tab label="Avaliações">4,91 — "Simplesmente perfeito".</zur-tab>
 </zur-tabs>`;
 
   protected readonly codeMenu = `<zur-menu>
   <button zur-button variant="secondary" size="sm" zurMenuTrigger>Conta ▾</button>
   <zur-menu-item>Perfil</zur-menu-item>
-  <zur-menu-item>Minhas reservas</zur-menu-item>
+  <zur-menu-item>Meus pedidos</zur-menu-item>
   <zur-menu-item>Sair</zur-menu-item>
 </zur-menu>`;
 
   protected readonly codeBreadcrumb = `<zur-breadcrumb [items]="[
   { label: 'Início', href: '#' },
-  { label: 'Serra Gaúcha', href: '#' },
-  { label: 'Chalé na serra' },
+  { label: 'Folhagens', href: '#' },
+  { label: 'Monstera deliciosa' },
 ]" />`;
 
   protected readonly codeSidenav = `<zur-sidenav aria-label="Principal">
@@ -229,8 +229,8 @@ export class Componentes {
 
   protected readonly codeModal = `<button zur-button (click)="aberto = true">Abrir modal</button>
 
-<zur-modal [(open)]="aberto" title="Confirmar reserva">
-  <p>Deseja confirmar a reserva?</p>
+<zur-modal [(open)]="aberto" title="Confirmar pedido">
+  <p>Deseja confirmar o pedido?</p>
   <div zurModalActions>
     <button zur-button variant="ghost" (click)="aberto = false">Voltar</button>
     <button zur-button variant="primary" (click)="aberto = false">Confirmar</button>
@@ -239,7 +239,7 @@ export class Componentes {
 
   protected readonly codeToast = `private toast = inject(ZurToastService);
 
-this.toast.show('Reserva confirmada!', 'success');
+this.toast.show('Pedido confirmado!', 'success');
 this.toast.show('Algo deu errado.', 'error');
 this.toast.show('Link copiado.'); // neutro
 
@@ -250,9 +250,9 @@ this.toast.show('Link copiado.'); // neutro
   ♥ Favoritar
 </button>`;
 
-  protected readonly codeAlert = `<zur-alert kind="success">Reserva confirmada com sucesso.</zur-alert>
-<zur-alert kind="info">O check-in abre às 14h.</zur-alert>
-<zur-alert kind="warning">Restam apenas 2 datas disponíveis.</zur-alert>
+  protected readonly codeAlert = `<zur-alert kind="success">Pedido confirmado com sucesso.</zur-alert>
+<zur-alert kind="info">A entrega sai em até 2 dias úteis.</zur-alert>
+<zur-alert kind="warning">Restam apenas 2 unidades.</zur-alert>
 <zur-alert kind="error">Não foi possível processar o pagamento.</zur-alert>`;
 
   protected readonly codeSpinner = `<zur-spinner size="sm" />
@@ -267,21 +267,21 @@ this.toast.show('Link copiado.'); // neutro
   protected readonly pagina = signal(1);
   protected readonly progresso = signal(40);
   protected readonly drawerOpen = signal(false);
-  protected readonly hospedes = signal(2);
+  protected readonly quantidade = signal(2);
 
-  private readonly reservas = [
-    { nome: 'Ana Silva', local: 'Chalé na serra', noites: 3 },
-    { nome: 'João Marcos', local: 'Casa na praia', noites: 7 },
-    { nome: 'Maria Costa', local: 'Cabana no lago', noites: 2 },
-    { nome: 'Pedro Alves', local: 'Chalé na serra', noites: 5 },
+  private readonly pedidos = [
+    { nome: 'Ana Silva', produto: 'Monstera deliciosa', itens: 3 },
+    { nome: 'João Marcos', produto: 'Samambaia americana', itens: 7 },
+    { nome: 'Maria Costa', produto: 'Zamioculca', itens: 2 },
+    { nome: 'Pedro Alves', produto: 'Monstera deliciosa', itens: 5 },
   ];
   private readonly ordem = signal<ZurSort | null>(null);
-  protected readonly reservasOrdenadas = computed(() => {
+  protected readonly pedidosOrdenados = computed(() => {
     const o = this.ordem();
-    if (!o) return this.reservas;
-    const key = o.key as keyof (typeof this.reservas)[number];
+    if (!o) return this.pedidos;
+    const key = o.key as keyof (typeof this.pedidos)[number];
     const dir = o.direction === 'asc' ? 1 : -1;
-    return [...this.reservas].sort((a, b) => (a[key] > b[key] ? dir : a[key] < b[key] ? -dir : 0));
+    return [...this.pedidos].sort((a, b) => (a[key] > b[key] ? dir : a[key] < b[key] ? -dir : 0));
   });
 
   protected ordenar(sort: ZurSort): void {
@@ -297,7 +297,7 @@ this.toast.show('Link copiado.'); // neutro
   }
 
   protected readonly codeTextarea = `<zur-textarea
-  label="Mensagem para o anfitrião"
+  label="Bilhete para o presente"
   [maxlength]="200"
   [(ngModel)]="mensagem"
 />`;
@@ -305,14 +305,14 @@ this.toast.show('Link copiado.'); // neutro
   protected readonly codeTable = `<table zur-table (sortChange)="ordenar($event)">
   <thead>
     <tr>
-      <th zurSortable="nome">Hóspede</th>
-      <th zurSortable="local">Local</th>
-      <th zurSortable="noites">Noites</th>
+      <th zurSortable="nome">Cliente</th>
+      <th zurSortable="produto">Produto</th>
+      <th zurSortable="itens">Itens</th>
     </tr>
   </thead>
   <tbody>
-    @for (r of reservasOrdenadas(); track r.nome) {
-      <tr><td>{{ r.nome }}</td><td>{{ r.local }}</td><td>{{ r.noites }}</td></tr>
+    @for (r of pedidosOrdenados(); track r.nome) {
+      <tr><td>{{ r.nome }}</td><td>{{ r.produto }}</td><td>{{ r.itens }}</td></tr>
     }
   </tbody>
 </table>`;
@@ -320,19 +320,19 @@ this.toast.show('Link copiado.'); // neutro
   protected readonly codePagination = `<zur-pagination [total]="248" [pageSize]="20" [(page)]="pagina" />`;
 
   protected readonly codeAccordion = `<zur-accordion>
-  <zur-accordion-item title="Como funciona o check-in?" [open]="true">…</zur-accordion-item>
-  <zur-accordion-item title="Posso cancelar a reserva?">…</zur-accordion-item>
+  <zur-accordion-item title="Como cuidar da planta?" [open]="true">…</zur-accordion-item>
+  <zur-accordion-item title="Posso trocar se chegar danificada?">…</zur-accordion-item>
 </zur-accordion>
 
 <!-- várias abertas ao mesmo tempo -->
 <zur-accordion multi>…</zur-accordion>`;
 
   protected readonly codeEmptyState = `<zur-empty-state
-  title="Nenhuma reserva ainda"
-  description="Quando você reservar uma hospedagem, ela aparece aqui."
+  title="Seu carrinho está vazio"
+  description="Quando você adicionar uma planta, ela aparece aqui."
 >
   <svg zurEmptyIcon …></svg>
-  <button zur-button variant="primary" size="sm">Explorar hospedagens</button>
+  <button zur-button variant="primary" size="sm">Ver plantas</button>
 </zur-empty-state>`;
 
   protected readonly codeProgress = `<zur-progress [value]="40" label="Enviando fotos" />
@@ -347,8 +347,8 @@ this.toast.show('Link copiado.'); // neutro
   </div>
 </zur-drawer>`;
 
-  protected readonly codePopover = `<zur-popover label="Hóspedes">
-  <button zur-button variant="secondary" zurPopoverTrigger>Hóspedes</button>
+  protected readonly codePopover = `<zur-popover label="Quantidade">
+  <button zur-button variant="secondary" zurPopoverTrigger>Quantidade</button>
   …conteúdo…
 </zur-popover>`;
 }

@@ -42,7 +42,7 @@ export const Navbar: Story = {
         </strong>
         <ng-container zurNavbarLinks>
           <a style="color:var(--zur-ink); text-decoration:none;">Início</a>
-          <a style="color:var(--zur-muted); text-decoration:none;">Explorar</a>
+          <a style="color:var(--zur-muted); text-decoration:none;">Plantas</a>
           <a style="color:var(--zur-muted); text-decoration:none;">Favoritos</a>
         </ng-container>
         <ng-container zurNavbarActions>
@@ -62,8 +62,8 @@ export const Tabs: Story = {
     template: `
       <div style="padding:32px; max-width:560px;">
         <zur-tabs>
-          <zur-tab label="Visão geral">Um refúgio na serra com vista para o vale.</zur-tab>
-          <zur-tab label="Comodidades">Wi-Fi, lareira, cozinha completa e estacionamento.</zur-tab>
+          <zur-tab label="Descrição">Folhas grandes e recortadas, ótima para luz indireta.</zur-tab>
+          <zur-tab label="Cuidados">Rega a cada 7 dias, luz indireta e vaso com furo no fundo.</zur-tab>
           <zur-tab label="Avaliações">4,91 — "Simplesmente perfeito", diz a Ana.</zur-tab>
         </zur-tabs>
       </div>
@@ -78,7 +78,7 @@ export const Menu: Story = {
         <zur-menu>
           <button zur-button variant="secondary" size="sm" zurMenuTrigger>Conta ▾</button>
           <zur-menu-item>Perfil</zur-menu-item>
-          <zur-menu-item>Minhas reservas</zur-menu-item>
+          <zur-menu-item>Meus pedidos</zur-menu-item>
           <zur-menu-item>Sair</zur-menu-item>
         </zur-menu>
       </div>
@@ -91,8 +91,8 @@ export const Breadcrumb: Story = {
     props: {
       itens: [
         { label: 'Início', href: '#' },
-        { label: 'Serra Gaúcha', href: '#' },
-        { label: 'Chalé na serra' },
+        { label: 'Folhagens', href: '#' },
+        { label: 'Monstera deliciosa' },
       ],
     },
     template: `<div style="padding:32px;"><zur-breadcrumb [items]="itens" /></div>`,

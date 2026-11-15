@@ -76,7 +76,7 @@ import { ZurButton, ZurBadge, ZurLogo } from '@juau/zuri';
 ```html
 <zur-logo />
 <zur-badge color="mint">Novo</zur-badge>
-<button zur-button variant="primary" size="lg">Reservar agora</button>
+<button zur-button variant="primary" size="lg">Comprar agora</button>
 ```
 
 Os textos internos dos componentes (rótulos de acessibilidade, "Voltar", "Fechar") vêm em português. Para inglês, use `provideZuriI18n('en')` nos providers da aplicação, ou passe só as chaves que quiser trocar.

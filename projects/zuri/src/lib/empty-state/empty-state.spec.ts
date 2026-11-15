@@ -5,7 +5,7 @@ import { ZurEmptyState } from './empty-state';
 @Component({
   imports: [ZurEmptyState],
   template: `
-    <zur-empty-state title="Nenhuma reserva" description="Elas aparecem aqui.">
+    <zur-empty-state title="Seu carrinho está vazio" description="Elas aparecem aqui.">
       <svg zurEmptyIcon viewBox="0 0 24 24"></svg>
       <button>Explorar</button>
     </zur-empty-state>
@@ -19,7 +19,7 @@ describe('ZurEmptyState', () => {
     await fixture.whenStable();
     const el = fixture.nativeElement as HTMLElement;
     expect(el.querySelector('.icon svg')).toBeTruthy();
-    expect(el.querySelector('.title')?.textContent).toBe('Nenhuma reserva');
+    expect(el.querySelector('.title')?.textContent).toBe('Seu carrinho está vazio');
     expect(el.querySelector('.description')?.textContent).toBe('Elas aparecem aqui.');
     expect(el.querySelector('.actions button')?.textContent).toBe('Explorar');
   });

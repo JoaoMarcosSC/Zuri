@@ -17,7 +17,7 @@ Responda três perguntas, na ordem:
 |---|---|---|---|---|
 | Site público, produto, campanha | Seções longas, narrativa | Visitante, uma vez | Landing | `zur-landing-layout` |
 | Área logada, painel, back-office | Cartões, tabelas, gráficos | Usuário diário, várias seções | Dashboard | `zur-dashboard-layout` |
-| Caixa de entrada, reservas, tickets | Coleção de itens + detalhe | Usuário diário, escaneia e abre | Lista e detalhe | `zur-list-detail-layout` |
+| Caixa de entrada, pedidos, tickets | Coleção de itens + detalhe | Usuário diário, escaneia e abre | Lista e detalhe | `zur-list-detail-layout` |
 | Cadastro, checkout, configuração | Campos e etapas | Tarefa única, concluir | Formulário e wizard | `zur-form-layout` |
 | Guias, manuais, base de conhecimento | Texto corrido + navegação | Consulta e leitura | Documentação | `zur-docs-layout` |
 | Login, cadastro, recuperar senha | Poucos campos | Tarefa única, sem distração | Autenticação | `zur-auth-layout` |
@@ -84,7 +84,7 @@ Dashboard:
 
   <zur-page-header title="Visão geral">
     <zur-breadcrumb [items]="trilha" />
-    <button zurPageHeaderActions zur-button>Nova reserva</button>
+    <button zurPageHeaderActions zur-button>Novo pedido</button>
   </zur-page-header>
   <!-- conteúdo -->
 </zur-dashboard-layout>

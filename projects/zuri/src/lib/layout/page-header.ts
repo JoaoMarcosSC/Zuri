@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Cabeçalho de página: breadcrumb opcional, título, descrição e ações.
  *
  * ```html
- * <zur-page-header title="Reservas" description="Gerencie as reservas.">
+ * <zur-page-header title="Pedidos" description="Gerencie os pedidos.">
  *   <zur-breadcrumb [items]="trilha" />
- *   <button zurPageHeaderActions zur-button>Nova reserva</button>
+ *   <button zurPageHeaderActions zur-button>Novo pedido</button>
  * </zur-page-header>
  * ```
  */

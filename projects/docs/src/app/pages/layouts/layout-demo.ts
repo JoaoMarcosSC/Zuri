@@ -80,22 +80,28 @@ export class LayoutDemo {
 
   protected readonly trilha = [
     { label: 'Início', href: '#' },
-    { label: 'Reservas' },
+    { label: 'Pedidos' },
+  ];
+
+  protected readonly beneficios = [
+    { titulo: 'Entrega cuidadosa', texto: 'Embalagem que protege folhas e raízes, direto na sua porta.' },
+    { titulo: 'Guia de cuidados', texto: 'Rega, luz e adubo explicados para cada planta que você leva.' },
+    { titulo: 'Troca garantida', texto: 'Chegou machucada? Trocamos em até 7 dias, sem custo.' },
   ];
 
   protected readonly stats = [
-    { label: 'Reservas', value: '1.284', delta: '+12%' },
+    { label: 'Pedidos', value: '1.284', delta: '+12%' },
     { label: 'Receita', value: 'R$ 48,2 mil', delta: '+8%' },
-    { label: 'Ocupação', value: '86%', delta: '+3%' },
+    { label: 'Conversão', value: '3,8%', delta: '+3%' },
     { label: 'Avaliação', value: '4,9', delta: '+0,1' },
   ];
 
-  protected readonly reservas = [
-    { id: 1, nome: 'Ana Silva', local: 'Chalé na serra', data: '12–15 dez' },
-    { id: 2, nome: 'João Marcos', local: 'Casa na praia', data: '20–27 dez' },
-    { id: 3, nome: 'Maria Costa', local: 'Cabana no lago', data: '02–05 jan' },
-    { id: 4, nome: 'Pedro Alves', local: 'Chalé na serra', data: '10–12 jan' },
-    { id: 5, nome: 'Luísa Prado', local: 'Casa na praia', data: '18–25 jan' },
+  protected readonly pedidos = [
+    { id: 1, nome: 'Ana Silva', produto: 'Monstera deliciosa', data: '12 dez' },
+    { id: 2, nome: 'João Marcos', produto: 'Samambaia americana', data: '13 dez' },
+    { id: 3, nome: 'Maria Costa', produto: 'Zamioculca', data: '02 jan' },
+    { id: 4, nome: 'Pedro Alves', produto: 'Monstera deliciosa', data: '10 jan' },
+    { id: 5, nome: 'Luísa Prado', produto: 'Samambaia americana', data: '18 jan' },
   ];
 
   protected readonly etapas = ['Dados', 'Pagamento', 'Revisão'];

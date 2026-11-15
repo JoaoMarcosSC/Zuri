@@ -15,7 +15,7 @@ import { ZUR_LAYOUT_WIDTH_STYLES, ZurLayoutWidth } from './layout-width';
  *
  * ```html
  * <zur-form-layout [steps]="['Dados', 'Pagamento', 'Revisão']" [current]="1">
- *   <zur-page-header title="Nova reserva" />
+ *   <zur-page-header title="Novo pedido" />
  *   <zur-input label="Nome" />
  *   <div zurLayoutActions><button zur-button>Continuar</button></div>
  * </zur-form-layout>

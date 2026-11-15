@@ -78,8 +78,8 @@ const SIDEBAR = `
       <a zur-sidenav-item href="#">${ICON}Relatórios</a>
       <a zur-sidenav-item href="#">${ICON}Clientes</a>
       <zur-sidenav-label>Atalhos</zur-sidenav-label>
-      <a zur-sidenav-item level="secondary" href="#">Reservas</a>
-      <a zur-sidenav-item level="secondary" href="#">Calendário</a>
+      <a zur-sidenav-item level="secondary" href="#">Pedidos</a>
+      <a zur-sidenav-item level="secondary" href="#">Estoque</a>
     </zur-sidenav>
   </zur-sidebar>`;
 
@@ -110,7 +110,7 @@ export const Landing: Story = {
           </ng-container>
         </zur-topbar>
         <h1 style="font:var(--zur-font-display-lg); color:var(--zur-ink); margin:0 0 16px;">
-          Hospedagens que parecem em casa
+          Plantas que fazem a casa respirar
         </h1>
         ${PARAGRAPHS}
         <zur-footer>© 2026 Zuri</zur-footer>
@@ -127,12 +127,12 @@ export const Dashboard: Story = {
         ${TOPBAR_ACTIONS}
         <zur-page-header title="Visão geral" description="Resumo das últimas 4 semanas.">
           <zur-breadcrumb [items]="[{ label: 'Início', href: '#' }, { label: 'Visão geral' }]" />
-          <button zurPageHeaderActions zur-button variant="primary" size="sm">Nova reserva</button>
+          <button zurPageHeaderActions zur-button variant="primary" size="sm">Novo pedido</button>
         </zur-page-header>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:32px;">
-          <zur-card><p style="margin:0; color:var(--zur-muted);">Reservas</p><strong style="font:var(--zur-font-headline); color:var(--zur-ink);">1.284</strong></zur-card>
+          <zur-card><p style="margin:0; color:var(--zur-muted);">Pedidos</p><strong style="font:var(--zur-font-headline); color:var(--zur-ink);">1.284</strong></zur-card>
           <zur-card><p style="margin:0; color:var(--zur-muted);">Receita</p><strong style="font:var(--zur-font-headline); color:var(--zur-ink);">R$ 48 mil</strong></zur-card>
-          <zur-card><p style="margin:0; color:var(--zur-muted);">Ocupação</p><strong style="font:var(--zur-font-headline); color:var(--zur-ink);">86%</strong></zur-card>
+          <zur-card><p style="margin:0; color:var(--zur-muted);">Conversão</p><strong style="font:var(--zur-font-headline); color:var(--zur-ink);">3,8%</strong></zur-card>
         </div>
         ${PARAGRAPHS}
       </zur-dashboard-layout>
@@ -147,21 +147,21 @@ export const ListaDetalhe: Story = {
     template: `
       <zur-list-detail-layout [(detailOpen)]="aberto">
         <zur-topbar>
-          <span zurTopbarStart>Reservas</span>
+          <span zurTopbarStart>Pedidos</span>
           <ng-container zurTopbarActions><zur-theme-toggle /></ng-container>
         </zur-topbar>
         <div zurList>
           <button type="button" (click)="aberto = true"
             style="display:flex; gap:12px; width:100%; padding:12px 16px; border:0; border-bottom:1px solid var(--zur-hairline-soft); background:transparent; color:var(--zur-body); text-align:left; cursor:pointer;">
-            <zur-avatar name="Ana Silva" size="sm" /> Ana Silva · Chalé na serra
+            <zur-avatar name="Ana Silva" size="sm" /> Ana Silva · Monstera deliciosa
           </button>
           <button type="button" (click)="aberto = true"
             style="display:flex; gap:12px; width:100%; padding:12px 16px; border:0; border-bottom:1px solid var(--zur-hairline-soft); background:transparent; color:var(--zur-body); text-align:left; cursor:pointer;">
-            <zur-avatar name="João Marcos" size="sm" /> João Marcos · Casa na praia
+            <zur-avatar name="João Marcos" size="sm" /> João Marcos · Samambaia americana
           </button>
         </div>
         <article zurDetail>
-          <zur-page-header title="Ana Silva" description="Chalé na serra · 12–15 dez" />
+          <zur-page-header title="Ana Silva" description="Monstera deliciosa · 12 dez" />
           ${PARAGRAPHS}
         </article>
       </zur-list-detail-layout>
@@ -175,7 +175,7 @@ export const Formulario: Story = {
     template: `
       <zur-form-layout [steps]="['Dados', 'Pagamento', 'Revisão']" [current]="0">
         ${TOPBAR_ACTIONS}
-        <zur-page-header title="Nova reserva" description="Preencha os dados do hóspede." />
+        <zur-page-header title="Novo pedido" description="Preencha os dados de entrega." />
         <div style="display:flex; flex-direction:column; gap:16px;">
           <zur-input label="Nome completo" placeholder="Ana Silva" />
           <zur-input label="E-mail" placeholder="voce@exemplo.com" hint="Enviaremos a confirmação." />

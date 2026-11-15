@@ -55,7 +55,7 @@ export class Tokens {
     { token: '--zur-font-display-lg', tracking: '--zur-tracking-display-lg', label: 'display-lg', sample: 'Zuri' },
     { token: '--zur-font-display-md', tracking: '--zur-tracking-display-md', label: 'display-md', sample: 'Zuri' },
     { token: '--zur-font-headline', label: 'headline', sample: 'Design system amigável' },
-    { token: '--zur-font-title', label: 'title', sample: 'Chalé na serra' },
+    { token: '--zur-font-title', label: 'title', sample: 'Monstera deliciosa' },
     { token: '--zur-font-body-lg', label: 'body-lg', sample: 'Lead editorial com respiro generoso.' },
     { token: '--zur-font-body', label: 'body', sample: 'Texto padrão do sistema.' },
     { token: '--zur-font-caption', label: 'caption', sample: 'LABEL DE CAMPO' },

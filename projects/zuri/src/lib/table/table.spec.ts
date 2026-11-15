@@ -6,8 +6,8 @@ import { ZurSort, ZurSortable, ZurTable } from './table';
   imports: [ZurTable, ZurSortable],
   template: `
     <table zur-table density="compact" (sortChange)="ultima = $event">
-      <thead><tr><th zurSortable="nome">Nome</th><th>Destino</th></tr></thead>
-      <tbody><tr><td>Ana</td><td>Serra</td></tr></tbody>
+      <thead><tr><th zurSortable="nome">Nome</th><th>Produto</th></tr></thead>
+      <tbody><tr><td>Ana</td><td>Folhagem</td></tr></tbody>
     </table>
   `,
 })

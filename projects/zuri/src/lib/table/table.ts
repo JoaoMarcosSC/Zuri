@@ -25,7 +25,7 @@ export interface ZurSort {
  * ```html
  * <table zur-table (sortChange)="ordenar($event)">
  *   <thead>
- *     <tr><th zurSortable="nome">Nome</th><th>Destino</th></tr>
+ *     <tr><th zurSortable="nome">Nome</th><th>Produto</th></tr>
  *   </thead>
  *   <tbody>…</tbody>
  * </table>

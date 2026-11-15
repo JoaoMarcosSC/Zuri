@@ -7,7 +7,7 @@ import { ZurBreadcrumb } from './breadcrumb';
   template: `<zur-breadcrumb [items]="items" />`,
 })
 class Host {
-  items = [{ label: 'Início', href: '#' }, { label: 'Reservas' }];
+  items = [{ label: 'Início', href: '#' }, { label: 'Pedidos' }];
 }
 
 describe('ZurBreadcrumb', () => {
@@ -17,6 +17,6 @@ describe('ZurBreadcrumb', () => {
     const nav = fixture.nativeElement.querySelector('nav') as HTMLElement;
     expect(nav.getAttribute('aria-label')).toBe('Trilha de navegação');
     const current = fixture.nativeElement.querySelector('[aria-current=page]') as HTMLElement;
-    expect(current.textContent?.trim()).toBe('Reservas');
+    expect(current.textContent?.trim()).toBe('Pedidos');
   });
 });

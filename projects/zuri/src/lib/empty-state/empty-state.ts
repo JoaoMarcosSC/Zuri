@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * buscas sem resultado ou telas que ainda não têm conteúdo.
  *
  * ```html
- * <zur-empty-state title="Nenhuma reserva" description="Quando você reservar, ela aparece aqui.">
+ * <zur-empty-state title="Seu carrinho está vazio" description="Quando você adicionar uma planta, ela aparece aqui.">
  *   <svg zurEmptyIcon …></svg>
  *   <button zur-button>Explorar</button>
  * </zur-empty-state>

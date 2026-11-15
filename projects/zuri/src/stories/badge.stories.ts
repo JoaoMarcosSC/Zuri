@@ -29,8 +29,8 @@ export const Todas: Story = {
     template: `
       <div style="display:flex; gap:12px; flex-wrap:wrap;">
         <zur-badge color="mint">NOVO</zur-badge>
-        <zur-badge color="success">Confirmado</zur-badge>
-        <zur-badge color="warning">Pendente</zur-badge>
+        <zur-badge color="success">Entregue</zur-badge>
+        <zur-badge color="warning">Em preparo</zur-badge>
         <zur-badge color="error">Cancelado</zur-badge>
         <zur-badge color="info">Info</zur-badge>
         <zur-badge color="neutral">Rascunho</zur-badge>

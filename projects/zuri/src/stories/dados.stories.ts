@@ -13,9 +13,9 @@ export default meta;
 type Story = StoryObj;
 
 const LINHAS = `
-  <tr><td>Ana Silva</td><td>Chalé na serra</td><td>3</td></tr>
-  <tr><td>João Marcos</td><td>Casa na praia</td><td>7</td></tr>
-  <tr><td>Maria Costa</td><td>Cabana no lago</td><td>2</td></tr>
+  <tr><td>Ana Silva</td><td>Monstera deliciosa</td><td>3</td></tr>
+  <tr><td>João Marcos</td><td>Samambaia americana</td><td>7</td></tr>
+  <tr><td>Maria Costa</td><td>Zamioculca</td><td>2</td></tr>
 `;
 
 export const Tabela: Story = {
@@ -24,7 +24,7 @@ export const Tabela: Story = {
     template: `
       <table zur-table (sortChange)="ultima = $event.key + ' ' + $event.direction">
         <thead>
-          <tr><th zurSortable="nome">Hóspede</th><th zurSortable="local">Local</th><th>Noites</th></tr>
+          <tr><th zurSortable="nome">Cliente</th><th zurSortable="produto">Produto</th><th>Itens</th></tr>
         </thead>
         <tbody>${LINHAS}</tbody>
       </table>
@@ -38,7 +38,7 @@ export const TabelaCompacta: Story = {
   render: () => ({
     template: `
       <table zur-table density="compact">
-        <thead><tr><th>Hóspede</th><th>Local</th><th>Noites</th></tr></thead>
+        <thead><tr><th>Cliente</th><th>Produto</th><th>Itens</th></tr></thead>
         <tbody>${LINHAS}</tbody>
       </table>
     `,

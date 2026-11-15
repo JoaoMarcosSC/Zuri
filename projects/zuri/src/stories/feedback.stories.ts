@@ -16,7 +16,7 @@ import { ZurButton } from '../lib/button/button';
   imports: [ZurToastContainer, ZurButton],
   template: `
     <div style="display:flex; gap:12px;">
-      <button zur-button size="sm" (click)="toast.show('Reserva confirmada!', 'success')">
+      <button zur-button size="sm" (click)="toast.show('Pedido confirmado!', 'success')">
         Toast de sucesso
       </button>
       <button zur-button variant="secondary" size="sm" (click)="toast.show('Algo deu errado.', 'error')">
@@ -59,10 +59,10 @@ export const Modal: Story = {
     props: { aberto: false },
     template: `
       <button zur-button (click)="aberto = true">Abrir modal</button>
-      <zur-modal [(open)]="aberto" title="Confirmar reserva">
+      <zur-modal [(open)]="aberto" title="Confirmar pedido">
         <p style="margin:0;">
-          Chalé na serra · 12–15 de dezembro · 2 hóspedes.
-          Deseja confirmar a reserva?
+          Monstera deliciosa · 2 unidades · entrega em até 2 dias úteis.
+          Deseja confirmar o pedido?
         </p>
         <div zurModalActions>
           <button zur-button variant="ghost" (click)="aberto = false">Voltar</button>
@@ -91,9 +91,9 @@ export const Alertas: Story = {
   render: () => ({
     template: `
       <div style="display:grid; gap:12px; max-width:480px;">
-        <zur-alert kind="success">Reserva confirmada com sucesso.</zur-alert>
-        <zur-alert kind="info">O check-in abre às 14h.</zur-alert>
-        <zur-alert kind="warning">Restam apenas 2 datas disponíveis.</zur-alert>
+        <zur-alert kind="success">Pedido confirmado com sucesso.</zur-alert>
+        <zur-alert kind="info">A entrega sai em até 2 dias úteis.</zur-alert>
+        <zur-alert kind="warning">Restam apenas 2 unidades.</zur-alert>
         <zur-alert kind="error">Não foi possível processar o pagamento.</zur-alert>
       </div>
     `,

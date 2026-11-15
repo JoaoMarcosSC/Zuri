@@ -18,14 +18,14 @@ export const Accordion: Story = {
     template: `
       <div style="max-width:560px;">
         <zur-accordion>
-          <zur-accordion-item title="Como funciona o check-in?" [open]="true">
-            A partir das 14h, com o código enviado por e-mail no dia da chegada.
+          <zur-accordion-item title="Como cuidar da planta?" [open]="true">
+            Regue a cada 7 dias e deixe em luz indireta. O guia de cuidados vai junto com o pedido.
           </zur-accordion-item>
-          <zur-accordion-item title="Posso cancelar a reserva?">
-            Sim, sem custo até 48 horas antes do check-in.
+          <zur-accordion-item title="Posso trocar se chegar danificada?">
+            Sim, a troca é grátis em até 7 dias.
           </zur-accordion-item>
-          <zur-accordion-item title="Aceita animais?">
-            Depende da hospedagem.
+          <zur-accordion-item title="É segura para pets?">
+            Depende da espécie.
           </zur-accordion-item>
         </zur-accordion>
       </div>
@@ -37,9 +37,9 @@ export const EstadoVazio: Story = {
   name: 'Empty state',
   render: () => ({
     template: `
-      <zur-empty-state title="Nenhuma reserva ainda" description="Quando você reservar uma hospedagem, ela aparece aqui.">
+      <zur-empty-state title="Seu carrinho está vazio" description="Quando você adicionar uma planta, ela aparece aqui.">
         <svg zurEmptyIcon viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /></svg>
-        <button zur-button variant="primary" size="sm">Explorar hospedagens</button>
+        <button zur-button variant="primary" size="sm">Ver plantas</button>
       </zur-empty-state>
     `,
   }),
