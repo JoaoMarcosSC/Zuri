@@ -40,4 +40,53 @@ describe('ZurModal', () => {
     await fixture.whenStable();
     expect(fixture.nativeElement.querySelector('[aria-label="Close"]')).toBeTruthy();
   });
+
+  describe('foco', () => {
+    @Component({
+      imports: [ZurModal],
+      template: `
+        <button id="abrir" (click)="aberto.set(true)">Abrir</button>
+        <zur-modal [(open)]="aberto" title="Confirmar">
+          <button id="a">A</button>
+          <div zurModalActions><button id="b">B</button></div>
+        </zur-modal>
+      `,
+    })
+    class FocusHost {
+      aberto = signal(false);
+    }
+
+    const tab = (el: Element, shift = false) => {
+      const e = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: shift, bubbles: true, cancelable: true });
+      el.dispatchEvent(e);
+      return e.defaultPrevented;
+    };
+
+    it('leva o foco para dentro, prende o Tab e devolve ao fechar', async () => {
+      const fixture = TestBed.createComponent(FocusHost);
+      await fixture.whenStable();
+      const el = fixture.nativeElement as HTMLElement;
+      const abrir = el.querySelector('#abrir') as HTMLButtonElement;
+      abrir.focus();
+      abrir.click();
+      await fixture.whenStable();
+
+      const dialog = el.querySelector('[role=dialog]') as HTMLElement;
+      const close = dialog.querySelector('.x') as HTMLElement;
+      expect(dialog.contains(document.activeElement)).toBe(true);
+      expect(document.activeElement).toBe(close);
+
+      // Tab no último foca o primeiro; Shift+Tab no primeiro foca o último
+      (el.querySelector('#b') as HTMLElement).focus();
+      expect(tab(dialog)).toBe(true);
+      expect(document.activeElement).toBe(close);
+      expect(tab(dialog, true)).toBe(true);
+      expect(document.activeElement).toBe(el.querySelector('#b'));
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      await fixture.whenStable();
+      expect(fixture.componentInstance.aberto()).toBe(false);
+      expect(document.activeElement).toBe(abrir);
+    });
+  });
 });

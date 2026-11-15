@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 import {
+  ZurButton,
+  ZurDensityToggle,
   ZurDocsLayout,
   ZurLogo,
   ZurSidebar,
@@ -31,6 +33,8 @@ interface ComponentGroup {
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
+    ZurButton,
+    ZurDensityToggle,
     ZurDocsLayout,
     ZurLogo,
     ZurSidebar,
@@ -47,6 +51,16 @@ interface ComponentGroup {
 export class App {
   private readonly router = inject(Router);
   private readonly location = inject(Location);
+  private readonly doc = inject(DOCUMENT);
+
+  /** Direção de leitura da página (para testar RTL na própria documentação). */
+  protected readonly rtl = signal(this.doc.documentElement.dir === 'rtl');
+
+  protected toggleRtl(): void {
+    const next = !this.rtl();
+    this.rtl.set(next);
+    this.doc.documentElement.dir = next ? 'rtl' : 'ltr';
+  }
 
   /** Rotas /demo/* (iframes da página Layouts) renderizam sem o shell da docs. */
   protected readonly isDemo = toSignal(
@@ -111,6 +125,11 @@ export class App {
       items: [
         { id: 'table', label: 'Table' },
         { id: 'pagination', label: 'Pagination' },
+        { id: 'table-advanced', label: 'Tabela avançada' },
+        { id: 'chart', label: 'Gráficos' },
+        { id: 'stat', label: 'KPI e sparkline' },
+        { id: 'timeline', label: 'Timeline' },
+        { id: 'tree', label: 'Tree' },
       ],
     },
     {
@@ -119,6 +138,19 @@ export class App {
         { id: 'step', label: 'Step' },
         { id: 'accordion', label: 'Accordion' },
         { id: 'empty-state', label: 'Empty state' },
+      ],
+    },
+    {
+      label: 'Interface',
+      items: [
+        { id: 'number-input', label: 'Number input' },
+        { id: 'otp-input', label: 'OTP' },
+        { id: 'rating', label: 'Rating' },
+        { id: 'time-picker', label: 'Time picker' },
+        { id: 'stepper', label: 'Stepper' },
+        { id: 'carousel', label: 'Carousel' },
+        { id: 'avatar-group', label: 'Avatar group' },
+        { id: 'banner', label: 'Banner' },
       ],
     },
     {
@@ -137,6 +169,8 @@ export class App {
       items: [
         { id: 'drawer', label: 'Drawer' },
         { id: 'popover', label: 'Popover' },
+        { id: 'dialog', label: 'Dialog' },
+        { id: 'context-menu', label: 'Context menu' },
       ],
     },
     {

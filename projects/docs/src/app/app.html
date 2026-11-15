@@ -33,6 +33,18 @@
 
     <zur-topbar>
       <ng-container zurTopbarActions>
+        <button
+          zur-button
+          variant="ghost"
+          size="sm"
+          type="button"
+          [attr.aria-pressed]="rtl()"
+          aria-label="Alternar direção de leitura (RTL)"
+          (click)="toggleRtl()"
+        >
+          RTL
+        </button>
+        <zur-density-toggle />
         <zur-theme-toggle />
       </ng-container>
     </zur-topbar>

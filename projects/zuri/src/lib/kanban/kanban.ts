@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ZUR_I18N } from '../i18n/i18n';
+import { zurInlineStep } from '../shared/direction';
 import { ZUR_SR_ONLY } from '../shared/search';
 
 export interface ZurKanbanItem {
@@ -398,23 +399,18 @@ export class ZurKanban {
     const colIndex = cols.findIndex((c) => c.id === column);
     let to = pos.column;
     let index = pos.index;
-    switch (event.key) {
-      case 'ArrowUp':
-        index = pos.index - 1;
-        break;
-      case 'ArrowDown':
-        index = pos.index + 1;
-        break;
-      case 'ArrowLeft':
-        if (colIndex <= 0) return;
-        to = cols[colIndex - 1].id;
-        break;
-      case 'ArrowRight':
-        if (colIndex >= cols.length - 1) return;
-        to = cols[colIndex + 1].id;
-        break;
-      default:
-        return;
+    // ←→ andam entre colunas no sentido de leitura (em RTL as colunas espelham)
+    const inline = zurInlineStep(event, this.host.nativeElement);
+    if (inline !== 0) {
+      const target = cols[colIndex + inline];
+      if (!target) return;
+      to = target.id;
+    } else if (event.key === 'ArrowUp') {
+      index = pos.index - 1;
+    } else if (event.key === 'ArrowDown') {
+      index = pos.index + 1;
+    } else {
+      return;
     }
     event.preventDefault();
     if (index < 0) return;

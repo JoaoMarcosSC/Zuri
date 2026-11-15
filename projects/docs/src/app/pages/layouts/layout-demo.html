@@ -74,13 +74,18 @@
 
       <div class="grid">
         @for (s of stats; track s.label) {
-          <zur-card>
-            <p class="muted">{{ s.label }}</p>
-            <strong class="stat-value">{{ s.value }}</strong>
-            <zur-badge color="success">{{ s.delta }}</zur-badge>
-          </zur-card>
+          <zur-stat [label]="s.label" [value]="s.value" [delta]="s.delta" [invert]="s.invert" deltaLabel="vs. mês anterior">
+            @if (s.serie.length) {
+              <zur-sparkline zurStatChart [label]="s.label + ' nos últimos 12 dias'" [slot]="s.slot" [values]="s.serie" />
+            }
+          </zur-stat>
         }
       </div>
+
+      <zur-card class="chart-card">
+        <h2 class="section-title chart-title">Vendas e custos por mês</h2>
+        <zur-chart type="bar" label="Vendas e custos por mês, em milhares de reais" [labels]="meses" [series]="vendas" [height]="240" />
+      </zur-card>
 
       <h2 class="section-title">Pedidos recentes</h2>
       @for (r of pedidos; track r.id) {

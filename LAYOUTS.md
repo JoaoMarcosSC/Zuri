@@ -90,6 +90,10 @@ Dashboard:
 </zur-dashboard-layout>
 ```
 
+Num dashboard, comece a página com `zur-stat` (indicador + `zur-sparkline`) numa grade, depois um
+`zur-chart` num `zur-card` e, abaixo, a `table[zur-table]` com seleção/filtro se houver. A página
+**Layouts** da docs mostra essa composição rodando.
+
 Os demais esqueletos estão na página **Layouts** da docs, com o código de cada um.
 
 ## Regras

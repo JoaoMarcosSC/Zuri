@@ -50,6 +50,11 @@ export class Tokens {
     { token: '--zur-info-text', label: 'info-text' },
   ];
 
+  protected readonly charts: Swatch[] = [1, 2, 3, 4, 5, 6].map((n) => ({
+    token: `--zur-chart-${n}`,
+    label: `chart-${n}`,
+  }));
+
   protected readonly typeScale: TypeSample[] = [
     { token: '--zur-font-display-xl', tracking: '--zur-tracking-display-xl', label: 'display-xl', sample: 'Zuri' },
     { token: '--zur-font-display-lg', tracking: '--zur-tracking-display-lg', label: 'display-lg', sample: 'Zuri' },
@@ -74,4 +79,30 @@ export class Tokens {
   --zur-primary: #3ee6a8;
   --zur-canvas: #151a17; /* quase-preto, leve tintura verde */
 }`;
+
+  protected readonly codeTailwind3 = `// tailwind.config.js (Tailwind v3)
+module.exports = {
+  presets: [require('@juau/zuri/tailwind.preset.cjs')],
+  content: ['./src/**/*.{html,ts}'],
+};
+
+// <button class="bg-primary text-on-primary rounded-sm shadow-float">Comprar</button>`;
+
+  protected readonly codeTailwind4 = `/* styles.css (Tailwind v4) */
+@import 'tailwindcss';
+@import '@juau/zuri/styles/tokens.css';
+@import '@juau/zuri/tailwind-theme.css';   /* @theme inline: bg-primary, text-ink, rounded-md… */`;
+
+  protected readonly codeFigma = `// tokens.json — formato W3C Design Tokens; cada token traz os dois temas:
+{
+  "color": {
+    "primary": {
+      "$type": "color",
+      "$value": "#35d49b",
+      "$extensions": { "css": "--zur-primary", "mode": { "light": "#35d49b", "dark": "#3ee6a8" } }
+    }
+  }
+}
+// Importe em Figma (Tokens Studio) ou processe com Style Dictionary:
+//   import tokens from '@juau/zuri/tokens.json';`;
 }

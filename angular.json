@@ -92,14 +92,16 @@
                 "input": "projects/docs/public"
               }
             ],
-            "styles": ["projects/docs/src/styles.css"]
+            "styles": [
+              "projects/docs/src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "700kB",
                   "maximumError": "1MB"
                 },
                 {
@@ -114,6 +116,13 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "ssr-check": {
+              "server": "projects/docs/src/main.server.ts",
+              "outputMode": "static",
+              "outputPath": "dist/docs-ssr",
+              "optimization": false,
+              "sourceMap": false
             }
           },
           "defaultConfiguration": "production"

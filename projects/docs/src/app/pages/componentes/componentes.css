@@ -82,8 +82,9 @@ h1 {
   overflow: hidden;
 }
 
+/* A .demo é um flex com wrap: sem isto a navbar encolhe ao conteúdo e o toggle não vai para a ponta. */
 .demo-navbar zur-navbar {
-  display: block;
+  flex: 1 1 100%;
 }
 
 .card-title {

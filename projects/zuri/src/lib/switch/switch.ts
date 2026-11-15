@@ -68,7 +68,7 @@ let nextSwitchId = 0;
     .thumb {
       position: absolute;
       top: 3px;
-      left: 3px;
+      inset-inline-start: 3px;
       width: 18px;
       height: 18px;
       border-radius: var(--zur-radius-full);
@@ -77,7 +77,7 @@ let nextSwitchId = 0;
       transition: transform 160ms ease;
     }
     .track[aria-checked='true'] .thumb {
-      transform: translateX(20px);
+      transform: translateX(calc(20px * var(--zur-dir)));
     }
     .text {
       font: var(--zur-font-body);

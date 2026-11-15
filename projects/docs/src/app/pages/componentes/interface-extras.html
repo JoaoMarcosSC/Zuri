@@ -1,0 +1,119 @@
+<section id="number-input" class="component">
+  <h2>Number input</h2>
+  <p>Campo numérico com − / +. ↑↓ mudam por passo, PageUp/PageDown por 10, Home/End vão ao mínimo/máximo. Aceita "12,5" e "1.234,5".</p>
+  <div class="demo demo-wide">
+    <div class="stack">
+      <zur-number-input label="Quantidade" [min]="1" [max]="10" hint="Entre 1 e 10 unidades." [ngModel]="qtd()" (ngModelChange)="qtd.set($event)" />
+      <zur-number-input label="Preço (R$)" [min]="0" [step]="0.1" [ngModel]="preco()" (ngModelChange)="preco.set($event)" />
+    </div>
+  </div>
+  <docs-code-block [code]="codeNumber" />
+</section>
+
+<section id="otp-input" class="component">
+  <h2>OTP</h2>
+  <p>Código de verificação em caixinhas. Digitar avança, Backspace volta, colar distribui e o preenchimento automático de SMS funciona.</p>
+  <div class="demo demo-wide">
+    <div class="stack" style="max-width: none">
+      <zur-otp-input label="Código enviado por SMS" [length]="6" hint="Digite os 6 dígitos." [ngModel]="codigo()" (ngModelChange)="codigo.set($event)" (completed)="completo.set($event)" />
+      @if (completo()) {
+        <p class="ok">Código completo: {{ completo() }}</p>
+      }
+    </div>
+  </div>
+  <docs-code-block [code]="codeOtp" />
+</section>
+
+<section id="rating" class="component">
+  <h2>Rating</h2>
+  <p>Editável é um <code>radiogroup</code> (setas trocam a nota); <code>readonly</code> é uma imagem com texto ("4,5 de 5") e aceita frações. Estrelas em ink, como no Airbnb.</p>
+  <div class="demo">
+    <zur-rating label="Sua nota" [ngModel]="nota()" (ngModelChange)="nota.set($event)" />
+    <zur-rating size="sm" readonly [value]="4.5" />
+    <zur-rating size="lg" readonly [value]="3.2" />
+  </div>
+  <docs-code-block [code]="codeRating" />
+</section>
+
+<section id="time-picker" class="component">
+  <h2>Time picker</h2>
+  <p>Campo com painel de horas e minutos. Usa 24h em português e 12h com AM/PM em inglês, e desabilita o que passa de <code>min</code>/<code>max</code>.</p>
+  <div class="demo demo-wide">
+    <div class="stack">
+      <zur-time-picker label="Retirada na loja" min="09:00" max="18:00" [minuteStep]="15" hint="Das 9h às 18h." [ngModel]="hora()" (ngModelChange)="hora.set($event)" />
+      <p class="readout" style="margin:0; font: var(--zur-font-caption); color: var(--zur-muted)">Valor: <code>{{ hora() ?? 'null' }}</code></p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeTime" />
+</section>
+
+<section id="stepper" class="component">
+  <h2>Stepper</h2>
+  <p>Etapas de um fluxo. No modo <code>linear</code>, o cabeçalho só deixa voltar; avançar é com <code>next()</code>. O nome de cada etapa inclui posição e estado para leitores de tela.</p>
+  <div class="demo demo-wide">
+    <zur-stepper #s linear [index]="etapa()" (indexChange)="etapa.set($event)">
+      <zur-stepper-step label="Endereço" description="Onde entregar">
+        <p style="margin: 0 0 16px">Rua das Palmeiras, 120 — Vila Verde.</p>
+        <button zur-button size="sm" (click)="s.next()">Continuar</button>
+      </zur-stepper-step>
+      <zur-stepper-step label="Pagamento" description="Cartão ou Pix">
+        <p style="margin: 0 0 16px">Pix com 5% de desconto.</p>
+        <div class="actions">
+          <button zur-button variant="ghost" size="sm" (click)="s.previous()">Voltar</button>
+          <button zur-button size="sm" (click)="s.next()">Continuar</button>
+        </div>
+      </zur-stepper-step>
+      <zur-stepper-step label="Revisão">
+        <p style="margin: 0 0 16px">Monstera deliciosa + vaso de barro.</p>
+        <div class="actions">
+          <button zur-button variant="ghost" size="sm" (click)="s.previous()">Voltar</button>
+          <button zur-button size="sm" (click)="finalizar()">Finalizar pedido</button>
+        </div>
+      </zur-stepper-step>
+    </zur-stepper>
+  </div>
+  <docs-code-block [code]="codeStepper" />
+</section>
+
+<section id="carousel" class="component">
+  <h2>Carousel</h2>
+  <p>Setas, indicadores e deslize por toque. ←→ trocam o slide. Com <code>autoplay</code>, pausa ao focar ou passar o mouse e tem botão de pausa; fica desligado com "reduzir movimento".</p>
+  <div class="demo demo-wide">
+    <zur-carousel label="Destaques da semana" [index]="slide()" (indexChange)="slide.set($event)" [autoplay]="6000" loop>
+      <zur-carousel-slide><div class="slide slide-a">Monstera deliciosa</div></zur-carousel-slide>
+      <zur-carousel-slide><div class="slide slide-b">Kit de suculentas</div></zur-carousel-slide>
+      <zur-carousel-slide><div class="slide slide-c">Vasos de barro</div></zur-carousel-slide>
+    </zur-carousel>
+  </div>
+  <docs-code-block [code]="codeCarousel" />
+</section>
+
+<section id="avatar-group" class="component">
+  <h2>Avatar group</h2>
+  <p>Pilha de avatares com contador do excedente, anunciado por extenso ("mais 2 pessoas").</p>
+  <div class="demo">
+    <zur-avatar-group label="Equipe do pedido" [people]="equipe" [max]="4" />
+    <zur-avatar-group label="Equipe pequena" size="sm" [people]="equipe" [max]="3" />
+  </div>
+  <docs-code-block [code]="codeAvatarGroup" />
+</section>
+
+<section id="banner" class="component">
+  <h2>Banner</h2>
+  <p>Faixa de aviso no topo da página ou de uma seção. Diferente do <code>zur-alert</code>, que é inline no conteúdo. Erros usam <code>role="alert"</code>; os demais, <code>status</code>.</p>
+  <div class="demo demo-wide">
+    <div class="banners">
+      <zur-banner kind="info" dismissible [open]="bannerAberto()" (openChange)="bannerAberto.set($event)">
+        Frete grátis em compras acima de R$ 150.
+        <a zurBannerAction href="javascript:void(0)">Ver regras</a>
+      </zur-banner>
+      <zur-banner kind="success">Seu pedido foi confirmado.</zur-banner>
+      <zur-banner kind="warning">Manutenção hoje às 22h; o site pode ficar fora do ar por alguns minutos.</zur-banner>
+      <zur-banner kind="error">Sem conexão. Tentando reconectar…</zur-banner>
+    </div>
+    @if (!bannerAberto()) {
+      <p style="margin: 12px 0 0"><button zur-button variant="ghost" size="sm" (click)="bannerAberto.set(true)">Mostrar o banner de novo</button></p>
+    }
+  </div>
+  <docs-code-block [code]="codeBanner" />
+</section>

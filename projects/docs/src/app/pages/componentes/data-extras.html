@@ -1,0 +1,123 @@
+<section id="table-advanced" class="component">
+  <h2>Tabela avançada</h2>
+  <p>
+    Seleção de linhas com "selecionar todas" (estado indeterminado), linha expansível, filtro por
+    coluna e menu para mostrar/ocultar colunas. Como na ordenação, o componente avisa e <strong>você</strong>
+    filtra os dados. Experimente digitar "an" no filtro de Cliente.
+  </p>
+  <div class="demo demo-wide">
+    <div class="toolbar">
+      <p class="readout" aria-live="polite">{{ selecionados().length }} selecionada(s) · {{ linhas().length }} linha(s) visível(is)</p>
+      <zur-column-menu [columns]="colunas" [(visible)]="visiveis" />
+    </div>
+    <table zur-table [(selected)]="selecionados" (filterChange)="filtro.set($event.value)">
+      <thead>
+        <tr>
+          <th zurSelectAll></th>
+          <th><span class="zur-sr-only">Detalhes</span></th>
+          <th zurSortable="cliente">Cliente <zur-column-filter key="cliente" /></th>
+          @if (visiveis().includes('produto')) { <th>Produto</th> }
+          @if (visiveis().includes('itens')) { <th>Itens</th> }
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of linhas(); track p.id) {
+          <tr [zurRow]="p.id" #r="zurRow">
+            <td zurSelect></td>
+            <td><button zurExpandToggle></button></td>
+            <td>{{ p.cliente }}</td>
+            @if (visiveis().includes('produto')) { <td>{{ p.produto }}</td> }
+            @if (visiveis().includes('itens')) { <td>{{ p.itens }}</td> }
+          </tr>
+          @if (r.expanded()) {
+            <tr class="zur-row-detail">
+              <td></td><td></td>
+              <td colspan="3">Entrega prevista para amanhã, 14h–18h · pedido {{ p.id }}.</td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+  <docs-code-block [code]="codeTableAdv" />
+</section>
+
+<section id="chart" class="component">
+  <h2>Gráficos</h2>
+  <p>
+    Barras (lado a lado ou empilhadas), linhas, áreas e rosca, em SVG e sem dependências. As cores
+    são os tokens <code>--zur-chart-1..6</code> em ordem fixa e acompanham o tema. Passe o mouse ou
+    use ←→ no teclado para ver o tooltip; os mesmos dados ficam numa tabela para leitores de tela.
+  </p>
+  <div class="demo demo-wide">
+    <div class="chart-controls">
+      <zur-segmented label="Tipo de gráfico" size="sm" [options]="tipos" [ngModel]="tipo()" (ngModelChange)="tipo.set($event)" />
+      @if (tipo() === 'bar') {
+        <zur-checkbox [ngModel]="empilhado()" (ngModelChange)="empilhado.set($event)">Empilhado</zur-checkbox>
+      }
+    </div>
+    <zur-chart
+      [type]="tipo()"
+      [label]="tipo() === 'donut' ? 'Pedidos' : 'Vendas e custos por mês'"
+      [labels]="labels()"
+      [series]="series()"
+      [stacked]="empilhado()"
+      [valueFormat]="tipo() === 'donut' ? null : reais"
+      [height]="tipo() === 'donut' ? 240 : 280"
+    />
+  </div>
+  <docs-code-block [code]="codeChart" />
+</section>
+
+<section id="stat" class="component">
+  <h2>KPI e sparkline</h2>
+  <p>
+    Indicador com valor, variação e mini-gráfico. A variação sempre vem com seta <em>e</em> sinal, e é
+    lida por extenso para leitores de tela: a cor reforça, mas nunca é o único sinal. Com
+    <code>invert</code>, cair é bom.
+  </p>
+  <div class="demo demo-wide">
+    <div class="kpis">
+      <zur-stat label="Pedidos no mês" value="1.284" [delta]="12.4" deltaLabel="vs. mês anterior">
+        <zur-sparkline zurStatChart label="Pedidos dos últimos 12 dias" [values]="serie" />
+      </zur-stat>
+      <zur-stat label="Devoluções" value="32" [delta]="-8" invert deltaLabel="vs. mês anterior">
+        <zur-sparkline zurStatChart [slot]="3" label="Devoluções dos últimos 12 dias" [values]="serieDevolucoes" />
+      </zur-stat>
+      <zur-stat label="Ticket médio" value="R$ 84" [delta]="0" />
+    </div>
+  </div>
+  <docs-code-block [code]="codeStat" />
+</section>
+
+<section id="timeline" class="component">
+  <h2>Timeline</h2>
+  <p>Linha do tempo vertical para histórico de pedido, auditoria ou feed de atividade. É uma <code>&lt;ol&gt;</code> nativa.</p>
+  <div class="demo demo-wide">
+    <ol zur-timeline label="Histórico do pedido #1042" style="max-width: 480px">
+      <li zur-timeline-heading>Hoje</li>
+      <li zur-timeline-item title="Saiu para entrega" time="10:42" status="active">O entregador está a caminho.</li>
+      <li zur-timeline-item title="Pedido separado" time="08:30" status="success">Embalagem reforçada para a Monstera.</li>
+      <li zur-timeline-heading>Ontem</li>
+      <li zur-timeline-item title="Pagamento aprovado" time="18:05" status="success">Pix confirmado.</li>
+      <li zur-timeline-item title="Endereço sem número" time="17:48" status="warning">Pedimos a confirmação ao cliente.</li>
+      <li zur-timeline-item title="Pedido criado" time="17:40">Carrinho com 2 itens.</li>
+    </ol>
+  </div>
+  <docs-code-block [code]="codeTimeline" />
+</section>
+
+<section id="tree" class="component">
+  <h2>Tree</h2>
+  <p>
+    Árvore expansível no padrão ARIA <code>tree</code>: ↑↓ andam, → abre ou desce, ← fecha ou sobe
+    (invertidas em RTL), <kbd>*</kbd> abre os irmãos, Enter seleciona e digitar uma letra pula para o nó.
+  </p>
+  <div class="demo demo-wide">
+    <div class="tree-wrap">
+      <zur-tree label="Categorias da loja" [nodes]="arvore" selection="single" [(selected)]="escolhida" [(expanded)]="abertos" />
+      <p class="readout" aria-live="polite">Selecionado: <strong>{{ escolhida()[0] ?? 'nenhum' }}</strong> · abertos: {{ abertos().length }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeTree" />
+</section>

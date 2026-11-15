@@ -9,6 +9,7 @@ import {
   ZurBreadcrumb,
   ZurButton,
   ZurCard,
+  ZurChart,
   ZurDashboardLayout,
   ZurDocsLayout,
   ZurErrorLayout,
@@ -19,6 +20,8 @@ import {
   ZurLandingLayout,
   ZurListDetailLayout,
   ZurPageHeader,
+  ZurSparkline,
+  ZurStat,
   ZurSidebar,
   ZurSidenav,
   ZurSidenavItem,
@@ -60,6 +63,9 @@ const ICON_USERS = 'M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20
     ZurThemeScope,
     ZurButton,
     ZurCard,
+    ZurChart,
+    ZurSparkline,
+    ZurStat,
     ZurBadge,
     ZurAvatar,
     ZurInput,
@@ -90,10 +96,16 @@ export class LayoutDemo {
   ];
 
   protected readonly stats = [
-    { label: 'Pedidos', value: '1.284', delta: '+12%' },
-    { label: 'Receita', value: 'R$ 48,2 mil', delta: '+8%' },
-    { label: 'Conversão', value: '3,8%', delta: '+3%' },
-    { label: 'Avaliação', value: '4,9', delta: '+0,1' },
+    { label: 'Pedidos', value: '1.284', delta: 12.4, invert: false, slot: 1, serie: [4, 6, 5, 9, 12, 11, 15, 14, 18, 21, 19, 24] },
+    { label: 'Receita', value: 'R$ 48,2 mil', delta: 8, invert: false, slot: 2, serie: [10, 12, 11, 13, 12, 15, 16, 15, 18, 17, 19, 20] },
+    { label: 'Devoluções', value: '32', delta: -8, invert: true, slot: 3, serie: [9, 8, 9, 7, 6, 7, 5, 6, 4, 4, 3, 3] },
+    { label: 'Avaliação', value: '4,9', delta: 0, invert: false, slot: 4, serie: [] as number[] },
+  ];
+
+  protected readonly meses = ['Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'];
+  protected readonly vendas = [
+    { name: 'Vendas', values: [12, 18, 9, 22, 17, 26] },
+    { name: 'Custos', values: [8, 10, 7, 12, 11, 14] },
   ];
 
   protected readonly pedidos = [

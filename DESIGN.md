@@ -366,6 +366,14 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   borda primary-active; valor único ou faixa (`range`).
 - **`zur-segmented`** — trilho pill surface-strong; opção ativa em surface-raised com hairline
   (nunca menta sólido: é seleção, não ação).
+- **`zur-number-input`** — spinbutton 56px com botões −/+ de 48px nas pontas e valor central em
+  números tabulares; aceita "12,5" e "1.234,5"; limita a `min`/`max`.
+- **`zur-otp-input`** — caixas 48×56px (sempre da esquerda para a direita, mesmo em RTL; números não
+  se invertem), `autocomplete="one-time-code"`.
+- **`zur-rating`** — estrelas em **ink** (como o Airbnb; a menta fica para ação), vazias em contorno
+  muted; `readonly` aceita frações e é lido como "4,5 de 5".
+- **`zur-time-picker`** — campo-botão + painel `{rounded.md}` com listas de hora e minuto (e AM/PM em
+  12h); selecionado em pill ink, como os dias do date picker; fora de `min`/`max` riscado e muted.
 
 ### Navegação
 - **`zur-navbar`** — 80px, canvas + hairline inferior; slots para logo, links e ações;
@@ -382,6 +390,19 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   hover em surface-soft, densidade `comfortable`/`compact`; colunas ordenáveis com
   `th[zurSortable]` (`aria-sort` + `sortChange`).
 - **`zur-pagination`** — anterior/próxima, números com reticências, página atual em menta sólido.
+- **Tabela avançada** (sobre `table[zur-table]`; o componente avisa e a aplicação filtra, como na
+  ordenação): `th[zurSelectAll]` + `td[zurSelect]` (checkbox 20px menta, linha selecionada em
+  primary-soft, "todas" com estado indeterminado), `tr[zurRow]` + `button[zurExpandToggle]` (linha de
+  detalhe em surface-soft), `zur-column-filter` (popover com campo; ponto menta quando ativo) e
+  `zur-column-menu` (mostrar/ocultar colunas; nunca zera todas).
+- **`zur-timeline`** — `<ol>` nativa; marcador de 24px (ponto ou ícone) ligado por linha hairline de
+  2px; status em cores semânticas `soft` + o ativo em menta sólido; grupos por dia em caption uppercase.
+- **`zur-tree`** — ARIA `tree` "achatado" (`aria-level`/`setsize`/`posinset`); nó selecionado em
+  primary-soft; chevron gira ao abrir. ↑↓ →← Home End `*` e type-ahead.
+- **`zur-chart`** — SVG próprio, sem dependências (veja "Gráficos" abaixo).
+- **`zur-stat`** / **`zur-sparkline`** — indicador (KPI) em cartão `{rounded.md}`: rótulo muted, valor
+  `{typography.display-md}` a 32px, variação com seta **e** sinal (cor = direção × se subir é bom;
+  `invert` quando cair é bom) e mini-gráfico de 2px sobre uma lavagem a 10%.
 
 ### Conteúdo
 - **`zur-logo`** — logo do Zuri (horizontal, símbolo ou auto); segue o tema por CSS variables.
@@ -390,11 +411,24 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 - **`zur-empty-state`** — ícone em círculo menta-soft, título, descrição e ações, centralizados.
 - **`zur-step`** — passo numerado: círculo menta sólido 28px com número em tinta + título
   `{typography.headline}`; conteúdo projetado abaixo.
+- **`zur-stepper`** — etapas de um fluxo: círculo de 32px (atual em menta sólido, concluída em
+  primary-soft, com erro em error-soft) ligado por linha de 2px; `linear` só deixa voltar. O nome do
+  botão é o próprio texto visível + posição e estado em texto só para leitores de tela (WCAG 2.5.3).
+- **`zur-carousel`** — slides com transição de 400ms, setas circulares 44px na sombra única,
+  indicadores (o atual alonga para 24px). `autoplay` pausa ao focar/passar o mouse, tem botão de pausa
+  e **fica desligado com `prefers-reduced-motion`**.
+- **`zur-avatar-group`** — avatares sobrepostos (−8px) com anel de 2px da cor da superfície e contador
+  "+N" lido por extenso.
+- **`zur-banner`** — faixa de largura total nas cores `soft` semânticas; `status` (ou `alert` no erro).
+  Diferente do `zur-alert`, que é inline no conteúdo.
 
 ### Feedback
 - **`zur-modal`** — `{rounded.lg}`, padding 32px, scrim 50%, fecha por ESC/scrim.
-- **`zur-toast`** — service + container; superfície ink invertida, `{rounded.md}`,
-  auto-dismiss 4s.
+- **`zur-toast`** — service + container; `{rounded.md}`, auto-dismiss 4s. O neutro é a
+  superfície ink invertida; sucesso e erro usam a banda soft com o texto semântico
+  (`success-soft`/`success-text`, `error-soft`/`error-text`), um fio de 30% e um ícone — assim o
+  toast fica legível e discreto nos dois temas e a cor não é o único sinal. Verde/vermelho
+  chapados com texto branco não passavam de 3,4:1 (claro) e 2:1 (escuro).
 - **`zur-tooltip`** — directive; bolha ink 8px, caption invertida.
 - **`zur-alert`** — bandas soft das cores semânticas com ícone e `{rounded.md}`.
 - **`zur-spinner`** — anel menta 20/32/48px · **`zur-skeleton`** — pulso em surface-strong.
@@ -405,6 +439,11 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   clique no fundo e foco preso, devolvido ao gatilho ao fechar.
 - **`zur-popover`** — painel flutuante `{rounded.md}` ancorado ao `[zurPopoverTrigger]`; fecha com
   ESC ou clique fora.
+- **`ZurDialog`** — `confirm()`/`alert()` devolvem `Promise`; `alertdialog` `{rounded.lg}` sobre scrim,
+  foco preso e devolvido. Destrutivo: botão `danger` (`--zur-error-text` + `--zur-on-error`) e foco
+  inicial em "Cancelar", o caminho seguro. `zur-modal` e `zur-drawer` também prendem o foco.
+- **`zur-context-menu`** + `[zurContextMenu]` — botão direito, Shift+F10/tecla Menu ou toque longo;
+  painel `position: fixed` na sombra única, que nunca sai da janela.
 
 ### Padrões compostos
 Componentes de alto nível montados com os primitivos acima; nenhum token novo.
@@ -423,6 +462,43 @@ Componentes de alto nível montados com os primitivos acima; nenhum token novo.
   arrastar, coluna-alvo em primary-soft e linha de inserção menta 3px; cartão pego pelo teclado
   ganha a sombra única + anel de foco. Drag and drop nativo + teclado (Espaço, setas, Esc),
   com anúncios `aria-live`.
+
+## Gráficos
+
+Cores categóricas em ordem **fixa e nunca cíclica**: `--zur-chart-1..6` (menta, azul, laranja,
+violeta, magenta, amarelo). A sétima série vira "Outros" ou facetas. Os passos de cada tema foram
+**validados com o validador de paleta da skill de dataviz** (alvo de separação para daltonismo ≥ 8 e
+piso de visão normal ≥ 15; resultado: ΔE 13,2 / 19,6 no claro e 13,2 / 19,3 no escuro). Magenta e amarelo
+ficam abaixo de 3:1 no claro, por isso o gráfico sempre mostra **legenda e tabela alternativa**.
+
+- **Marcas:** barras ≤ 24px com 4px arredondados só no fim e base reta, 2px de ar entre fills; linhas de
+  2px; marcadores de 8px com anel de 2px da superfície; áreas a 10%; grade e eixos em hairline sólida.
+- **Texto nunca usa a cor da série** (valores, rótulos e legenda ficam em tokens de texto).
+- **Interação:** tooltip no hover **e** no foco (←→ andam pelas categorias), com o valor em destaque;
+  alvo de toque por categoria muito maior que a marca. Os mesmos dados existem em tabela `sr-only`.
+- Movimento só de entrada (crescer/aparecer) e desligado com `prefers-reduced-motion`.
+- O eixo X não espelha em RTL (dados não se invertem); as setas do teclado são físicas.
+
+## Densidade
+
+`[data-density='compact']` (na página, via `ZurDensityService`/`zur-density-toggle`, ou numa área, via
+`zurDensity`) redefine `--zur-control-height-sm/md/lg` para 28/36/40px e a fonte do botão para 14px.
+Campos de texto mantêm 16px (o iOS dá zoom abaixo disso). `table[zur-table]` herda a densidade da área.
+
+## Direção de leitura (RTL)
+
+Tudo usa **propriedades lógicas** (`margin-inline-start`, `inset-inline-end`, `border-start-start-radius`,
+`text-align: start`). `--zur-dir` (1 ou −1) espelha o que precisa de transformação (setas, deslocamentos).
+As setas ←→ seguem o sentido de leitura (`zurInlineStep`): em RTL, ← avança. Exceções deliberadas:
+caixas do OTP e eixo dos gráficos (números/dados não se invertem), centralizações simétricas e as
+coordenadas de ponteiro do tooltip/menu de contexto. `zur-drawer` aceita `start`/`end` (lógicos) além de
+`left`/`right` (físicos).
+
+## Formulários por sinais
+
+Todos os controles funcionam com `[formField]` (Signal Forms do Angular 22), com `ngModel` e com
+formulários reativos, sem adaptador: falam `ControlValueAccessor` e o Angular faz a ponte. As regras
+`min`/`max` do formulário chegam aos controles que têm esses inputs (date picker, time picker, slider, número).
 
 ## Identidade — nome e logo
 
@@ -504,6 +580,8 @@ e `zur-footer`. Breadcrumb, page-header e rodapé são slots **opcionais**.
   e `aria-pressed`.
 - Textos internos dos componentes (`aria-label` do fechar, "Voltar", rótulos de regiões) vêm
   do token `ZUR_I18N`: português por padrão, inglês com `provideZuriI18n('en')`.
+- Todo botão cujo texto visível faz parte do nome acessível (WCAG 2.5.3 "rótulo no nome"): o stepper compõe
+  o nome a partir do próprio conteúdo em vez de um `aria-label` que o contradiga.
 - Componentes compostos seguem os padrões ARIA: combobox (`aria-activedescendant`), grade do
   calendário com roving tabindex, `radiogroup` no segmented, `role="slider"` por controle, chat em
   `role="log"`, paleta como diálogo modal com foco devolvido, e kanban movível 100% pelo teclado

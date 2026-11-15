@@ -60,7 +60,7 @@ let nextId = 0;
     .panel {
       position: absolute;
       top: calc(100% + 8px);
-      left: 0;
+      inset-inline-start: 0;
       z-index: 150;
       min-width: 220px;
       max-width: min(360px, 90vw);
@@ -77,8 +77,8 @@ let nextId = 0;
       outline: none;
     }
     .panel[data-placement='bottom-end'] {
-      left: auto;
-      right: 0;
+      inset-inline-start: auto;
+      inset-inline-end: 0;
     }
     .panel[data-placement='top-start'],
     .panel[data-placement='top-end'] {
@@ -86,8 +86,8 @@ let nextId = 0;
       bottom: calc(100% + 8px);
     }
     .panel[data-placement='top-end'] {
-      left: auto;
-      right: 0;
+      inset-inline-start: auto;
+      inset-inline-end: 0;
     }
   `,
 })

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ZUR_I18N } from '../i18n/i18n';
+import { zurInlineStep } from '../shared/direction';
 import { ZUR_SR_ONLY } from '../shared/search';
 import { addDays, addMonths, compareDays, isoDay, monthGrid, sameDay, startOfDay } from './date-utils';
 
@@ -69,11 +70,11 @@ let nextId = 0;
       <div class="panel" role="dialog" [id]="id + '-panel'" [attr.aria-label]="label() || i18n.openCalendar" (keydown.escape)="close(true); $event.stopPropagation()">
         <div class="head">
           <button type="button" class="nav" [attr.aria-label]="i18n.previousMonth" (click)="shiftMonth(-1)">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6" /></svg>
+            <svg class="flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6" /></svg>
           </button>
           <span class="month" aria-live="polite">{{ monthTitle() }}</span>
           <button type="button" class="nav" [attr.aria-label]="i18n.nextMonth" (click)="shiftMonth(1)">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+            <svg class="flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
           </button>
         </div>
 
@@ -162,7 +163,7 @@ let nextId = 0;
       background: var(--zur-canvas);
       border: 1px solid var(--zur-hairline);
       border-radius: var(--zur-radius-sm);
-      text-align: left;
+      text-align: start;
       cursor: pointer;
     }
     .field.placeholder {
@@ -189,7 +190,7 @@ let nextId = 0;
     .panel {
       position: absolute;
       top: calc(100% + 8px);
-      left: 0;
+      inset-inline-start: 0;
       z-index: 160;
       padding: var(--zur-space-md);
       background: var(--zur-surface-raised);
@@ -230,6 +231,9 @@ let nextId = 0;
     .grid {
       border-collapse: collapse;
     }
+    .flip {
+      transform: scaleX(var(--zur-dir));
+    }
     th {
       width: 40px;
       height: 32px;
@@ -245,10 +249,12 @@ let nextId = 0;
       background: var(--zur-surface-strong);
     }
     td.range-start.in-range {
-      border-radius: var(--zur-radius-full) 0 0 var(--zur-radius-full);
+      border-start-start-radius: var(--zur-radius-full);
+      border-end-start-radius: var(--zur-radius-full);
     }
     td.range-end.in-range {
-      border-radius: 0 var(--zur-radius-full) var(--zur-radius-full) 0;
+      border-start-end-radius: var(--zur-radius-full);
+      border-end-end-radius: var(--zur-radius-full);
     }
     td.range-start.range-end {
       border-radius: var(--zur-radius-full);
@@ -327,8 +333,9 @@ export class ZurDatePicker implements ControlValueAccessor {
   readonly hint = input('');
   readonly error = input('');
   readonly mode = input<ZurDatePickerMode>('single');
-  readonly min = input<Date | null>(null);
-  readonly max = input<Date | null>(null);
+  // aceitam `undefined` para o `[formField]` poder ligar as regras min/max do formulário
+  readonly min = input<Date | null | undefined>(null);
+  readonly max = input<Date | null | undefined>(null);
   readonly disabled = input(false, { transform: booleanAttribute });
 
   protected readonly id = `zur-date-picker-${nextId++}`;
@@ -481,13 +488,10 @@ export class ZurDatePicker implements ControlValueAccessor {
   protected onGridKeydown(event: KeyboardEvent): void {
     const current = this.focused();
     let next: Date | null = null;
-    switch (event.key) {
-      case 'ArrowLeft':
-        next = addDays(current, -1);
-        break;
-      case 'ArrowRight':
-        next = addDays(current, 1);
-        break;
+    const inline = zurInlineStep(event, this.host.nativeElement);
+    if (inline !== 0) {
+      next = addDays(current, inline);
+    } else switch (event.key) {
       case 'ArrowUp':
         next = addDays(current, -7);
         break;

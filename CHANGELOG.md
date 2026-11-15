@@ -4,6 +4,46 @@ As mudanças do pacote [`@juau/zuri`](https://www.npmjs.com/package/@juau/zuri) 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.3.0] - 2026-11-15
+
+### Adicionado
+- Dados: `zur-chart` (barras agrupadas ou empilhadas, linhas, áreas e rosca, em SVG e sem dependências;
+  tooltip no hover e no foco, tabela alternativa para leitores de tela), `zur-stat` (KPI com variação) e
+  `zur-sparkline`, `zur-timeline`, `zur-tree` (ARIA `tree`, teclado completo).
+- Tabela avançada: seleção de linhas com "selecionar todas" (`zurSelectAll`, `zurSelect`, `zurRow`), linha
+  expansível (`zurExpandToggle`), filtro por coluna (`zur-column-filter`) e menu de colunas (`zur-column-menu`).
+- Interface: `zur-stepper`, `zur-number-input`, `zur-otp-input`, `zur-rating`, `zur-time-picker`,
+  `zur-carousel` (autoplay desligado com "reduzir movimento"), `zur-avatar-group` e `zur-banner`.
+- Sobreposição: `ZurDialog` (`confirm()` e `alert()` com `Promise`) e `zur-context-menu` (botão direito,
+  Shift+F10 e toque longo). Variante `danger` no `zur-button`.
+- Densidade compacta: `zurDensity`, `ZurDensityService` e `zur-density-toggle`. A tabela herda a densidade.
+- Suporte a RTL em todos os componentes (propriedades lógicas, setas do teclado que seguem o sentido de
+  leitura, ícones espelhados). `zur-drawer` aceita `side="start" | "end"`.
+- Os controles funcionam com `[formField]` (Signal Forms), além de `ngModel` e formulários reativos.
+- Exportação de tokens para outras ferramentas: `@juau/zuri/tokens.json` (W3C Design Tokens, claro e escuro),
+  `@juau/zuri/tailwind.preset.cjs` (Tailwind v3) e `@juau/zuri/tailwind-theme.css` (Tailwind v4).
+- Tokens `--zur-chart-1..6`, `--zur-chart-grid`, `--zur-chart-axis`, `--zur-on-error` e `--zur-dir`.
+- Funções utilitárias exportadas: `zurNiceTicks`, `zurBarPath`, `zurParseNumber`, `zurTimeToMinutes`.
+- Chaves novas no `ZurI18n`, em português e inglês.
+
+### Alterado
+- A interface `ZurI18n` ganhou chaves obrigatórias novas, entre elas `locale` (já na 0.2.0) e as dos componentes
+  novos. Quem usa `provideZuriI18n('pt' | 'en' | parcial)` não precisa mudar nada; quem escreveu um objeto
+  `ZurI18n` completo à mão precisa adicionar as chaves novas.
+- `zur-drawer`: o lado padrão passou de `right` para `end` (igual em LTR; em RTL a gaveta vai para a esquerda).
+  `left` e `right` continuam existindo e são físicos.
+- `zur-table`: `density` agora é opcional e, sem valor, segue a área (`zurDensity`) ou a página.
+- `min` e `max` do `zur-date-picker` e do `zur-time-picker` aceitam `undefined` (necessário para o
+  `[formField]` ligar as regras do formulário).
+
+- `zur-toast`: sucesso e erro passaram de verde/vermelho chapado com texto branco para o fundo suave com o
+  texto semântico (como `zur-alert` e `zur-banner`), mais um ícone. O contraste foi de 3,4:1 e 2:1 (tema escuro)
+  para pelo menos 4,6:1. O toast neutro não muda.
+
+### Corrigido
+- `zur-modal` agora prende o foco (o Tab circula dentro do diálogo), leva o foco para dentro ao abrir e o
+  devolve ao fechar, como o `zur-drawer` já fazia.
+
 ## [0.2.0] - 2026-11-15
 
 ### Adicionado
@@ -17,6 +57,11 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
   com anúncios para leitores de tela).
 - Funções utilitárias exportadas: `zurFormatBytes`, `zurAcceptsFile` e `zurKanbanMove`.
 - Chaves novas no `ZurI18n` (inclusive `locale`), em português e inglês.
+
+### Alterado
+- A interface `ZurI18n` ganhou chaves obrigatórias novas, entre elas `locale`. Quem usa
+  `provideZuriI18n('pt' | 'en' | parcial)` não precisa mudar nada; quem escreveu um objeto
+  `ZurI18n` completo à mão precisa adicionar as chaves novas.
 
 ## [0.1.0] - 2026-11-15
 
@@ -50,6 +95,7 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 - Primeira versão publicada: componentes de fundamentos, formulários, navegação, conteúdo e
   feedback, 7 layouts de página, tema claro/escuro com `zurThemeScope` e o logo `zur-logo`.
 
+[0.3.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.3.0
 [0.2.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.2.0
 [0.1.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.1.0
 [0.0.1]: https://www.npmjs.com/package/@juau/zuri/v/0.0.1

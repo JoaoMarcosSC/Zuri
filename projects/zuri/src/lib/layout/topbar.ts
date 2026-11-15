@@ -81,7 +81,7 @@ import { ZurShellState } from './shell-state';
       color: var(--zur-ink);
     }
     .actions {
-      margin-left: auto;
+      margin-inline-start: auto;
     }
     .menu {
       display: inline-flex;

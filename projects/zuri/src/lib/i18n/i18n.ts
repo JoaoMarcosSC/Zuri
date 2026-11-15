@@ -86,6 +86,64 @@ export interface ZurI18n {
   cardMoved: (card: string, column: string, position: number) => string;
   cardDropped: (card: string, column: string, position: number) => string;
   cardCancelled: (card: string) => string;
+  /** Campo numérico. */
+  increase: string;
+  decrease: string;
+  /** Código de verificação (OTP). */
+  otpGroup: string;
+  otpDigit: (n: number, total: number) => string;
+  /** Avaliação por estrelas. */
+  ratingValue: (value: number, max: number) => string;
+  ratingStar: (n: number) => string;
+  /** Seletor de horário. */
+  openTimePicker: string;
+  hours: string;
+  minutes: string;
+  /** Stepper. */
+  stepOf: (n: number, total: number) => string;
+  stepDone: string;
+  stepCurrent: string;
+  stepError: string;
+  /** Carrossel. */
+  carousel: string;
+  previousSlide: string;
+  nextSlide: string;
+  slideOf: (n: number, total: number) => string;
+  goToSlide: (n: number) => string;
+  pauseCarousel: string;
+  playCarousel: string;
+  /** Grupo de avatares: "+3". */
+  moreAvatars: (count: number) => string;
+  /** Diálogo de confirmação. */
+  confirm: string;
+  cancel: string;
+  ok: string;
+  /** Menu de contexto. */
+  contextMenu: string;
+  /** Linha do tempo e árvore. */
+  timeline: string;
+  tree: string;
+  expandNode: (label: string) => string;
+  collapseNode: (label: string) => string;
+  /** Tabela avançada. */
+  selectAllRows: string;
+  selectRow: string;
+  expandRow: string;
+  collapseRow: string;
+  filterColumn: (column: string) => string;
+  clearFilter: string;
+  visibleColumns: string;
+  /** Gráficos e indicadores. */
+  chartLegend: string;
+  chartData: string;
+  chartPoint: (series: string, label: string, value: string) => string;
+  statUp: string;
+  statDown: string;
+  statFlat: string;
+  statVsPrevious: string;
+  /** Botão que alterna a densidade da interface. */
+  densityToCompact: string;
+  densityToComfortable: string;
 }
 
 export const ZUR_I18N_PT: ZurI18n = {
@@ -143,6 +201,51 @@ export const ZUR_I18N_PT: ZurI18n = {
   cardMoved: (card, column, position) => `${card}: coluna ${column}, posição ${position}.`,
   cardDropped: (card, column, position) => `${card} solto na coluna ${column}, posição ${position}.`,
   cardCancelled: (card) => `Movimento de ${card} cancelado.`,
+  increase: 'Aumentar',
+  decrease: 'Diminuir',
+  otpGroup: 'Código de verificação',
+  otpDigit: (n, total) => `Dígito ${n} de ${total}`,
+  ratingValue: (value, max) => `${value.toLocaleString('pt-BR')} de ${max}`,
+  ratingStar: (n) => `${n} ${n === 1 ? 'estrela' : 'estrelas'}`,
+  openTimePicker: 'Escolher horário',
+  hours: 'Horas',
+  minutes: 'Minutos',
+  stepOf: (n, total) => `Etapa ${n} de ${total}`,
+  stepDone: 'concluída',
+  stepCurrent: 'etapa atual',
+  stepError: 'com erro',
+  carousel: 'Carrossel',
+  previousSlide: 'Slide anterior',
+  nextSlide: 'Próximo slide',
+  slideOf: (n, total) => `Slide ${n} de ${total}`,
+  goToSlide: (n) => `Ir para o slide ${n}`,
+  pauseCarousel: 'Pausar rotação automática',
+  playCarousel: 'Retomar rotação automática',
+  moreAvatars: (count) => `mais ${count} ${count === 1 ? 'pessoa' : 'pessoas'}`,
+  confirm: 'Confirmar',
+  cancel: 'Cancelar',
+  ok: 'OK',
+  contextMenu: 'Menu de contexto',
+  timeline: 'Linha do tempo',
+  tree: 'Árvore',
+  expandNode: (label) => `Expandir ${label}`,
+  collapseNode: (label) => `Recolher ${label}`,
+  selectAllRows: 'Selecionar todas as linhas',
+  selectRow: 'Selecionar linha',
+  expandRow: 'Expandir linha',
+  collapseRow: 'Recolher linha',
+  filterColumn: (column) => `Filtrar ${column}`,
+  clearFilter: 'Limpar filtro',
+  visibleColumns: 'Colunas visíveis',
+  chartLegend: 'Legenda',
+  chartData: 'Dados do gráfico',
+  chartPoint: (series, label, value) => `${series}, ${label}: ${value}`,
+  statUp: 'em alta',
+  statDown: 'em queda',
+  statFlat: 'estável',
+  statVsPrevious: 'em relação ao período anterior',
+  densityToCompact: 'Usar interface compacta',
+  densityToComfortable: 'Usar interface confortável',
 };
 
 export const ZUR_I18N_EN: ZurI18n = {
@@ -200,6 +303,51 @@ export const ZUR_I18N_EN: ZurI18n = {
   cardMoved: (card, column, position) => `${card}: column ${column}, position ${position}.`,
   cardDropped: (card, column, position) => `${card} dropped in column ${column}, position ${position}.`,
   cardCancelled: (card) => `Move of ${card} cancelled.`,
+  increase: 'Increase',
+  decrease: 'Decrease',
+  otpGroup: 'Verification code',
+  otpDigit: (n, total) => `Digit ${n} of ${total}`,
+  ratingValue: (value, max) => `${value} out of ${max}`,
+  ratingStar: (n) => `${n} ${n === 1 ? 'star' : 'stars'}`,
+  openTimePicker: 'Choose time',
+  hours: 'Hours',
+  minutes: 'Minutes',
+  stepOf: (n, total) => `Step ${n} of ${total}`,
+  stepDone: 'completed',
+  stepCurrent: 'current step',
+  stepError: 'has an error',
+  carousel: 'Carousel',
+  previousSlide: 'Previous slide',
+  nextSlide: 'Next slide',
+  slideOf: (n, total) => `Slide ${n} of ${total}`,
+  goToSlide: (n) => `Go to slide ${n}`,
+  pauseCarousel: 'Pause automatic rotation',
+  playCarousel: 'Resume automatic rotation',
+  moreAvatars: (count) => `${count} more ${count === 1 ? 'person' : 'people'}`,
+  confirm: 'Confirm',
+  cancel: 'Cancel',
+  ok: 'OK',
+  contextMenu: 'Context menu',
+  timeline: 'Timeline',
+  tree: 'Tree',
+  expandNode: (label) => `Expand ${label}`,
+  collapseNode: (label) => `Collapse ${label}`,
+  selectAllRows: 'Select all rows',
+  selectRow: 'Select row',
+  expandRow: 'Expand row',
+  collapseRow: 'Collapse row',
+  filterColumn: (column) => `Filter ${column}`,
+  clearFilter: 'Clear filter',
+  visibleColumns: 'Visible columns',
+  chartLegend: 'Legend',
+  chartData: 'Chart data',
+  chartPoint: (series, label, value) => `${series}, ${label}: ${value}`,
+  statUp: 'up',
+  statDown: 'down',
+  statFlat: 'flat',
+  statVsPrevious: 'versus the previous period',
+  densityToCompact: 'Use compact interface',
+  densityToComfortable: 'Use comfortable interface',
 };
 
 /** Textos usados pelos componentes. Padrão: português. */

@@ -71,7 +71,8 @@ let nextId = 0;
       width: 100%;
       box-sizing: border-box;
       height: var(--zur-control-height-lg);
-      padding: 0 var(--zur-space-xxl) 0 var(--zur-space-md);
+      padding-block: 0;
+      padding-inline: var(--zur-space-md) var(--zur-space-xxl);
       font: var(--zur-font-body);
       color: var(--zur-ink);
       background: var(--zur-canvas);
@@ -92,7 +93,7 @@ let nextId = 0;
     }
     .chevron {
       position: absolute;
-      right: var(--zur-space-md);
+      inset-inline-end: var(--zur-space-md);
       top: 50%;
       transform: translateY(-50%);
       pointer-events: none;

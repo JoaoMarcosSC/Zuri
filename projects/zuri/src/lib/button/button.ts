@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-export type ZurButtonVariant = 'primary' | 'secondary' | 'ghost' | 'pill';
+export type ZurButtonVariant = 'primary' | 'secondary' | 'ghost' | 'pill' | 'danger';
 export type ZurButtonSize = 'sm' | 'md' | 'lg';
 
 /**
@@ -89,6 +89,13 @@ export type ZurButtonSize = 'sm' | 'md' | 'lg';
       background: var(--zur-surface-soft);
     }
 
+    :host([data-variant='danger']) {
+      background: var(--zur-error-text);
+      color: var(--zur-on-error);
+    }
+    :host([data-variant='danger']:hover:not(:disabled)) {
+      background: color-mix(in srgb, var(--zur-error-text) 88%, black);
+    }
     :host([data-variant='pill']) {
       background: var(--zur-primary);
       color: var(--zur-on-primary);

@@ -10,12 +10,14 @@ export * from './lib/theme/theme.service';
 export * from './lib/theme/theme-toggle';
 export * from './lib/theme/theme-scope';
 export * from './lib/logo/logo';
+export * from './lib/density/density';
 
 // Fundamentos
 export * from './lib/button/button';
 export * from './lib/badge/badge';
 export * from './lib/card/card';
 export * from './lib/avatar/avatar';
+export * from './lib/avatar-group/avatar-group';
 
 // Formulários
 export * from './lib/input/input';
@@ -30,6 +32,10 @@ export * from './lib/file-upload/file-upload';
 export * from './lib/chips/chips';
 export * from './lib/slider/slider';
 export * from './lib/segmented/segmented';
+export * from './lib/number-input/number-input';
+export * from './lib/otp-input/otp-input';
+export * from './lib/rating/rating';
+export * from './lib/time-picker/time-picker';
 
 // Navegação
 export * from './lib/navbar/navbar';
@@ -40,12 +46,20 @@ export * from './lib/sidenav/sidenav';
 
 // Dados
 export * from './lib/table/table';
+export * from './lib/table/column-filter';
+export * from './lib/table/column-menu';
+export * from './lib/chart/chart';
+export * from './lib/chart/sparkline';
+export * from './lib/chart/stat';
+export * from './lib/timeline/timeline';
+export * from './lib/tree/tree';
 export * from './lib/pagination/pagination';
 
 // Conteúdo
 export * from './lib/accordion/accordion';
 export * from './lib/empty-state/empty-state';
 export * from './lib/step/step';
+export * from './lib/stepper/stepper';
 
 // Layouts de página
 export * from './lib/layout';
@@ -56,6 +70,7 @@ export * from './lib/toast/toast.service';
 export * from './lib/toast/toast-container';
 export * from './lib/tooltip/tooltip';
 export * from './lib/alert/alert';
+export * from './lib/banner/banner';
 export * from './lib/spinner/spinner';
 export * from './lib/skeleton/skeleton';
 export * from './lib/progress/progress';
@@ -63,6 +78,9 @@ export * from './lib/progress/progress';
 // Sobreposição
 export * from './lib/drawer/drawer';
 export * from './lib/popover/popover';
+export * from './lib/dialog/dialog';
+export * from './lib/context-menu/context-menu';
+export * from './lib/carousel/carousel';
 
 // Padrões compostos
 export * from './lib/chat/chat';

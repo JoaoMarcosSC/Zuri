@@ -112,7 +112,8 @@ let nextId = 0;
       align-items: center;
       gap: 4px;
       height: 30px;
-      padding: 0 6px 0 12px;
+      padding-block: 0;
+      padding-inline: 12px 6px;
       border-radius: var(--zur-radius-full);
       background: var(--zur-primary-soft);
       color: var(--zur-on-primary-soft);
@@ -120,7 +121,7 @@ let nextId = 0;
       font-weight: 600;
     }
     .disabled .chip {
-      padding-right: 12px;
+      padding-inline-end: 12px;
     }
     .remove {
       width: 22px;

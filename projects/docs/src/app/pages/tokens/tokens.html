@@ -41,6 +41,22 @@
 </section>
 
 <section class="group">
+  <h2>Cores · Gráficos</h2>
+  <p>
+    Seis cores em ordem fixa (a primeira é a menta), validadas para daltonismo e contraste nos dois
+    temas. Nunca se repetem: a sétima série vira "Outros".
+  </p>
+  <div class="swatches">
+    @for (s of charts; track s.token) {
+      <div class="swatch-item">
+        <div class="swatch" [style.background]="'var(' + s.token + ')'"></div>
+        <code>{{ s.label }}</code>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="group">
   <h2>Tipografia</h2>
   <div class="type-scale">
     @for (t of typeScale; track t.token) {
@@ -76,4 +92,16 @@
   <h2>Como consumir</h2>
   <p>Os tokens funcionam como CSS puro — use <code>var(--zur-*)</code> em qualquer lugar.</p>
   <docs-code-block [code]="cssSnippet" />
+</section>
+
+<section class="group">
+  <h2>Exportar para Tailwind e Figma</h2>
+  <p>
+    O pacote publica os tokens em outros formatos, gerados do mesmo <code>tokens.css</code>. Os valores
+    do Tailwind apontam para <code>var(--zur-*)</code>, então o tema claro/escuro continua trocando em
+    tempo de execução.
+  </p>
+  <docs-code-block [code]="codeTailwind3" />
+  <docs-code-block [code]="codeTailwind4" />
+  <docs-code-block [code]="codeFigma" />
 </section>

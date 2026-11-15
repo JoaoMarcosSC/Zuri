@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { ZurModal } from '../lib/modal/modal';
 import { ZurToastService } from '../lib/toast/toast.service';
 import { ZurToastContainer } from '../lib/toast/toast-container';
@@ -75,6 +76,20 @@ export const Modal: Story = {
 
 export const Toasts: Story = {
   render: () => ({ template: `<demo-toasts />` }),
+  // Abre os três tipos: o axe roda depois do play e avalia o contraste de cada toast.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const name of [/confirmar|sucesso/i, /erro|errado/i, /copiar|neutro/i]) {
+      const botao = canvas.queryAllByRole('button').find((b) => name.test(b.textContent ?? ''));
+      if (botao) await userEvent.click(botao);
+    }
+    await waitFor(() => {
+      const toasts = canvasElement.ownerDocument.querySelectorAll('.toast');
+      expect(toasts.length).toBe(3);
+      // sucesso e erro levam ícone (a cor não é o único sinal); o neutro não
+      expect(canvasElement.ownerDocument.querySelectorAll('.toast svg.icon').length).toBe(2);
+    });
+  },
 };
 
 export const Tooltip: Story = {

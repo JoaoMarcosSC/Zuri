@@ -51,13 +51,13 @@ export type ZurProgressSize = 'sm' | 'md';
       animation: zur-progress-slide 1.2s ease-in-out infinite;
     }
     @keyframes zur-progress-slide {
-      from { left: -40%; }
-      to { left: 100%; }
+      from { inset-inline-start: -40%; }
+      to { inset-inline-start: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       :host([data-indeterminate]) .fill {
         animation: none;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         opacity: 0.5;
       }

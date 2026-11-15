@@ -1,0 +1,46 @@
+name: Regressão visual (Chromatic)
+
+# Compara screenshots de cada story (nos modos claro, escuro, RTL e compacto) a cada push e
+# pull request e avisa quando um componente muda de aparência.
+#
+# Para ligar: crie o projeto em https://www.chromatic.com (entre com o GitHub e escolha este
+# repositório) e cadastre o token em Settings → Secrets and variables → Actions como
+# CHROMATIC_PROJECT_TOKEN. Enquanto o secret não existir, o job só avisa e passa (não quebra o CI).
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    env:
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    steps:
+      - name: Avisar se o token não está configurado
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN == '' }}
+        run: echo "::notice::CHROMATIC_PROJECT_TOKEN não configurado — regressão visual desligada. Veja o comentário deste workflow."
+
+      - uses: actions/checkout@v4
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
+        with:
+          fetch-depth: 0 # o Chromatic compara com o histórico do git
+
+      - uses: actions/setup-node@v4
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
+
+      - name: Publicar no Chromatic
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build-storybook
+          storybookBuildDir: storybook-static
+          onlyChanged: true
+          exitOnceUploaded: true

@@ -44,7 +44,10 @@ import {
   ZurTooltip,
 } from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
+import { DataExtras } from './data-extras';
 import { FormsAdvanced } from './forms-advanced';
+import { InterfaceExtras } from './interface-extras';
+import { OverlaysExtras } from './overlays-extras';
 import { Patterns } from './patterns';
 
 @Component({
@@ -54,6 +57,9 @@ import { Patterns } from './patterns';
     FormsModule,
     CodeBlock,
     FormsAdvanced,
+    DataExtras,
+    InterfaceExtras,
+    OverlaysExtras,
     Patterns,
     ZurButton,
     ZurBadge,

@@ -202,9 +202,11 @@ O workflow [`release.yml`](.github/workflows/release.yml) confere se a tag bate 
 |---|---|
 | `npm start` | Sobe a documentação em modo de desenvolvimento |
 | `npx ng build zuri` | Compila a biblioteca para `dist/zuri` |
-| `npm run build:lib` | Compila a biblioteca e o schematic do `ng add` (é o que vai para o npm) |
+| `npm run build:lib` | Compila a biblioteca, o schematic do `ng add` e exporta os tokens (Tailwind e Figma); é o que vai para o npm |
 | `npm test` | Testes unitários |
 | `npm run test:stories` | Testa as stories, incluindo acessibilidade |
+| `npm run test:tokens` | Testa a exportação de tokens (`tokens.json` e presets do Tailwind) |
+| `npm run check:ssr` | Renderiza todas as rotas da documentação no servidor (SSR) e falha em qualquer erro |
 | `npx ng build docs` | Compila a documentação para `dist/docs` |
 | `npm run storybook` | Abre o Storybook |
 | `npm run build-storybook` | Gera o Storybook estático |

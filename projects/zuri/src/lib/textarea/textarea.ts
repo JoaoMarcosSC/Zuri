@@ -114,7 +114,7 @@ let nextId = 0;
       color: var(--zur-error-text);
     }
     .count {
-      margin-left: auto;
+      margin-inline-start: auto;
       font-variant-numeric: tabular-nums;
     }
     .sr-only {

@@ -131,3 +131,12 @@
 .demo-root {
   min-height: 100vh;
 }
+
+.chart-card {
+  display: block;
+  margin-bottom: var(--zur-space-lg);
+}
+
+.chart-title {
+  margin: 0 0 var(--zur-space-md);
+}

@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ZUR_I18N } from '../i18n/i18n';
+import { zurInlineStep, zurIsRtl } from '../shared/direction';
 
 let nextId = 0;
 
@@ -46,14 +47,14 @@ let nextId = 0;
       (pointerup)="dragging = null"
       (pointercancel)="dragging = null"
     >
-      <div class="fill" [style.left.%]="range() ? percent(low()) : 0" [style.right.%]="100 - percent(high())"></div>
+      <div class="fill" [style.inset-inline-start.%]="range() ? percent(low()) : 0" [style.inset-inline-end.%]="100 - percent(high())"></div>
       @for (thumb of thumbs(); track thumb) {
         <span
           class="thumb"
           role="slider"
           [attr.data-thumb]="thumb"
           [tabindex]="isDisabled() ? -1 : 0"
-          [style.left.%]="percent(thumb === 'low' ? low() : high())"
+          [style.inset-inline-start.%]="percent(thumb === 'low' ? low() : high())"
           [attr.aria-valuemin]="thumb === 'high' ? low() : min()"
           [attr.aria-valuemax]="thumb === 'low' && range() ? high() : max()"
           [attr.aria-valuenow]="thumb === 'low' ? low() : high()"
@@ -83,7 +84,7 @@ let nextId = 0;
       color: var(--zur-ink);
     }
     .readout {
-      margin-left: auto;
+      margin-inline-start: auto;
       font: var(--zur-font-caption);
       font-weight: 700;
       color: var(--zur-ink);
@@ -120,7 +121,8 @@ let nextId = 0;
       top: 50%;
       width: 24px;
       height: 24px;
-      margin: -12px 0 0 -12px;
+      margin-block: -12px 0;
+      margin-inline: -12px 0;
       box-sizing: border-box;
       border-radius: var(--zur-radius-full);
       background: var(--zur-canvas);
@@ -209,12 +211,14 @@ export class ZurSlider implements ControlValueAccessor {
     const current = thumb === 'low' ? this.low() : this.high();
     const step = this.step() || 1;
     let next: number;
-    switch (event.key) {
-      case 'ArrowRight':
+    const inline = zurInlineStep(event, this.host.nativeElement);
+    switch (inline !== 0 ? 'Inline' : event.key) {
+      case 'Inline':
+        next = current + step * inline;
+        break;
       case 'ArrowUp':
         next = current + step;
         break;
-      case 'ArrowLeft':
       case 'ArrowDown':
         next = current - step;
         break;
@@ -239,7 +243,8 @@ export class ZurSlider implements ControlValueAccessor {
 
   private valueAt(clientX: number): number {
     const rect = (this.host.nativeElement.querySelector('.track') as HTMLElement).getBoundingClientRect();
-    const ratio = rect.width ? (clientX - rect.left) / rect.width : 0;
+    const fromStart = zurIsRtl(this.host.nativeElement) ? rect.right - clientX : clientX - rect.left;
+    const ratio = rect.width ? fromStart / rect.width : 0;
     return this.min() + Math.min(1, Math.max(0, ratio)) * (this.max() - this.min());
   }
 

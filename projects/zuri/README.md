@@ -62,11 +62,12 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 |---|---|
 | Tema e marca | `ZurThemeService`, `zur-theme-toggle`, `[zurThemeScope]` (tema isolado), `zur-logo` |
 | Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar` |
-| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch`, `zur-combobox`, `zur-date-picker`, `zur-chips`, `zur-slider`, `zur-segmented` (todos ControlValueAccessor), `zur-file-upload` |
+| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch`, `zur-combobox`, `zur-date-picker`, `zur-chips`, `zur-slider`, `zur-segmented`, `zur-number-input`, `zur-otp-input`, `zur-rating`, `zur-time-picker` (todos ControlValueAccessor e compatíveis com `[formField]`), `zur-file-upload` |
 | Navegação | `zur-navbar`, `zur-tabs`/`zur-tab`, `zur-menu`/`zur-menu-item`, `zur-breadcrumb`, `zur-sidenav`/`zur-sidenav-item`/`zur-sidenav-label` |
-| Dados | `table[zur-table]` + `th[zurSortable]`, `zur-pagination` |
-| Conteúdo | `zur-step`, `zur-accordion`, `zur-empty-state` |
-| Sobreposição | `zur-drawer`, `zur-popover` + `[zurPopoverTrigger]` |
+| Dados | `table[zur-table]` (+ `zurSelectAll`, `zurSelect`, `zurRow`, `zurExpandToggle`, `zur-column-filter`, `zur-column-menu`), `zur-pagination`, `zur-chart`, `zur-stat`, `zur-sparkline`, `zur-timeline`, `zur-tree` |
+| Conteúdo | `zur-step`, `zur-stepper`, `zur-carousel`, `zur-avatar-group`, `zur-banner`, `zur-accordion`, `zur-empty-state` |
+| Sobreposição | `zur-drawer`, `zur-popover` + `[zurPopoverTrigger]`, `ZurDialog` (`confirm`/`alert`), `zur-context-menu` + `[zurContextMenu]` |
+| Plataforma | `zurDensity` / `ZurDensityService` / `zur-density-toggle` (densidade compacta), RTL em todos os componentes, `tokens.json` e presets do Tailwind (v3 e v4) |
 | Padrões | `zur-chat` (+ `-message`, `-divider`, `-typing`, `-composer`), `zur-command-palette`, `zur-notification-center`, `zur-kanban` + `ng-template[zurKanbanCard]` |
 | Layouts de página | `zur-landing-layout`, `zur-dashboard-layout`, `zur-list-detail-layout`, `zur-form-layout`, `zur-docs-layout`, `zur-auth-layout`, `zur-error-layout` + `zur-sidebar`, `zur-topbar`, `zur-page-header`, `zur-footer` — veja [`LAYOUTS.md`](../../LAYOUTS.md) |
 | Feedback | `zur-modal`, `ZurToastService` + `zur-toast-container`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton`, `zur-progress` |
@@ -124,6 +125,41 @@ Os textos internos (rótulos de acessibilidade, "Voltar", "Fechar") vêm em port
 ```ts
 bootstrapApplication(App, { providers: [provideZuriI18n('en')] });
 ```
+
+## Densidade e direção
+
+```html
+<html data-density="compact" dir="rtl">          <!-- página toda -->
+<section zurDensity>…formulário denso…</section>   <!-- só uma área -->
+```
+
+`ZurDensityService` e `zur-density-toggle` alternam a densidade da página e lembram a escolha.
+Todos os componentes usam propriedades lógicas e suas setas seguem o sentido de leitura, então RTL
+funciona só com `dir="rtl"`.
+
+## Formulários por sinais
+
+Os controles funcionam com `ngModel`, com formulários reativos **e** com os Signal Forms do Angular:
+
+```html
+<zur-input label="Nome" [formField]="f.nome" />
+<zur-date-picker label="Entrega" [formField]="f.entrega" />
+```
+
+## Tailwind e Figma
+
+```js
+// Tailwind v3: tailwind.config.js
+module.exports = { presets: [require('@juau/zuri/tailwind.preset.cjs')] };
+```
+
+```css
+/* Tailwind v4 */
+@import 'tailwindcss';
+@import '@juau/zuri/tailwind-theme.css';
+```
+
+`@juau/zuri/tokens.json` traz todos os tokens no formato W3C Design Tokens, com os dois temas.
 
 ## Desenvolvimento
 

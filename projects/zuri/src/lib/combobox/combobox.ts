@@ -120,7 +120,8 @@ let nextId = 0;
       width: 100%;
       box-sizing: border-box;
       height: var(--zur-control-height-lg);
-      padding: 0 76px 0 var(--zur-space-md);
+      padding-block: 0;
+      padding-inline: var(--zur-space-md) 76px;
       font: var(--zur-font-body);
       color: var(--zur-ink);
       background: var(--zur-canvas);
@@ -134,7 +135,7 @@ let nextId = 0;
     .field:focus {
       outline: none;
       border: 2px solid var(--zur-ink);
-      padding-left: calc(var(--zur-space-md) - 1px);
+      padding-inline-start: calc(var(--zur-space-md) - 1px);
     }
     .field:disabled {
       background: var(--zur-surface-soft);
@@ -146,7 +147,7 @@ let nextId = 0;
     }
     .clear {
       position: absolute;
-      right: 42px;
+      inset-inline-end: 42px;
       width: 28px;
       height: 28px;
       display: inline-flex;
@@ -168,14 +169,13 @@ let nextId = 0;
     }
     .chevron {
       position: absolute;
-      right: var(--zur-space-md);
+      inset-inline-end: var(--zur-space-md);
       color: var(--zur-muted);
       pointer-events: none;
     }
     .list {
       position: absolute;
-      left: 0;
-      right: 0;
+      inset-inline: 0;
       z-index: 160;
       margin: var(--zur-space-xs) 0 0;
       padding: var(--zur-space-xs);
@@ -195,7 +195,8 @@ let nextId = 0;
       position: relative;
       display: grid;
       gap: 2px;
-      padding: 10px 40px 10px var(--zur-space-md);
+      padding-block: 10px;
+      padding-inline: var(--zur-space-md) 40px;
       border-radius: var(--zur-radius-sm);
       cursor: pointer;
     }
@@ -216,7 +217,7 @@ let nextId = 0;
     }
     .check {
       position: absolute;
-      right: var(--zur-space-md);
+      inset-inline-end: var(--zur-space-md);
       top: 50%;
       transform: translateY(-50%);
       color: var(--zur-primary-active);

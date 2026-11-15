@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { zurInlineStep } from '../shared/direction';
 
 export interface ZurSegmentedOption {
   value: string;
@@ -131,8 +132,9 @@ export class ZurSegmented implements ControlValueAccessor {
     if (!opts.length || this.isDisabled()) return;
     const current = Math.max(0, opts.findIndex((o) => o.value === this.value()));
     let next = current;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (current + 1) % opts.length;
-    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (current - 1 + opts.length) % opts.length;
+    const inline = zurInlineStep(event, this.host.nativeElement);
+    if (inline === 1 || event.key === 'ArrowDown') next = (current + 1) % opts.length;
+    else if (inline === -1 || event.key === 'ArrowUp') next = (current - 1 + opts.length) % opts.length;
     else if (event.key === 'Home') next = 0;
     else if (event.key === 'End') next = opts.length - 1;
     else return;

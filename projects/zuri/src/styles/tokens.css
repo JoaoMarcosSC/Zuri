@@ -42,7 +42,21 @@
   --zur-success-text: #14794c;
   --zur-warning-text: #a25904;
   --zur-error-text: #c91d22;
+  --zur-on-error: #ffffff; /* texto sobre fundo de erro (botão destrutivo) */
   --zur-info-text: #0b5ee7;
+
+  /* ── Gráficos (ordem fixa, nunca cíclica; validada com o validador da skill dataviz) ──
+     Passos validados sobre --zur-surface-raised: separação ΔE ≥ 13 para daltonismo
+     (alvo ≥ 8) e ≥ 19 em visão normal (piso 15). Magenta e amarelo ficam abaixo de
+     3:1 no claro: o gráfico sempre mostra legenda visível e tabela alternativa. */
+  --zur-chart-1: #1c9d6d; /* menta */
+  --zur-chart-2: #2a78d6; /* azul */
+  --zur-chart-3: #eb6834; /* laranja */
+  --zur-chart-4: #6250d6; /* violeta */
+  --zur-chart-5: #e87ba4; /* magenta */
+  --zur-chart-6: #eda100; /* amarelo */
+  --zur-chart-grid: var(--zur-hairline);
+  --zur-chart-axis: var(--zur-muted);
 
   /* ── Tipografia (Nunito Sans — arredondada amigável) ───── */
   --zur-font-family: 'Nunito Sans', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -144,7 +158,18 @@
   --zur-success-text: #34d08c;
   --zur-warning-text: #f59e0b;
   --zur-error-text: #f26d71;
+  --zur-on-error: #2a0b0d;
   --zur-info-text: #60a5fa;
+
+  /* Gráficos no escuro: mesmos matizes, passos próprios para a superfície escura. */
+  --zur-chart-1: #199e70;
+  --zur-chart-2: #3987e5;
+  --zur-chart-3: #d95926;
+  --zur-chart-4: #9085e9;
+  --zur-chart-5: #d55181;
+  --zur-chart-6: #c98500;
+  --zur-chart-grid: var(--zur-hairline);
+  --zur-chart-axis: var(--zur-muted);
 
   /* sombra única mais pesada — sombras leves somem sobre fundo quase-preto */
   --zur-shadow-float:
@@ -157,6 +182,33 @@
   --zur-focus-ring: 0 0 0 2px var(--zur-primary);
 
   color-scheme: dark;
+}
+
+/* ============================================================
+   Densidade compacta — controles mais baixos para telas densas
+   (painéis, tabelas, ferramentas). Vale para a página toda
+   (<html data-density="compact">) ou só para uma área
+   (<div zurDensity>). Os campos de texto mantêm 16px de fonte
+   para o iOS não dar zoom ao focar.
+   ============================================================ */
+[data-density='compact'] {
+  --zur-control-height-sm: 28px;
+  --zur-control-height-md: 36px;
+  --zur-control-height-lg: 40px;
+  --zur-font-button: 600 14px/1.25 var(--zur-font-family);
+}
+
+/* ── Direção de leitura ───────────────────────────────────────
+   1 em LTR, -1 em RTL: multiplica deslocamentos e espelha ícones
+   direcionais (transform: scaleX(var(--zur-dir))). */
+:root {
+  --zur-dir: 1;
+}
+[dir='rtl'] {
+  --zur-dir: -1;
+}
+[dir='ltr'] {
+  --zur-dir: 1;
 }
 
 /* ── Base global opcional ─────────────────────────────────── */

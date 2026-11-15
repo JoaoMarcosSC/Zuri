@@ -1,6 +1,6 @@
 {
   "name": "@juau/zuri",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Design system para Angular: componentes standalone, layouts de página e tema claro/escuro.",
   "license": "MIT",
   "keywords": [
@@ -29,7 +29,10 @@
     "tslib": "^2.3.0"
   },
   "exports": {
-    "./styles/*": "./styles/*"
+    "./styles/*": "./styles/*",
+    "./tokens.json": "./tokens.json",
+    "./tailwind.preset.cjs": "./tailwind.preset.cjs",
+    "./tailwind-theme.css": "./tailwind-theme.css"
   },
   "sideEffects": false,
   "schematics": "./schematics/collection.json",

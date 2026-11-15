@@ -102,7 +102,7 @@ export interface ZurNotification {
     .count {
       position: absolute;
       top: -4px;
-      right: -4px;
+      inset-inline-end: -4px;
       min-width: 20px;
       height: 20px;
       padding: 0 5px;
@@ -177,7 +177,7 @@ export interface ZurNotification {
       border: none;
       border-radius: var(--zur-radius-sm);
       background: transparent;
-      text-align: left;
+      text-align: start;
       cursor: pointer;
     }
     .item:hover {

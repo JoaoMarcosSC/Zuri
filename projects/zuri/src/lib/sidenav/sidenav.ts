@@ -61,13 +61,14 @@ export class ZurSidenav {}
       font: var(--zur-font-body);
       font-size: 15px;
       font-weight: 600;
-      text-align: left;
+      text-align: start;
       text-decoration: none;
       cursor: pointer;
       transition: background-color 120ms ease, color 120ms ease;
     }
     :host([data-level='secondary']) {
-      padding: 6px var(--zur-space-sm) 6px calc(var(--zur-space-sm) + 8px);
+      padding-block: 6px;
+      padding-inline: calc(var(--zur-space-sm) + 8px) var(--zur-space-sm);
       color: var(--zur-muted);
       font-size: 14px;
       font-weight: 400;
@@ -135,7 +136,8 @@ export class ZurSidenavItem {
     }
     :host {
       display: block;
-      margin: var(--zur-space-sm) 0 2px var(--zur-space-sm);
+      margin-block: var(--zur-space-sm) 2px;
+      margin-inline: var(--zur-space-sm) 0;
       font: var(--zur-font-caption);
       font-size: 11px;
       color: var(--zur-muted);

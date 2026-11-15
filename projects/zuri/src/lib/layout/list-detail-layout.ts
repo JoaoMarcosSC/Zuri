@@ -31,7 +31,7 @@ import { ZUR_I18N } from '../i18n/i18n';
       <section class="list" [attr.aria-label]="i18n.list"><ng-content select="[zurList]" /></section>
       <section class="detail" [attr.aria-label]="i18n.detail">
         <button type="button" class="back" (click)="detailOpen.set(false)">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="flip" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="m15 18-6-6 6-6" />
           </svg>
           {{ i18n.back }}
@@ -59,7 +59,10 @@ import { ZUR_I18N } from '../i18n/i18n';
       height: calc(100vh - 64px);
       overflow-y: auto;
       background: var(--zur-surface-soft);
-      border-right: 1px solid var(--zur-hairline);
+      border-inline-end: 1px solid var(--zur-hairline);
+    }
+    .flip {
+      transform: scaleX(var(--zur-dir));
     }
     .detail {
       min-width: 0;
@@ -101,7 +104,7 @@ import { ZUR_I18N } from '../i18n/i18n';
       .list {
         position: static;
         height: auto;
-        border-right: 0;
+        border-inline-end: 0;
       }
       .detail {
         display: none;

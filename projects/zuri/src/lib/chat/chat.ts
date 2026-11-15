@@ -187,7 +187,7 @@ export class ZurChat {
       background: var(--zur-surface-soft);
       border: 1px solid var(--zur-hairline-soft);
       border-radius: var(--zur-radius-md);
-      border-bottom-left-radius: var(--zur-radius-xs);
+      border-end-start-radius: var(--zur-radius-xs);
       white-space: pre-line;
       overflow-wrap: anywhere;
     }
@@ -195,8 +195,8 @@ export class ZurChat {
       background: var(--zur-primary-soft);
       border-color: transparent;
       color: var(--zur-on-primary-soft);
-      border-bottom-left-radius: var(--zur-radius-md);
-      border-bottom-right-radius: var(--zur-radius-xs);
+      border-end-start-radius: var(--zur-radius-md);
+      border-end-end-radius: var(--zur-radius-xs);
     }
   `,
 })
@@ -260,7 +260,7 @@ export class ZurChatDivider {}
       background: var(--zur-surface-soft);
       border: 1px solid var(--zur-hairline-soft);
       border-radius: var(--zur-radius-md);
-      border-bottom-left-radius: var(--zur-radius-xs);
+      border-end-start-radius: var(--zur-radius-xs);
     }
     .bubble span {
       width: 7px;

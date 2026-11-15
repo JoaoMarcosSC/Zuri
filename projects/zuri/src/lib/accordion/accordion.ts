@@ -122,7 +122,7 @@ export class ZurAccordion {
       font: var(--zur-font-body);
       font-weight: 600;
       color: var(--zur-ink);
-      text-align: left;
+      text-align: start;
       cursor: pointer;
     }
     .zur-accordion-header:hover {

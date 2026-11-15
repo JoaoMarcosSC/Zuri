@@ -26,6 +26,9 @@ jobs:
       - name: Testes unitários
         run: npm test
 
+      - name: Testes da exportação de tokens (Tailwind e Figma)
+        run: npm run test:tokens
+
       - name: Instalar o Chromium para os testes das stories
         run: npx playwright install --with-deps chromium
 
@@ -34,6 +37,9 @@ jobs:
 
       - name: Compilar a documentação
         run: npx ng build docs
+
+      - name: Renderização no servidor (SSR) de todas as rotas da documentação
+        run: npm run check:ssr
 
       - name: Compilar o Storybook
         run: npm run build-storybook

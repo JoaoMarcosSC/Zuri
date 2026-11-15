@@ -1,11 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
+  ElementRef,
+  effect,
   inject,
   input,
   model,
+  untracked,
+  viewChild,
 } from '@angular/core';
 import { ZUR_I18N } from '../i18n/i18n';
+import { zurFocusFirst, zurTrapFocus } from '../shared/focus-trap';
 
 /**
  * Modal — superfície 20px com padding 32px sobre scrim 50%.
@@ -23,11 +29,14 @@ import { ZUR_I18N } from '../i18n/i18n';
     @if (open()) {
       <div class="scrim" (click)="close()">
         <div
+          #dialog
           class="dialog"
           role="dialog"
           aria-modal="true"
+          tabindex="-1"
           [attr.aria-label]="title()"
           (click)="$event.stopPropagation()"
+          (keydown)="trapFocus($event)"
         >
           <header class="head">
             @if (title()) {
@@ -70,6 +79,9 @@ import { ZUR_I18N } from '../i18n/i18n';
       max-width: 480px;
       max-height: 85vh;
       overflow: auto;
+    }
+    .dialog:focus {
+      outline: none;
     }
     .head {
       display: flex;
@@ -121,10 +133,39 @@ import { ZUR_I18N } from '../i18n/i18n';
 export class ZurModal {
   protected readonly i18n = inject(ZUR_I18N);
 
+  private readonly doc = inject(DOCUMENT);
+
   readonly open = model(false);
   readonly title = input('');
 
+  private readonly dialog = viewChild<ElementRef<HTMLElement>>('dialog');
+  private returnFocusTo: HTMLElement | null = null;
+
+  constructor() {
+    effect(() => {
+      const isOpen = this.open();
+      const dialog = this.dialog();
+      untracked(() => {
+        if (isOpen && dialog) {
+          // abriu: guarda quem tinha o foco e leva o foco para dentro do diálogo
+          this.returnFocusTo ??= this.doc.activeElement as HTMLElement | null;
+          zurFocusFirst(dialog.nativeElement);
+        } else if (!isOpen && this.returnFocusTo) {
+          // fechou: devolve o foco a quem abriu
+          this.returnFocusTo.focus?.();
+          this.returnFocusTo = null;
+        }
+      });
+    });
+  }
+
   close(): void {
     this.open.set(false);
+  }
+
+  /** Mantém o Tab circulando dentro do diálogo. */
+  protected trapFocus(event: KeyboardEvent): void {
+    const dialog = this.dialog()?.nativeElement;
+    if (dialog) zurTrapFocus(event, dialog);
   }
 }

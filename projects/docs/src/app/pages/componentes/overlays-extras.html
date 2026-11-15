@@ -1,0 +1,33 @@
+<section id="dialog" class="component">
+  <h2>Dialog</h2>
+  <p>
+    Confirmação e aviso sem montar um <code>zur-modal</code> em cada tela. O serviço devolve uma
+    <code>Promise</code>; o foco fica preso no diálogo e volta ao elemento anterior. Em ações destrutivas
+    o botão é vermelho e o foco começa em "Cancelar".
+  </p>
+  <div class="demo">
+    <button zur-button variant="secondary" (click)="salvar()">Salvar alterações</button>
+    <button zur-button variant="danger" (click)="excluir()">Excluir pedido</button>
+    <button zur-button variant="ghost" (click)="avisar()">Aviso</button>
+    <p class="readout" aria-live="polite" style="margin: 0 0 0 8px">Resultado: <strong>{{ resultado() }}</strong></p>
+  </div>
+  <docs-code-block [code]="codeDialog" />
+</section>
+
+<section id="context-menu" class="component">
+  <h2>Context menu</h2>
+  <p>
+    Menu do botão direito. Abre também com <kbd>Shift</kbd>+<kbd>F10</kbd>, a tecla Menu ou toque longo;
+    ↑↓ navegam, Esc fecha e devolve o foco, e ele nunca sai da tela.
+  </p>
+  <div class="demo" style="display: block">
+    <div class="area" tabindex="0" [zurContextMenu]="menu">Clique com o botão direito aqui (ou foque e use Shift+F10)</div>
+    <zur-context-menu #menu>
+      <zur-menu-item (selected)="acao.set('Renomear')">Renomear</zur-menu-item>
+      <zur-menu-item (selected)="acao.set('Duplicar')">Duplicar</zur-menu-item>
+      <zur-menu-item (selected)="acao.set('Excluir')">Excluir</zur-menu-item>
+    </zur-context-menu>
+    <p class="readout" aria-live="polite">Última ação: <strong>{{ acao() }}</strong></p>
+  </div>
+  <docs-code-block [code]="codeContextMenu" />
+</section>

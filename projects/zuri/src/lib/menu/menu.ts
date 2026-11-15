@@ -31,7 +31,7 @@ import {
       font-size: 15px;
       color: var(--zur-ink);
       cursor: pointer;
-      text-align: left;
+      text-align: start;
       transition: background-color 100ms ease;
     }
     .item:hover {
@@ -79,7 +79,7 @@ export class ZurMenuItem {
     .panel {
       position: absolute;
       top: calc(100% + var(--zur-space-xs));
-      right: 0;
+      inset-inline-end: 0;
       min-width: 200px;
       background: var(--zur-surface-raised);
       border: 1px solid var(--zur-hairline);

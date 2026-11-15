@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
       <button type="button" class="copy" (click)="copy()">
         {{ copied() ? 'Copiado!' : 'Copiar' }}
       </button>
-      <pre><code>{{ code() }}</code></pre>
+      <pre dir="ltr"><code>{{ code() }}</code></pre>
     </div>
   `,
   styles: `
@@ -23,6 +23,7 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
       margin: 0;
       padding: var(--zur-space-lg);
       overflow-x: auto;
+      text-align: left;
       color: var(--zur-ink-inverse);
       font-size: 13px;
       line-height: 1.6;

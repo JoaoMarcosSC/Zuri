@@ -11,11 +11,10 @@ import {
   viewChild,
 } from '@angular/core';
 import { ZUR_I18N } from '../i18n/i18n';
+import { zurFocusFirst, zurTrapFocus } from '../shared/focus-trap';
 
-export type ZurDrawerSide = 'left' | 'right';
-
-const FOCUSABLE =
-  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+/** `start`/`end` seguem a direção de leitura (em RTL trocam de lado); `left`/`right` são físicos. */
+export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right';
 
 /**
  * Painel lateral deslizante (gaveta) sobre a página, para filtros, detalhes ou
@@ -73,7 +72,7 @@ const FOCUSABLE =
       position: fixed;
       top: 0;
       bottom: 0;
-      right: 0;
+      inset-inline-end: 0;
       z-index: 201;
       display: flex;
       flex-direction: column;
@@ -83,11 +82,22 @@ const FOCUSABLE =
       background: var(--zur-surface-raised);
       box-shadow: var(--zur-shadow-float);
       overflow-y: auto;
-      animation: zur-drawer-in-right 200ms ease;
+      animation: zur-drawer-in-end 200ms ease;
+    }
+    :host([data-side='start']) .panel {
+      inset-inline-end: auto;
+      inset-inline-start: 0;
+      animation-name: zur-drawer-in-start;
+    }
+    /* lados físicos: não mudam com a direção */
+    :host([data-side='right']) .panel {
+      right: 0;
+      left: auto;
+      animation-name: zur-drawer-in-right;
     }
     :host([data-side='left']) .panel {
-      right: auto;
       left: 0;
+      right: auto;
       animation-name: zur-drawer-in-left;
     }
     .panel:focus {
@@ -109,7 +119,7 @@ const FOCUSABLE =
       width: 36px;
       height: 36px;
       flex-shrink: 0;
-      margin-left: auto;
+      margin-inline-start: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -143,6 +153,12 @@ const FOCUSABLE =
     @keyframes zur-drawer-fade {
       from { opacity: 0; }
     }
+    @keyframes zur-drawer-in-end {
+      from { transform: translateX(calc(100% * var(--zur-dir))); }
+    }
+    @keyframes zur-drawer-in-start {
+      from { transform: translateX(calc(-100% * var(--zur-dir))); }
+    }
     @keyframes zur-drawer-in-right {
       from { transform: translateX(100%); }
     }
@@ -163,7 +179,7 @@ export class ZurDrawer {
 
   readonly open = model(false);
   readonly title = input('');
-  readonly side = input<ZurDrawerSide>('right');
+  readonly side = input<ZurDrawerSide>('end');
 
   private readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
   private returnFocusTo: HTMLElement | null = null;
@@ -177,8 +193,7 @@ export class ZurDrawer {
           // abriu: guarda quem tinha o foco e leva o foco para dentro do painel
           this.returnFocusTo ??= this.doc.activeElement as HTMLElement | null;
           this.doc.body.style.overflow = 'hidden';
-          const first = panel.nativeElement.querySelector<HTMLElement>(FOCUSABLE);
-          (first ?? panel.nativeElement).focus();
+          zurFocusFirst(panel.nativeElement);
         } else if (!isOpen && this.returnFocusTo) {
           // fechou: devolve o foco
           this.doc.body.style.overflow = '';
@@ -195,20 +210,7 @@ export class ZurDrawer {
 
   /** Mantém o Tab circulando dentro do painel. */
   protected trapFocus(event: KeyboardEvent): void {
-    if (event.key !== 'Tab') return;
     const panel = this.panel()?.nativeElement;
-    if (!panel) return;
-    const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
-    if (!items.length) return;
-    const first = items[0];
-    const last = items[items.length - 1];
-    const active = this.doc.activeElement;
-    if (event.shiftKey && (active === first || active === panel)) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && active === last) {
-      event.preventDefault();
-      first.focus();
-    }
+    if (panel) zurTrapFocus(event, panel);
   }
 }

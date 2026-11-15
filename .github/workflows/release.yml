@@ -43,6 +43,9 @@ jobs:
       - name: Testes unitários
         run: npm test
 
+      - name: Testes da exportação de tokens
+        run: npm run test:tokens
+
       - name: Compilar a biblioteca (com o schematic do ng add)
         run: npm run build:lib
 

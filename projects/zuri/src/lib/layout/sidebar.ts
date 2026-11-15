@@ -55,7 +55,7 @@ import { ZurShellState } from './shell-state';
       height: 100%;
       padding: var(--zur-space-lg) var(--zur-space-md);
       background: var(--zur-surface-soft);
-      border-right: 1px solid var(--zur-hairline);
+      border-inline-end: 1px solid var(--zur-hairline);
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -92,7 +92,7 @@ import { ZurShellState } from './shell-state';
         --_w: min(300px, 86vw);
         position: fixed;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100vh;
         height: 100dvh;
@@ -106,7 +106,7 @@ import { ZurShellState } from './shell-state';
         display: block;
         position: absolute;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
@@ -116,10 +116,10 @@ import { ZurShellState } from './shell-state';
       .panel {
         position: absolute;
         top: 0;
-        left: 0;
+        inset-inline-start: 0;
         height: 100%;
         width: var(--_w);
-        transform: translateX(-100%);
+        transform: translateX(calc(-100% * var(--zur-dir)));
         transition: transform 200ms ease, box-shadow 200ms ease;
       }
       :host([data-open='true']) {
