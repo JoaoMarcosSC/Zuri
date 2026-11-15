@@ -5,7 +5,7 @@
   <img src="branding/zuri-horizontal-light.svg" alt="Zuri" height="96">
 </picture>
 
-### Zuri: um design system amigável
+### Um design system amigável
 
 ![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
@@ -169,4 +169,4 @@ Zuri quer dizer "bonito" em suaíli. No logo, o Z com a folha na ponta é a prim
 
 ## Licença
 
-Ainda não definida.
+[MIT](LICENSE).

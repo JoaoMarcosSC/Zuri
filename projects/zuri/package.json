@@ -1,6 +1,25 @@
 {
   "name": "zuri",
   "version": "0.0.1",
+  "description": "Design system para Angular: componentes standalone, layouts de página e tema claro/escuro.",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "design-system",
+    "components",
+    "ui",
+    "theme",
+    "dark-mode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoMarcosSC/Zuri.git"
+  },
+  "homepage": "https://github.com/JoaoMarcosSC/Zuri#readme",
+  "bugs": {
+    "url": "https://github.com/JoaoMarcosSC/Zuri/issues"
+  },
+  "author": "JoaoMarcosSC",
   "peerDependencies": {
     "@angular/common": "^22.2.0",
     "@angular/core": "^22.2.0",
@@ -8,6 +27,9 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "exports": {
+    "./styles/*": "./styles/*"
   },
   "sideEffects": false
 }
