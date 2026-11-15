@@ -12,7 +12,7 @@ tintura verde).
 ## Instalação
 
 ```bash
-npm install zuri
+npm install @juau/zuri
 ```
 
 ## Setup
@@ -20,7 +20,7 @@ npm install zuri
 1. Importe os tokens no `styles.css` global da aplicação:
 
 ```css
-@import 'zuri/styles/tokens.css';
+@import '@juau/zuri/styles/tokens.css';
 
 /* fonte do sistema */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ZurStep } from 'zuri';
+import { ZurStep } from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
 
 @Component({
@@ -10,10 +10,10 @@ import { CodeBlock } from '../../shared/code-block/code-block';
   styleUrl: './instalacao.css',
 })
 export class Instalacao {
-  protected readonly stepInstall = `npm install zuri`;
+  protected readonly stepInstall = `npm install @juau/zuri`;
 
   protected readonly stepStyles = `/* styles.css global da sua aplicação */
-@import 'zuri/styles/tokens.css';
+@import '@juau/zuri/styles/tokens.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -38,7 +38,7 @@ body {
 
 <zur-toast-container />`;
 
-  protected readonly stepUse = `import { ZurButton } from 'zuri';
+  protected readonly stepUse = `import { ZurButton } from '@juau/zuri';
 
 @Component({
   imports: [ZurButton],

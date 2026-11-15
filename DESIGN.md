@@ -370,7 +370,7 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 ## Identidade — nome e logo
 
 - **Nome:** **Zuri** (suaíli: "bonito"). Nome inventado, curto (2 sílabas), amigável e moderno.
-  Pacote npm `zuri`; prefixo dos componentes `zur-` (`zur-button`, `zurThemeScope`,
+  Pacote npm `@juau/zuri`; prefixo dos componentes `zur-` (`zur-button`, `zurThemeScope`,
   `--zur-primary`).
 - **Logo:** **Z com broto** — um Z de traço grosso e pontas arredondadas, com uma folha no fim
   da barra superior, ao lado da wordmark `zuri` em traço contínuo; a pinta do "i" é um broto

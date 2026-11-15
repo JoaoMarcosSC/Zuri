@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ZurButton } from 'zuri';
+import { ZurButton } from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
 
 type Viewport = 'desktop' | 'tablet' | 'mobile';

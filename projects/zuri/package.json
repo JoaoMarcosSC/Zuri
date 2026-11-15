@@ -1,5 +1,5 @@
 {
-  "name": "zuri",
+  "name": "@juau/zuri",
   "version": "0.0.1",
   "description": "Design system para Angular: componentes standalone, layouts de página e tema claro/escuro.",
   "license": "MIT",
@@ -31,5 +31,8 @@
   "exports": {
     "./styles/*": "./styles/*"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -43,7 +43,7 @@ A documentação deste repositório foi feita com o próprio Zuri, então cada c
 
 ## Começando
 
-O pacote `zuri` ainda não foi publicado no npm. Por enquanto, rode direto deste repositório:
+O pacote `@juau/zuri` ainda não foi publicado no npm. Por enquanto, rode direto deste repositório:
 
 ```bash
 git clone https://github.com/JoaoMarcosSC/Zuri.git
@@ -58,12 +58,12 @@ npx ng build zuri         # compila a biblioteca para dist/zuri
 Quando o pacote for publicado, o uso será este:
 
 ```bash
-npm install zuri
+npm install @juau/zuri
 ```
 
 ```css
 /* styles.css global da aplicação */
-@import 'zuri/styles/tokens.css';
+@import '@juau/zuri/styles/tokens.css';
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
 
 body {
@@ -75,7 +75,7 @@ body {
 ```
 
 ```ts
-import { ZurButton, ZurBadge, ZurLogo } from 'zuri';
+import { ZurButton, ZurBadge, ZurLogo } from '@juau/zuri';
 ```
 
 ```html

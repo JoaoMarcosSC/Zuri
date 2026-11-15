@@ -30,7 +30,7 @@ import {
   ZurThemeToggle,
   ZurToastService,
   ZurTooltip,
-} from 'zuri';
+} from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
 
 @Component({

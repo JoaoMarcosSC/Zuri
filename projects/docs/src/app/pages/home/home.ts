@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ZurBadge, ZurButton, ZurCard, ZurLogo } from 'zuri';
+import { ZurBadge, ZurButton, ZurCard, ZurLogo } from '@juau/zuri';
 
 interface Trait {
   title: string;

@@ -12,7 +12,7 @@ import {
   ZurThemeToggle,
   ZurToastContainer,
   ZurTopbar,
-} from 'zuri';
+} from '@juau/zuri';
 
 interface ComponentLink {
   id: string;

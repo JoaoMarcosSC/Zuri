@@ -32,7 +32,7 @@ Peça confirmação antes de gerar. Se o usuário escolher outro layout, siga a 
 
 Gere o componente Angular standalone da página (`.ts` + `.html` + `.css` vazio ou mínimo):
 
-- `ChangeDetectionStrategy.OnPush`, importando só o que o template usa, de `'zuri'`;
+- `ChangeDetectionStrategy.OnPush`, importando só o que o template usa, de `'@juau/zuri'`;
 - o template com o layout escolhido, os slots corretos e comentários `<!-- … -->` onde entra
   o conteúdo real;
 - só tokens `--zur-*` no CSS (nada de cores fixas), para funcionar em tema claro e escuro;
