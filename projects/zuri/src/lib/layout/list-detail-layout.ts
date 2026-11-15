@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  model,
+} from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 
 /**
  * Lista e detalhe (master-detail): lista à esquerda (360px) e detalhe à direita.
@@ -22,13 +28,13 @@ import { ChangeDetectionStrategy, Component, model } from '@angular/core';
   template: `
     <ng-content select="zur-topbar" />
     <div class="panes">
-      <section class="list" aria-label="Lista"><ng-content select="[zurList]" /></section>
-      <section class="detail" aria-label="Detalhe">
+      <section class="list" [attr.aria-label]="i18n.list"><ng-content select="[zurList]" /></section>
+      <section class="detail" [attr.aria-label]="i18n.detail">
         <button type="button" class="back" (click)="detailOpen.set(false)">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="m15 18-6-6 6-6" />
           </svg>
-          Voltar
+          {{ i18n.back }}
         </button>
         <div class="detail-body"><ng-content select="[zurDetail]" /></div>
       </section>
@@ -116,6 +122,8 @@ import { ChangeDetectionStrategy, Component, model } from '@angular/core';
   `,
 })
 export class ZurListDetailLayout {
+  protected readonly i18n = inject(ZUR_I18N);
+
   /** Mobile: `true` mostra o detalhe; `false` mostra a lista. */
   readonly detailOpen = model(false);
 }

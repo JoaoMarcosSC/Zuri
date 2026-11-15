@@ -1,6 +1,6 @@
 {
   "name": "@juau/zuri",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Design system para Angular: componentes standalone, layouts de página e tema claro/escuro.",
   "license": "MIT",
   "keywords": [
@@ -32,6 +32,10 @@
     "./styles/*": "./styles/*"
   },
   "sideEffects": false,
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
   "publishConfig": {
     "access": "public"
   }

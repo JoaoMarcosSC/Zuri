@@ -44,6 +44,10 @@ export class Tokens {
     { token: '--zur-warning', label: 'warning' },
     { token: '--zur-error', label: 'error' },
     { token: '--zur-info', label: 'info' },
+    { token: '--zur-success-text', label: 'success-text' },
+    { token: '--zur-warning-text', label: 'warning-text' },
+    { token: '--zur-error-text', label: 'error-text' },
+    { token: '--zur-info-text', label: 'info-text' },
   ];
 
   protected readonly typeScale: TypeSample[] = [

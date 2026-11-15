@@ -12,8 +12,10 @@ tintura verde).
 ## Instalação
 
 ```bash
-npm install @juau/zuri
+ng add @juau/zuri
 ```
+
+O `ng add` instala o pacote e configura os tokens, a fonte Nunito Sans e o estilo base do `body`. Para fazer à mão, use `npm install @juau/zuri` e siga o setup abaixo.
 
 ## Setup
 
@@ -60,11 +62,13 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 |---|---|
 | Tema e marca | `ZurThemeService`, `zur-theme-toggle`, `[zurThemeScope]` (tema isolado), `zur-logo` |
 | Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar` |
-| Formulários | `zur-input`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch` (todos ControlValueAccessor) |
+| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch` (todos ControlValueAccessor) |
 | Navegação | `zur-navbar`, `zur-tabs`/`zur-tab`, `zur-menu`/`zur-menu-item`, `zur-breadcrumb`, `zur-sidenav`/`zur-sidenav-item`/`zur-sidenav-label` |
-| Conteúdo | `zur-step` |
+| Dados | `table[zur-table]` + `th[zurSortable]`, `zur-pagination` |
+| Conteúdo | `zur-step`, `zur-accordion`, `zur-empty-state` |
+| Sobreposição | `zur-drawer`, `zur-popover` + `[zurPopoverTrigger]` |
 | Layouts de página | `zur-landing-layout`, `zur-dashboard-layout`, `zur-list-detail-layout`, `zur-form-layout`, `zur-docs-layout`, `zur-auth-layout`, `zur-error-layout` + `zur-sidebar`, `zur-topbar`, `zur-page-header`, `zur-footer` — veja [`LAYOUTS.md`](../../LAYOUTS.md) |
-| Feedback | `zur-modal`, `ZurToastService` + `zur-toast-container`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton` |
+| Feedback | `zur-modal`, `ZurToastService` + `zur-toast-container`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton`, `zur-progress` |
 
 ### Exemplos
 
@@ -96,6 +100,14 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 // toasts
 private toast = inject(ZurToastService);
 this.toast.show('Reserva confirmada!', 'success');
+```
+
+## Idioma
+
+Os textos internos (rótulos de acessibilidade, "Voltar", "Fechar") vêm em português. Para inglês:
+
+```ts
+bootstrapApplication(App, { providers: [provideZuriI18n('en')] });
 ```
 
 ## Desenvolvimento

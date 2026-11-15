@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 import { ZurShellState } from './shell-state';
 
 /**
@@ -20,7 +21,7 @@ import { ZurShellState } from './shell-state';
   },
   template: `
     <div class="scrim" aria-hidden="true" (click)="shell.closeDrawer()"></div>
-    <aside class="panel" aria-label="Navegação lateral">
+    <aside class="panel" [attr.aria-label]="i18n.sideNav">
       <div class="header"><ng-content select="[zurSidebarHeader]" /></div>
       <div class="body"><ng-content /></div>
       <div class="footer"><ng-content select="[zurSidebarFooter]" /></div>
@@ -142,6 +143,8 @@ import { ZurShellState } from './shell-state';
   `,
 })
 export class ZurSidebar implements OnInit {
+  protected readonly i18n = inject(ZUR_I18N);
+
   protected readonly shell = inject(ZurShellState);
   /** Recolhida só vale fora do mobile (a gaveta sempre abre completa). */
   protected readonly collapsed = computed(

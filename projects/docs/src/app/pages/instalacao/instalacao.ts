@@ -10,7 +10,10 @@ import { CodeBlock } from '../../shared/code-block/code-block';
   styleUrl: './instalacao.css',
 })
 export class Instalacao {
-  protected readonly stepInstall = `npm install @juau/zuri`;
+  protected readonly stepInstall = `ng add @juau/zuri
+
+# ou, só instalar (e seguir os passos 2 a 4 à mão):
+npm install @juau/zuri`;
 
   protected readonly stepStyles = `/* styles.css global da sua aplicação */
 @import '@juau/zuri/styles/tokens.css';
@@ -45,4 +48,14 @@ body {
   template: \`<button zur-button variant="primary">Reservar</button>\`,
 })
 export class MinhaTela {}`;
+
+  protected readonly stepI18n = `import { provideZuriI18n } from '@juau/zuri';
+
+bootstrapApplication(App, {
+  providers: [
+    provideZuriI18n('en'), // inglês
+    // ou só algumas chaves, mantendo o resto em português:
+    // provideZuriI18n({ close: 'Fechar janela' }),
+  ],
+});`;
 }

@@ -39,7 +39,8 @@ const preview: Preview = {
     },
     backgrounds: { disable: true },
     a11y: {
-      test: 'todo',
+      // Violações de acessibilidade (axe) fazem a story falhar no teste.
+      test: 'error',
     },
   },
 };

@@ -9,6 +9,8 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /** Switch pill 44×24px — ligado = menta. */
+let nextSwitchId = 0;
+
 @Component({
   selector: 'zur-switch',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,13 +27,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       role="switch"
       class="track"
       [attr.aria-checked]="checked()"
+      [attr.aria-labelledby]="labelId"
       [disabled]="isDisabled()"
       (click)="toggle()"
       (blur)="onTouched()"
     >
       <span class="thumb" aria-hidden="true"></span>
     </button>
-    <span class="text" (click)="toggle()"><ng-content /></span>
+    <span class="text" [id]="labelId" (click)="toggle()"><ng-content /></span>
   `,
   styles: `
     :host {
@@ -87,6 +90,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   `,
 })
 export class ZurSwitch implements ControlValueAccessor {
+  /** Liga o texto projetado ao botão como nome acessível. */
+  protected readonly labelId = `zur-switch-label-${nextSwitchId++}`;
+
   readonly disabled = input(false, { transform: booleanAttribute });
 
   protected readonly checked = signal(false);

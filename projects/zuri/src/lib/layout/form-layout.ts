@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 import { ZUR_LAYOUT_WIDTH_STYLES, ZurLayoutWidth } from './layout-width';
 
 /**
@@ -24,7 +30,7 @@ import { ZUR_LAYOUT_WIDTH_STYLES, ZurLayoutWidth } from './layout-width';
     <main class="main">
       <div class="container">
         @if (steps().length) {
-          <ol class="steps" aria-label="Etapas">
+          <ol class="steps" [attr.aria-label]="i18n.steps">
             @for (label of steps(); track label; let i = $index) {
               <li
                 class="step"
@@ -136,6 +142,8 @@ import { ZUR_LAYOUT_WIDTH_STYLES, ZurLayoutWidth } from './layout-width';
   `,
 })
 export class ZurFormLayout {
+  protected readonly i18n = inject(ZUR_I18N);
+
   readonly width = input<ZurLayoutWidth>('reading');
   /** Rótulos das etapas do wizard; vazio = formulário simples. */
   readonly steps = input<string[]>([]);

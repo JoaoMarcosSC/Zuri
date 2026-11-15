@@ -8,6 +8,7 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 import { ZurShellState } from './shell-state';
 
 /**
@@ -30,7 +31,7 @@ import { ZurShellState } from './shell-state';
       <button
         type="button"
         class="menu"
-        aria-label="Alternar menu lateral"
+        [attr.aria-label]="i18n.toggleNav"
         [attr.aria-expanded]="expanded()"
         (click)="shell?.toggle()"
       >
@@ -40,7 +41,7 @@ import { ZurShellState } from './shell-state';
       </button>
     }
     <div class="slot start"><ng-content select="[zurTopbarStart]" /></div>
-    <nav class="slot links"><ng-content select="[zurTopbarLinks]" /></nav>
+    <nav class="slot links" [attr.aria-label]="i18n.topNav"><ng-content select="[zurTopbarLinks]" /></nav>
     <div class="slot actions"><ng-content select="[zurTopbarActions]" /></div>
   `,
   styles: `
@@ -119,6 +120,8 @@ import { ZurShellState } from './shell-state';
   `,
 })
 export class ZurTopbar implements OnInit {
+  protected readonly i18n = inject(ZUR_I18N);
+
   private readonly doc = inject(DOCUMENT);
   protected readonly shell = inject(ZurShellState, { optional: true });
 

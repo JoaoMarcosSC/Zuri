@@ -33,6 +33,10 @@ jobs:
       - name: Compilar a biblioteca
         run: npx ng build zuri
 
+      # Não publica a documentação se algum teste da biblioteca quebrar.
+      - name: Testes unitários
+        run: npm test
+
       # O site fica em https://<usuário>.github.io/<repositório>/
       - name: Compilar a documentação
         run: npx ng build docs --base-href "/${{ github.event.repository.name }}/"

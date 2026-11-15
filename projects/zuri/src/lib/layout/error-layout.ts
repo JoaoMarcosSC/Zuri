@@ -44,7 +44,8 @@ import { ZUR_LAYOUT_WIDTH_STYLES, ZurLayoutWidth } from './layout-width';
     .code {
       margin: 0;
       font: var(--zur-font-display-xl);
-      color: var(--zur-primary);
+      /* verde escuro no claro e menta no escuro: contraste alto nos dois temas */
+      color: var(--zur-on-primary-soft);
       letter-spacing: -1px;
     }
     .title {

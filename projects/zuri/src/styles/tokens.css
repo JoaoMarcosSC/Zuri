@@ -25,7 +25,7 @@
   /* ── Texto ─────────────────────────────────────────────── */
   --zur-ink: #15271f;
   --zur-body: #3d4f47;
-  --zur-muted: #6b7d74;
+  --zur-muted: #5f6f67;
   --zur-ink-inverse: #f3faf7;
 
   /* ── Semânticas ────────────────────────────────────────── */
@@ -37,6 +37,12 @@
   --zur-error-soft: #fde2e3;
   --zur-info: #3b82f6;
   --zur-info-soft: #dcebfe;
+  /* Texto sobre as cores semânticas (badge, alert, mensagens de erro): 4,5:1 sobre o
+     fundo soft e sobre o canvas. As cores-base acima ficam para ícones e bordas. */
+  --zur-success-text: #14794c;
+  --zur-warning-text: #a25904;
+  --zur-error-text: #c91d22;
+  --zur-info-text: #0b5ee7;
 
   /* ── Tipografia (Nunito Sans — arredondada amigável) ───── */
   --zur-font-family: 'Nunito Sans', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -134,6 +140,11 @@
   --zur-error-soft: #3d1d20;
   --zur-info: #60a5fa;
   --zur-info-soft: #16293f;
+  /* no escuro as cores-base já passam de 4,5:1 sobre os fundos */
+  --zur-success-text: #34d08c;
+  --zur-warning-text: #f59e0b;
+  --zur-error-text: #f26d71;
+  --zur-info-text: #60a5fa;
 
   /* sombra única mais pesada — sombras leves somem sobre fundo quase-preto */
   --zur-shadow-float:

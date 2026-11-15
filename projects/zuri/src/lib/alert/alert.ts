@@ -49,19 +49,19 @@ export type ZurAlertKind = 'success' | 'warning' | 'error' | 'info';
     }
     :host([data-kind='success']) {
       background: var(--zur-success-soft);
-      color: var(--zur-success);
+      color: var(--zur-success-text);
     }
     :host([data-kind='warning']) {
       background: var(--zur-warning-soft);
-      color: var(--zur-warning);
+      color: var(--zur-warning-text);
     }
     :host([data-kind='error']) {
       background: var(--zur-error-soft);
-      color: var(--zur-error);
+      color: var(--zur-error-text);
     }
     :host([data-kind='info']) {
       background: var(--zur-info-soft);
-      color: var(--zur-info);
+      color: var(--zur-info-text);
     }
   `,
 })

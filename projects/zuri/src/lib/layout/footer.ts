@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 
 /** Rodapé simples: conteúdo à esquerda (ex.: copyright), `[zurFooterLinks]` à direita. */
 @Component({
@@ -7,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   host: { role: 'contentinfo' },
   template: `
     <div class="left"><ng-content /></div>
-    <nav class="links"><ng-content select="[zurFooterLinks]" /></nav>
+    <nav class="links" [attr.aria-label]="i18n.footerNav"><ng-content select="[zurFooterLinks]" /></nav>
   `,
   styles: `
     :host {
@@ -30,4 +31,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     }
   `,
 })
-export class ZurFooter {}
+export class ZurFooter {
+  protected readonly i18n = inject(ZUR_I18N);
+}

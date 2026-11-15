@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 
 export interface ZurBreadcrumbItem {
   label: string;
@@ -10,7 +16,7 @@ export interface ZurBreadcrumbItem {
   selector: 'zur-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nav aria-label="breadcrumb">
+    <nav [attr.aria-label]="i18n.breadcrumb">
       <ol class="list">
         @for (item of items(); track item.label; let last = $last) {
           <li class="item">
@@ -62,5 +68,7 @@ export interface ZurBreadcrumbItem {
   `,
 })
 export class ZurBreadcrumb {
+  protected readonly i18n = inject(ZUR_I18N);
+
   readonly items = input<ZurBreadcrumbItem[]>([]);
 }

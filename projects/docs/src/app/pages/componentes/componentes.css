@@ -135,3 +135,40 @@ h1 {
   border-radius: var(--zur-radius-md);
   background: var(--zur-canvas);
 }
+
+.demo-block {
+  display: block;
+}
+
+.demo-note {
+  font: var(--zur-font-caption);
+  color: var(--zur-muted);
+}
+
+.demo-progress {
+  align-items: stretch;
+}
+
+.demo-progress button {
+  align-self: flex-start;
+}
+
+.drawer-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zur-space-md);
+}
+
+.popover-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zur-space-lg);
+  color: var(--zur-ink);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--zur-space-sm);
+}

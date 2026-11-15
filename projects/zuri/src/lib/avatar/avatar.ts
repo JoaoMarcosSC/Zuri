@@ -38,9 +38,6 @@ export type ZurAvatarSize = 'sm' | 'md' | 'lg';
       height: 100%;
       object-fit: cover;
     }
-    :host-context([data-theme='dark']) {
-      color: var(--zur-primary);
-    }
   `,
 })
 export class ZurAvatar {

@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  ZurAccordion,
+  ZurAccordionItem,
   ZurAlert,
   ZurAvatar,
   ZurBadge,
@@ -8,24 +10,34 @@ import {
   ZurButton,
   ZurCard,
   ZurCheckbox,
+  ZurDrawer,
+  ZurEmptyState,
   ZurInput,
   ZurLogo,
   ZurMenu,
   ZurMenuItem,
   ZurModal,
   ZurNavbar,
+  ZurPagination,
+  ZurPopover,
+  ZurPopoverTrigger,
+  ZurProgress,
   ZurRadio,
   ZurSelect,
   ZurSelectOption,
   ZurSidenav,
   ZurSidenavItem,
   ZurSidenavLabel,
-  ZurStep,
   ZurSkeleton,
+  ZurSort,
+  ZurSortable,
   ZurSpinner,
+  ZurStep,
   ZurSwitch,
   ZurTab,
+  ZurTable,
   ZurTabs,
+  ZurTextarea,
   ZurThemeScope,
   ZurThemeToggle,
   ZurToastService,
@@ -66,6 +78,17 @@ import { CodeBlock } from '../../shared/code-block/code-block';
     ZurAlert,
     ZurSpinner,
     ZurSkeleton,
+    ZurAccordion,
+    ZurAccordionItem,
+    ZurDrawer,
+    ZurEmptyState,
+    ZurPagination,
+    ZurPopover,
+    ZurPopoverTrigger,
+    ZurProgress,
+    ZurSortable,
+    ZurTable,
+    ZurTextarea,
   ],
   templateUrl: './componentes.html',
   styleUrl: './componentes.css',
@@ -238,4 +261,94 @@ this.toast.show('Link copiado.'); // neutro
 
 <zur-skeleton width="40px" height="40px" [circle]="true" />
 <zur-skeleton height="14px" width="60%" />`;
+
+  // ── demos novas ──────────────────────────────────────────
+  protected readonly mensagem = signal('');
+  protected readonly pagina = signal(1);
+  protected readonly progresso = signal(40);
+  protected readonly drawerOpen = signal(false);
+  protected readonly hospedes = signal(2);
+
+  private readonly reservas = [
+    { nome: 'Ana Silva', local: 'Chalé na serra', noites: 3 },
+    { nome: 'João Marcos', local: 'Casa na praia', noites: 7 },
+    { nome: 'Maria Costa', local: 'Cabana no lago', noites: 2 },
+    { nome: 'Pedro Alves', local: 'Chalé na serra', noites: 5 },
+  ];
+  private readonly ordem = signal<ZurSort | null>(null);
+  protected readonly reservasOrdenadas = computed(() => {
+    const o = this.ordem();
+    if (!o) return this.reservas;
+    const key = o.key as keyof (typeof this.reservas)[number];
+    const dir = o.direction === 'asc' ? 1 : -1;
+    return [...this.reservas].sort((a, b) => (a[key] > b[key] ? dir : a[key] < b[key] ? -dir : 0));
+  });
+
+  protected ordenar(sort: ZurSort): void {
+    this.ordem.set(sort);
+  }
+
+  protected avancarProgresso(): void {
+    this.progresso.update((v) => (v >= 100 ? 0 : v + 20));
+  }
+
+  protected max1(n: number): number {
+    return Math.max(1, n);
+  }
+
+  protected readonly codeTextarea = `<zur-textarea
+  label="Mensagem para o anfitrião"
+  [maxlength]="200"
+  [(ngModel)]="mensagem"
+/>`;
+
+  protected readonly codeTable = `<table zur-table (sortChange)="ordenar($event)">
+  <thead>
+    <tr>
+      <th zurSortable="nome">Hóspede</th>
+      <th zurSortable="local">Local</th>
+      <th zurSortable="noites">Noites</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (r of reservasOrdenadas(); track r.nome) {
+      <tr><td>{{ r.nome }}</td><td>{{ r.local }}</td><td>{{ r.noites }}</td></tr>
+    }
+  </tbody>
+</table>`;
+
+  protected readonly codePagination = `<zur-pagination [total]="248" [pageSize]="20" [(page)]="pagina" />`;
+
+  protected readonly codeAccordion = `<zur-accordion>
+  <zur-accordion-item title="Como funciona o check-in?" [open]="true">…</zur-accordion-item>
+  <zur-accordion-item title="Posso cancelar a reserva?">…</zur-accordion-item>
+</zur-accordion>
+
+<!-- várias abertas ao mesmo tempo -->
+<zur-accordion multi>…</zur-accordion>`;
+
+  protected readonly codeEmptyState = `<zur-empty-state
+  title="Nenhuma reserva ainda"
+  description="Quando você reservar uma hospedagem, ela aparece aqui."
+>
+  <svg zurEmptyIcon …></svg>
+  <button zur-button variant="primary" size="sm">Explorar hospedagens</button>
+</zur-empty-state>`;
+
+  protected readonly codeProgress = `<zur-progress [value]="40" label="Enviando fotos" />
+<zur-progress size="sm" />  <!-- sem value: indeterminada -->`;
+
+  protected readonly codeDrawer = `<button zur-button (click)="filtros = true">Abrir filtros</button>
+
+<zur-drawer [(open)]="filtros" title="Filtros">
+  …campos…
+  <div zurDrawerActions>
+    <button zur-button variant="primary">Aplicar</button>
+  </div>
+</zur-drawer>`;
+
+  protected readonly codePopover = `<zur-popover label="Hóspedes">
+  <button zur-button variant="secondary" zurPopoverTrigger>Hóspedes</button>
+  …conteúdo…
+</zur-popover>`;
 }

@@ -30,27 +30,23 @@ export type ZurBadgeColor =
     }
     :host([data-color='success']) {
       background: var(--zur-success-soft);
-      color: var(--zur-success);
+      color: var(--zur-success-text);
     }
     :host([data-color='warning']) {
       background: var(--zur-warning-soft);
-      color: var(--zur-warning);
+      color: var(--zur-warning-text);
     }
     :host([data-color='error']) {
       background: var(--zur-error-soft);
-      color: var(--zur-error);
+      color: var(--zur-error-text);
     }
     :host([data-color='info']) {
       background: var(--zur-info-soft);
-      color: var(--zur-info);
+      color: var(--zur-info-text);
     }
     :host([data-color='neutral']) {
       background: var(--zur-surface-strong);
       color: var(--zur-body);
-    }
-
-    :host-context([data-theme='dark'])[data-color='mint'] {
-      color: var(--zur-primary);
     }
   `,
 })

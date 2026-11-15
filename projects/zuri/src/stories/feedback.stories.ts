@@ -8,6 +8,7 @@ import { ZurTooltip } from '../lib/tooltip/tooltip';
 import { ZurAlert } from '../lib/alert/alert';
 import { ZurSpinner } from '../lib/spinner/spinner';
 import { ZurSkeleton } from '../lib/skeleton/skeleton';
+import { ZurProgress } from '../lib/progress/progress';
 import { ZurButton } from '../lib/button/button';
 
 @Component({
@@ -42,6 +43,7 @@ const meta: Meta = {
         ZurAlert,
         ZurSpinner,
         ZurSkeleton,
+        ZurProgress,
         ZurButton,
         DemoToasts,
       ],
@@ -116,6 +118,18 @@ export const Carregamento: Story = {
           </div>
         </div>
         <zur-skeleton height="120px" />
+      </div>
+    `,
+  }),
+};
+
+export const Progresso: Story = {
+  render: () => ({
+    template: `
+      <div style="display:grid; gap:20px; max-width:420px; padding:24px;">
+        <zur-progress [value]="25" label="Enviando fotos" />
+        <zur-progress [value]="70" size="sm" label="Sincronizando" />
+        <zur-progress label="Carregando" />
       </div>
     `,
   }),

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 import { ZurThemeService } from './theme.service';
 
 /**
@@ -55,10 +56,12 @@ import { ZurThemeService } from './theme.service';
   `,
 })
 export class ZurThemeToggle {
+  protected readonly i18n = inject(ZUR_I18N);
+
   protected readonly themeService = inject(ZurThemeService);
 
   protected readonly isDark = computed(() => this.themeService.theme() === 'dark');
   protected readonly label = computed(() =>
-    this.isDark() ? 'Ativar tema claro' : 'Ativar tema escuro',
+    this.isDark() ? this.i18n.themeToLight : this.i18n.themeToDark,
   );
 }

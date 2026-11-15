@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 import { ZurToastService } from './toast.service';
 
 /**
@@ -16,7 +17,7 @@ import { ZurToastService } from './toast.service';
           <button
             type="button"
             class="x"
-            aria-label="Fechar"
+            [attr.aria-label]="i18n.close"
             (click)="service.dismiss(toast.id)"
           >
             ✕
@@ -82,5 +83,7 @@ import { ZurToastService } from './toast.service';
   `,
 })
 export class ZurToastContainer {
+  protected readonly i18n = inject(ZUR_I18N);
+
   protected readonly service = inject(ZurToastService);
 }

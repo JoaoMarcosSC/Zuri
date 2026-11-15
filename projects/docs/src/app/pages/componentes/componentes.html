@@ -167,6 +167,21 @@
 </section>
 
 <!-- ───────── Navegação ───────── -->
+<section id="textarea" class="component">
+  <h2>Textarea</h2>
+  <p>Mesmo visual do input. Com <code>maxlength</code>, mostra um contador.</p>
+  <div class="demo demo-form">
+    <zur-textarea
+      label="Mensagem para o anfitrião"
+      placeholder="Conte um pouco sobre a viagem"
+      [maxlength]="200"
+      [ngModel]="mensagem()"
+      (ngModelChange)="mensagem.set($event)"
+    />
+  </div>
+  <docs-code-block [code]="codeTextarea" />
+</section>
+
 <p class="section-label">Navegação</p>
 
 <section id="navbar" class="component">
@@ -245,6 +260,47 @@
   <docs-code-block [code]="codeSidenav" />
 </section>
 
+<p class="section-label">Dados</p>
+
+<section id="table" class="component">
+  <h2>Table</h2>
+  <p>
+    Estilo para <code>&lt;table&gt;</code> nativa. Marque colunas com <code>zurSortable</code>
+    e ordene os dados no <code>sortChange</code>.
+  </p>
+  <div class="demo demo-block">
+    <table zur-table (sortChange)="ordenar($event)">
+      <thead>
+        <tr>
+          <th zurSortable="nome">Hóspede</th>
+          <th zurSortable="local">Local</th>
+          <th zurSortable="noites">Noites</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of reservasOrdenadas(); track r.nome) {
+          <tr>
+            <td>{{ r.nome }}</td>
+            <td>{{ r.local }}</td>
+            <td>{{ r.noites }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <docs-code-block [code]="codeTable" />
+</section>
+
+<section id="pagination" class="component">
+  <h2>Pagination</h2>
+  <p>Anterior, próxima e números com reticências. <code>page</code> começa em 1.</p>
+  <div class="demo demo-column">
+    <zur-pagination [total]="248" [pageSize]="20" [(page)]="pagina" />
+    <span class="demo-note">Página {{ pagina() }} de 13</span>
+  </div>
+  <docs-code-block [code]="codePagination" />
+</section>
+
 <p class="section-label">Conteúdo</p>
 
 <section id="step" class="component">
@@ -259,6 +315,43 @@
     </zur-step>
   </div>
   <docs-code-block [code]="codeStep" />
+</section>
+
+<section id="accordion" class="component">
+  <h2>Accordion</h2>
+  <p>
+    Uma seção aberta por vez (ou várias, com <code>multi</code>). Setas, Home e End movem o
+    foco entre os títulos.
+  </p>
+  <div class="demo demo-block">
+    <zur-accordion>
+      <zur-accordion-item title="Como funciona o check-in?" [open]="true">
+        A partir das 14h, com o código enviado por e-mail no dia da chegada.
+      </zur-accordion-item>
+      <zur-accordion-item title="Posso cancelar a reserva?">
+        Sim, sem custo até 48 horas antes do check-in.
+      </zur-accordion-item>
+      <zur-accordion-item title="Aceita animais?">
+        Depende da hospedagem. O filtro "Aceita pets" mostra só as que aceitam.
+      </zur-accordion-item>
+    </zur-accordion>
+  </div>
+  <docs-code-block [code]="codeAccordion" />
+</section>
+
+<section id="empty-state" class="component">
+  <h2>Empty state</h2>
+  <p>Para listas vazias e buscas sem resultado: ícone, título, descrição e uma ação.</p>
+  <div class="demo demo-block">
+    <zur-empty-state
+      title="Nenhuma reserva ainda"
+      description="Quando você reservar uma hospedagem, ela aparece aqui."
+    >
+      <svg zurEmptyIcon viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /></svg>
+      <button zur-button variant="primary" size="sm">Explorar hospedagens</button>
+    </zur-empty-state>
+  </div>
+  <docs-code-block [code]="codeEmptyState" />
 </section>
 
 <p class="section-label">Feedback</p>
@@ -331,4 +424,62 @@
     </div>
   </div>
   <docs-code-block [code]="codeSpinner" />
+</section>
+
+<section id="progress" class="component">
+  <h2>Progress</h2>
+  <p>Barra linear determinada (com <code>value</code>) ou indeterminada (sem valor).</p>
+  <div class="demo demo-column demo-progress">
+    <zur-progress [value]="progresso()" label="Enviando fotos" />
+    <zur-progress size="sm" label="Carregando" />
+    <button zur-button variant="secondary" size="sm" (click)="avancarProgresso()">Avançar 20%</button>
+  </div>
+  <docs-code-block [code]="codeProgress" />
+</section>
+
+<p class="section-label">Sobreposição</p>
+
+<section id="drawer" class="component">
+  <h2>Drawer</h2>
+  <p>
+    Painel lateral sobre a página. Fecha com ESC, clique no fundo ou no ×; o foco fica preso
+    dentro dele e volta para o botão ao fechar.
+  </p>
+  <div class="demo">
+    <button zur-button variant="primary" (click)="drawerOpen.set(true)">Abrir filtros</button>
+    <zur-drawer [(open)]="drawerOpen" title="Filtros">
+      <div class="drawer-fields">
+        <zur-input label="Destino" placeholder="Serra, praia…" />
+        <zur-checkbox>Aceita pets</zur-checkbox>
+        <zur-switch>Só com cancelamento grátis</zur-switch>
+      </div>
+      <div zurDrawerActions>
+        <button zur-button variant="ghost" (click)="drawerOpen.set(false)">Limpar</button>
+        <button zur-button variant="primary" (click)="drawerOpen.set(false)">Aplicar</button>
+      </div>
+    </zur-drawer>
+  </div>
+  <docs-code-block [code]="codeDrawer" />
+</section>
+
+<section id="popover" class="component">
+  <h2>Popover</h2>
+  <p>
+    Conteúdo flutuante ancorado a um botão. Fecha com ESC ou clique fora e devolve o foco
+    ao gatilho.
+  </p>
+  <div class="demo">
+    <zur-popover label="Hóspedes">
+      <button zur-button variant="secondary" zurPopoverTrigger>Hóspedes: {{ hospedes() }}</button>
+      <div class="popover-body">
+        <span>Adultos</span>
+        <div class="stepper">
+          <button zur-button variant="secondary" size="sm" (click)="hospedes.set(max1(hospedes() - 1))" aria-label="Menos um adulto">−</button>
+          <strong>{{ hospedes() }}</strong>
+          <button zur-button variant="secondary" size="sm" (click)="hospedes.set(hospedes() + 1)" aria-label="Mais um adulto">+</button>
+        </div>
+      </div>
+    </zur-popover>
+  </div>
+  <docs-code-block [code]="codePopover" />
 </section>

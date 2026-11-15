@@ -1,0 +1,55 @@
+name: Publicar no npm
+
+# Publica @juau/zuri no npm quando uma Release é publicada no GitHub.
+# A tag da Release precisa ser v<versão>, igual à versão de projects/zuri/package.json
+# (ex.: v0.1.0).
+#
+# Usa o Trusted Publishing do npm (OIDC): não há token nem secret. O publicador está
+# cadastrado em https://www.npmjs.com/package/@juau/zuri/access (repositório
+# JoaoMarcosSC/Zuri, workflow release.yml). O GitHub prova a identidade do workflow
+# e o npm aceita a publicação, já com provenance.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # provenance: o npm mostra de qual commit e workflow o pacote veio
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - name: Conferir se a tag bate com a versão do pacote
+        run: |
+          VERSION=$(node -p "require('./projects/zuri/package.json').version")
+          TAG="${{ github.event.release.tag_name }}"
+          echo "versão do pacote: $VERSION | tag da release: $TAG"
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "::error::A tag $TAG não bate com a versão v$VERSION de projects/zuri/package.json."
+            exit 1
+          fi
+
+      - name: Testes unitários
+        run: npm test
+
+      - name: Compilar a biblioteca (com o schematic do ng add)
+        run: npm run build:lib
+
+      # O Trusted Publishing exige npm 11.5.1 ou mais novo; o npm que vem com o Node 22 é mais antigo.
+      - name: Atualizar o npm
+        run: npm install -g npm@latest
+
+      - name: Publicar
+        working-directory: dist/zuri
+        run: npm publish --provenance --access public

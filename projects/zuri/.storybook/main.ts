@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/angular-vite';
 
 const config: StorybookConfig = {
@@ -12,6 +13,13 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-onboarding"
   ],
-  "framework": "@storybook/angular-vite"
+  "framework": {
+    "name": "@storybook/angular-vite",
+    "options": {
+      // Caminho absoluto: o plugin do Angular resolveria "./.storybook/tsconfig.json" a partir
+      // da pasta em que o comando roda, o que falha nos testes (vitest roda da raiz).
+      "tsconfig": fileURLToPath(new URL('./tsconfig.json', import.meta.url))
+    }
+  }
 };
 export default config;

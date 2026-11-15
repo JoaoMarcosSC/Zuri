@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ZuriNgAdd",
+  "title": "Zuri ng-add",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Projeto que vai receber o Zuri. Padrão: a primeira aplicação do workspace.",
+      "$default": { "$source": "projectName" }
+    }
+  }
+}

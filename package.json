@@ -7,9 +7,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build zuri --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test zuri --watch=false",
     "storybook": "ng run zuri:storybook",
-    "build-storybook": "ng run zuri:build-storybook"
+    "build-storybook": "ng run zuri:build-storybook",
+    "test:stories": "vitest --project storybook --run",
+    "build:lib": "ng build zuri && tsc -p projects/zuri/tsconfig.schematics.json"
   },
   "private": true,
   "packageManager": "npm@10.9.8",

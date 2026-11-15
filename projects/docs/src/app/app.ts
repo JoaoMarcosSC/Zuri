@@ -87,6 +87,7 @@ export class App {
         { id: 'checkbox', label: 'Checkbox' },
         { id: 'radio', label: 'Radio' },
         { id: 'switch', label: 'Switch' },
+        { id: 'textarea', label: 'Textarea' },
       ],
     },
     {
@@ -100,8 +101,19 @@ export class App {
       ],
     },
     {
+      label: 'Dados',
+      items: [
+        { id: 'table', label: 'Table' },
+        { id: 'pagination', label: 'Pagination' },
+      ],
+    },
+    {
       label: 'Conteúdo',
-      items: [{ id: 'step', label: 'Step' }],
+      items: [
+        { id: 'step', label: 'Step' },
+        { id: 'accordion', label: 'Accordion' },
+        { id: 'empty-state', label: 'Empty state' },
+      ],
     },
     {
       label: 'Feedback',
@@ -111,6 +123,14 @@ export class App {
         { id: 'tooltip', label: 'Tooltip' },
         { id: 'alert', label: 'Alert' },
         { id: 'spinner', label: 'Spinner & Skeleton' },
+        { id: 'progress', label: 'Progress' },
+      ],
+    },
+    {
+      label: 'Sobreposição',
+      items: [
+        { id: 'drawer', label: 'Drawer' },
+        { id: 'popover', label: 'Popover' },
       ],
     },
   ];

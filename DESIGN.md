@@ -17,7 +17,7 @@ colors:
   surface-strong: "#e7f4ee"
   ink: "#15271f"
   body: "#3d4f47"
-  muted: "#6b7d74"
+  muted: "#5f6f67"
   hairline: "#dde8e2"
   hairline-soft: "#ebf2ee"
   # ── Tema escuro (quase-preto, filosofia Spotify, identidade Zuri) ──
@@ -35,6 +35,11 @@ colors:
   warning: "#d97706"
   error: "#e5484d"
   info: "#3b82f6"
+  # texto sobre as semânticas (4,5:1 sobre soft e canvas no claro)
+  success-text: "#14794c"
+  warning-text: "#a25904"
+  error-text: "#c91d22"
+  info-text: "#0b5ee7"
   scrim: "#000000"
 
 typography:
@@ -256,11 +261,15 @@ como padrão inicial.
   só nos acentos, inspirado na abordagem acromática do Spotify.
 - **Body** (#3d4f47) / **Dark Body** (#c3cac7): texto corrido secundário, também neutralizado
   no escuro.
-- **Muted** (#6b7d74) / **Dark Muted** (#8c968f): legendas, placeholders, disabled.
+- **Muted** (#5f6f67) / **Dark Muted** (#8c968f): legendas, placeholders, disabled. Escurecido de #6b7d74 para passar de 4,5:1 sobre canvas e superfícies.
 
 ### Semânticas
 - **Success** (#1a9e63) · **Warning** (#d97706) · **Error** (#e5484d) · **Info** (#3b82f6).
   Cada uma tem variante `-soft` gerada por mistura com o canvas para fundos de alerta.
+- **Texto semântico** (`--zur-*-text`): para texto em cima das cores semânticas (badge, alert,
+  mensagem de erro do input). No claro são versões mais escuras (Success #14794c · Warning
+  #a25904 · Error #c91d22 · Info #0b5ee7), que passam de 4,5:1 sobre o fundo `-soft` e sobre o
+  canvas; no escuro valem o mesmo que a cor-base. As cores-base ficam para ícones e bordas.
 
 ## Tipografia
 
@@ -343,6 +352,7 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 - **`zur-select`** — mesmo chrome do input com dropdown no tier de sombra único.
 - **`zur-checkbox`** / **`zur-radio`** — 20px, marcados em menta com check em tinta.
 - **`zur-switch`** — trilho pill 44×24px; ligado = menta.
+- **`zur-textarea`** — mesmo chrome do input, `resize: vertical`; contador opcional com `maxlength`.
 
 ### Navegação
 - **`zur-navbar`** — 80px, canvas + hairline inferior; slots para logo, links e ações;
@@ -354,8 +364,17 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   ativo em verde sólido (`primary` + `on-primary`), ícone opcional (`[zurSidenavIcon]`) que
   permanece quando a sidebar recolhe.
 
+### Dados
+- **`table[zur-table]`** — estilo para tabela nativa: cabeçalho em caption, hairline nas linhas,
+  hover em surface-soft, densidade `comfortable`/`compact`; colunas ordenáveis com
+  `th[zurSortable]` (`aria-sort` + `sortChange`).
+- **`zur-pagination`** — anterior/próxima, números com reticências, página atual em menta sólido.
+
 ### Conteúdo
 - **`zur-logo`** — logo do Zuri (horizontal, símbolo ou auto); segue o tema por CSS variables.
+- **`zur-accordion`** — seções expansíveis com hairline, uma aberta por vez (ou `multi`);
+  setas/Home/End movem o foco.
+- **`zur-empty-state`** — ícone em círculo menta-soft, título, descrição e ações, centralizados.
 - **`zur-step`** — passo numerado: círculo menta sólido 28px com número em tinta + título
   `{typography.headline}`; conteúdo projetado abaixo.
 
@@ -366,6 +385,13 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 - **`zur-tooltip`** — directive; bolha ink 8px, caption invertida.
 - **`zur-alert`** — bandas soft das cores semânticas com ícone e `{rounded.md}`.
 - **`zur-spinner`** — anel menta 20/32/48px · **`zur-skeleton`** — pulso em surface-strong.
+- **`zur-progress`** — barra 8px (ou 4px) em pill, preenchimento menta; indeterminada sem `value`.
+
+### Sobreposição
+- **`zur-drawer`** — painel lateral 400px em surface-raised com sombra única, scrim 50%; ESC,
+  clique no fundo e foco preso, devolvido ao gatilho ao fechar.
+- **`zur-popover`** — painel flutuante `{rounded.md}` ancorado ao `[zurPopoverTrigger]`; fecha com
+  ESC ou clique fora.
 
 ## Identidade — nome e logo
 
@@ -445,3 +471,7 @@ e `zur-footer`. Breadcrumb, page-header e rodapé são slots **opcionais**.
   sem o halo duplo do claro — inspirado na sobriedade do foco no Spotify.
 - O toggle sol/lua expõe `aria-label` dinâmico ("Ativar tema escuro"/"Ativar tema claro")
   e `aria-pressed`.
+- Textos internos dos componentes (`aria-label` do fechar, "Voltar", rótulos de regiões) vêm
+  do token `ZUR_I18N`: português por padrão, inglês com `provideZuriI18n('en')`.
+- Cada story do Storybook roda como teste com o axe (`npm run test:stories`); violação de
+  acessibilidade quebra o CI.

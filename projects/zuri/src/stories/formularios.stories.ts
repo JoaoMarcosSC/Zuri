@@ -6,12 +6,13 @@ import { ZurSelect } from '../lib/select/select';
 import { ZurCheckbox } from '../lib/checkbox/checkbox';
 import { ZurRadio } from '../lib/radio/radio';
 import { ZurSwitch } from '../lib/switch/switch';
+import { ZurTextarea } from '../lib/textarea/textarea';
 
 const meta: Meta = {
   title: 'Formulários/Controles',
   decorators: [
     moduleMetadata({
-      imports: [FormsModule, ZurInput, ZurSelect, ZurCheckbox, ZurRadio, ZurSwitch],
+      imports: [FormsModule, ZurInput, ZurSelect, ZurCheckbox, ZurRadio, ZurSwitch, ZurTextarea],
     }),
   ],
 };
@@ -64,6 +65,19 @@ export const CheckboxRadioSwitch: Story = {
           <zur-radio name="plano" value="anual" [(ngModel)]="plano">Plano anual (2 meses grátis)</zur-radio>
         </div>
         <zur-switch [(ngModel)]="notificacoes">Receber notificações</zur-switch>
+      </div>
+    `,
+  }),
+};
+
+export const Textarea: Story = {
+  render: () => ({
+    props: { mensagem: '' },
+    template: `
+      <div style="display:grid; gap:24px; max-width:420px;">
+        <zur-textarea label="Mensagem" placeholder="Conte um pouco sobre a viagem" [maxlength]="200" [(ngModel)]="mensagem" />
+        <zur-textarea label="Observações" hint="Opcional." [rows]="3" />
+        <zur-textarea label="Com erro" error="Escreva pelo menos 10 caracteres." />
       </div>
     `,
   }),

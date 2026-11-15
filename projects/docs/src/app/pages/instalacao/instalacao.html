@@ -1,10 +1,13 @@
 <h1>Instalação</h1>
 <p class="lead">
-  Quatro passos para ter o Zuri rodando na sua aplicação Angular.
+  Quatro passos para ter o Zuri rodando na sua aplicação Angular, mais um opcional para mudar o idioma.
 </p>
 
 <zur-step number="1" title="Instale o pacote">
-  <p>O pacote publica a library compilada (ng-packagr) com os tokens como asset.</p>
+  <p>
+    O <code>ng add</code> instala o pacote e já faz o passo 2 por você: importa os tokens, aplica
+    o estilo base do <code>body</code> e adiciona a fonte Nunito Sans no <code>index.html</code>.
+  </p>
   <docs-code-block [code]="stepInstall" />
 </zur-step>
 
@@ -27,4 +30,13 @@
 <zur-step number="4" title="Use os componentes">
   <p>Importe cada componente standalone diretamente onde for usá-lo.</p>
   <docs-code-block [code]="stepUse" />
+</zur-step>
+
+<zur-step number="5" title="Idioma (opcional)">
+  <p>
+    Os textos internos dos componentes, como o <code>aria-label</code> do botão de fechar e
+    o "Voltar" da lista e detalhe, vêm em português. Para inglês, ou para trocar só alguns,
+    use <code>provideZuriI18n</code> nos providers da aplicação.
+  </p>
+  <docs-code-block [code]="stepI18n" />
 </zur-step>

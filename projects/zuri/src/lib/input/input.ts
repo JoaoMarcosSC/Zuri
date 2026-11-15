@@ -94,7 +94,7 @@ let nextId = 0;
       color: var(--zur-muted);
     }
     .help.error {
-      color: var(--zur-error);
+      color: var(--zur-error-text);
     }
   `,
 })

@@ -1,0 +1,39 @@
+name: CI
+
+# Roda em todo push e pull request: compila a biblioteca, roda os testes unitários,
+# testa todas as stories (incluindo acessibilidade com axe) e compila docs e Storybook.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Compilar a biblioteca (com o schematic do ng add)
+        run: npm run build:lib
+
+      - name: Testes unitários
+        run: npm test
+
+      - name: Instalar o Chromium para os testes das stories
+        run: npx playwright install --with-deps chromium
+
+      - name: Testes das stories (interação e acessibilidade)
+        run: npm run test:stories
+
+      - name: Compilar a documentação
+        run: npx ng build docs
+
+      - name: Compilar o Storybook
+        run: npm run build-storybook

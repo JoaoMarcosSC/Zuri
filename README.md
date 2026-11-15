@@ -48,13 +48,13 @@ Tudo abaixo está rodando na [documentação online](https://joaomarcossc.github
 
 ## Começando
 
-Instale o pacote:
+O jeito mais rápido é o `ng add`, que instala o pacote e já configura os tokens, a fonte e o estilo base do `body`:
 
 ```bash
-npm install @juau/zuri
+ng add @juau/zuri
 ```
 
-Importe os tokens e a fonte no `styles.css` global da aplicação:
+Se preferir fazer à mão, instale com `npm install @juau/zuri` e importe os tokens e a fonte no `styles.css` global da aplicação:
 
 ```css
 /* styles.css global da aplicação */
@@ -79,6 +79,9 @@ import { ZurButton, ZurBadge, ZurLogo } from '@juau/zuri';
 <button zur-button variant="primary" size="lg">Reservar agora</button>
 ```
 
+Os textos internos dos componentes (rótulos de acessibilidade, "Voltar", "Fechar") vêm em português. Para inglês, use `provideZuriI18n('en')` nos providers da aplicação, ou passe só as chaves que quiser trocar.
+
+
 ## Rodando este repositório
 
 Para ver a documentação e o Storybook localmente, ou para mexer na biblioteca:
@@ -99,10 +102,12 @@ npx ng build zuri         # compila a biblioteca para dist/zuri
 |---|---|
 | Tema e marca | `ZurThemeService`, `zur-theme-toggle`, `[zurThemeScope]`, `zur-logo` |
 | Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar` |
-| Formulários | `zur-input`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch` |
+| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch` |
 | Navegação | `zur-navbar`, `zur-tabs`, `zur-menu`, `zur-breadcrumb`, `zur-sidenav` |
-| Conteúdo | `zur-step` |
-| Feedback | `zur-modal`, `ZurToastService`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton` |
+| Dados | `table[zur-table]` com `th[zurSortable]`, `zur-pagination` |
+| Conteúdo | `zur-step`, `zur-accordion`, `zur-empty-state` |
+| Feedback | `zur-modal`, `ZurToastService`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton`, `zur-progress` |
+| Sobreposição | `zur-drawer`, `zur-popover` com `[zurPopoverTrigger]` |
 
 ## Layouts de página
 
@@ -172,12 +177,34 @@ npx ng build zuri
 npx ng build docs --base-href /Zuri/
 ```
 
+## Testes
+
+Cada componente tem testes unitários ao lado do código (`*.spec.ts`), rodados com `npm test`. Além disso, toda story do Storybook roda como teste num navegador, com a checagem de acessibilidade do axe ligada: uma violação (contraste, botão sem nome, rótulo faltando) faz o teste falhar.
+
+```bash
+npm test               # testes unitários da biblioteca
+npm run test:stories   # stories + acessibilidade (precisa do Chromium do Playwright)
+```
+
+O workflow [`ci.yml`](.github/workflows/ci.yml) roda tudo isso em cada push e pull request, e a documentação só é publicada se os testes passarem.
+
+## Publicando uma versão
+
+1. Atualize a versão em `projects/zuri/package.json` e registre as mudanças no [CHANGELOG](CHANGELOG.md).
+2. Faça o commit e o push.
+3. Crie uma Release no GitHub com a tag `v` + versão (ex.: `v0.1.0`).
+
+O workflow [`release.yml`](.github/workflows/release.yml) confere se a tag bate com a versão, roda os testes, compila e publica no npm com provenance. A publicação usa o Trusted Publishing do npm (OIDC), então não há token nem secret no repositório: o GitHub prova a identidade do workflow, e o npm aceita porque o repositório e o arquivo `release.yml` estão cadastrados como publicador em `npmjs.com/package/@juau/zuri/access`.
+
 ## Scripts
 
 | Comando | O que faz |
 |---|---|
 | `npm start` | Sobe a documentação em modo de desenvolvimento |
 | `npx ng build zuri` | Compila a biblioteca para `dist/zuri` |
+| `npm run build:lib` | Compila a biblioteca e o schematic do `ng add` (é o que vai para o npm) |
+| `npm test` | Testes unitários |
+| `npm run test:stories` | Testa as stories, incluindo acessibilidade |
 | `npx ng build docs` | Compila a documentação para `dist/docs` |
 | `npm run storybook` | Abre o Storybook |
 | `npm run build-storybook` | Gera o Storybook estático |

@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   input,
   model,
 } from '@angular/core';
+import { ZUR_I18N } from '../i18n/i18n';
 
 /**
  * Modal — superfície 20px com padding 32px sobre scrim 50%.
@@ -34,7 +36,7 @@ import {
             <button
               type="button"
               class="x"
-              aria-label="Fechar"
+              [attr.aria-label]="i18n.close"
               (click)="close()"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -117,6 +119,8 @@ import {
   `,
 })
 export class ZurModal {
+  protected readonly i18n = inject(ZUR_I18N);
+
   readonly open = model(false);
   readonly title = input('');
 
