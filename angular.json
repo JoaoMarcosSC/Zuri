@@ -1,0 +1,136 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": "5e7d0e8e-f130-48f3-8b92-203f83535587"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "zuri": {
+      "projectType": "library",
+      "root": "projects/zuri",
+      "sourceRoot": "projects/zuri/src",
+      "prefix": "zur",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/zuri/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/zuri/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/zuri/tsconfig.spec.json"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular-vite:start-storybook",
+          "options": {
+            "configDir": "projects/zuri/.storybook",
+            "browserTarget": "zuri:build",
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular-vite:build-storybook",
+          "options": {
+            "configDir": "projects/zuri/.storybook",
+            "browserTarget": "zuri:build",
+            "outputDir": "storybook-static"
+          }
+        }
+      }
+    },
+    "docs": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:component": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/docs",
+      "sourceRoot": "projects/docs/src",
+      "prefix": "docs",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/docs/src/main.ts",
+            "tsConfig": "projects/docs/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/docs/public"
+              }
+            ],
+            "styles": ["projects/docs/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "docs:build:production"
+            },
+            "development": {
+              "buildTarget": "docs:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  }
+}

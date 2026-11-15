@@ -1,0 +1,79 @@
+<h1>Design Tokens</h1>
+<p class="lead">
+  Todo token é uma CSS variable. Alterne o tema pelo sol/lua na barra lateral e veja
+  estas amostras reagirem em tempo real.
+</p>
+
+<section class="group">
+  <h2>Cores · Marca</h2>
+  <div class="swatches">
+    @for (s of brand; track s.token) {
+      <div class="swatch-item">
+        <div class="swatch" [style.background]="'var(' + s.token + ')'"></div>
+        <code>{{ s.label }}</code>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="group">
+  <h2>Cores · Superfícies e texto</h2>
+  <div class="swatches">
+    @for (s of surfaces; track s.token) {
+      <div class="swatch-item">
+        <div class="swatch" [style.background]="'var(' + s.token + ')'"></div>
+        <code>{{ s.label }}</code>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="group">
+  <h2>Cores · Semânticas</h2>
+  <div class="swatches">
+    @for (s of semantic; track s.token) {
+      <div class="swatch-item">
+        <div class="swatch" [style.background]="'var(' + s.token + ')'"></div>
+        <code>{{ s.label }}</code>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="group">
+  <h2>Tipografia</h2>
+  <div class="type-scale">
+    @for (t of typeScale; track t.token) {
+      <div
+        class="type-sample"
+        [style.font]="'var(' + t.token + ')'"
+        [style.letter-spacing]="t.tracking ? 'var(' + t.tracking + ')' : null"
+      >
+        {{ t.sample }}
+        <code>{{ t.label }}</code>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="group">
+  <h2>Formas · Raios e sombra</h2>
+  <div class="shapes">
+    @for (r of radii; track r) {
+      <div class="shape-item">
+        <div class="shape" [style.border-radius]="'var(--zur-radius-' + r + ')'"></div>
+        <code>radius-{{ r }}</code>
+      </div>
+    }
+    <div class="shape-item">
+      <div class="shape shadow"></div>
+      <code>shadow-float</code>
+    </div>
+  </div>
+</section>
+
+<section class="group">
+  <h2>Como consumir</h2>
+  <p>Os tokens funcionam como CSS puro — use <code>var(--zur-*)</code> em qualquer lugar.</p>
+  <docs-code-block [code]="cssSnippet" />
+</section>

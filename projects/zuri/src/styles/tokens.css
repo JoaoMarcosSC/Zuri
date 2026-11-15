@@ -1,0 +1,159 @@
+/* ============================================================
+   Zuri Design System — Design Tokens
+   Tema claro em :root · tema escuro em [data-theme="dark"]
+   Alternância via ZurThemeService / <zur-theme-toggle> (sol/lua)
+   ============================================================ */
+
+:root,
+[data-theme='light'] {
+  /* ── Marca ─────────────────────────────────────────────── */
+  --zur-primary: #35d49b;
+  --zur-primary-hover: #2bc38c;
+  --zur-primary-active: #23ad7b;
+  --zur-primary-soft: #d7f7ea;
+  --zur-on-primary: #0c2b1e;
+  --zur-on-primary-soft: #0c4a33;
+
+  /* ── Superfícies ───────────────────────────────────────── */
+  --zur-canvas: #f6faf8;
+  --zur-surface-soft: #f3faf7;
+  --zur-surface-strong: #e7f4ee;
+  --zur-surface-raised: #ffffff;
+  --zur-hairline: #dde8e2;
+  --zur-hairline-soft: #ebf2ee;
+
+  /* ── Texto ─────────────────────────────────────────────── */
+  --zur-ink: #15271f;
+  --zur-body: #3d4f47;
+  --zur-muted: #6b7d74;
+  --zur-ink-inverse: #f3faf7;
+
+  /* ── Semânticas ────────────────────────────────────────── */
+  --zur-success: #1a9e63;
+  --zur-success-soft: #d9f3e6;
+  --zur-warning: #d97706;
+  --zur-warning-soft: #fdeed7;
+  --zur-error: #e5484d;
+  --zur-error-soft: #fde2e3;
+  --zur-info: #3b82f6;
+  --zur-info-soft: #dcebfe;
+
+  /* ── Tipografia (Nunito Sans — arredondada amigável) ───── */
+  --zur-font-family: 'Nunito Sans', -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --zur-font-display-xl: 800 64px/1.08 var(--zur-font-family);
+  --zur-font-display-lg: 800 48px/1.12 var(--zur-font-family);
+  --zur-font-display-md: 700 36px/1.18 var(--zur-font-family);
+  --zur-font-headline:   700 28px/1.25 var(--zur-font-family);
+  --zur-font-title:      600 20px/1.3  var(--zur-font-family);
+  --zur-font-body-lg:    400 18px/1.6  var(--zur-font-family);
+  --zur-font-body:       400 16px/1.55 var(--zur-font-family);
+  --zur-font-body-sm:    400 14px/1.45 var(--zur-font-family);
+  --zur-font-caption:    500 13px/1.35 var(--zur-font-family);
+  --zur-font-badge:      700 12px/1.2  var(--zur-font-family);
+  --zur-font-button:     600 16px/1.25 var(--zur-font-family);
+
+  --zur-tracking-display-xl: -1.6px;
+  --zur-tracking-display-lg: -1px;
+  --zur-tracking-display-md: -0.5px;
+
+  /* ── Raios (suave: 8 controles · 14 cards · full pills) ── */
+  --zur-radius-xs: 4px;
+  --zur-radius-sm: 8px;
+  --zur-radius-md: 14px;
+  --zur-radius-lg: 20px;
+  --zur-radius-xl: 32px;
+  --zur-radius-full: 9999px;
+
+  /* ── Espaçamento (generoso editorial) ──────────────────── */
+  --zur-space-xxs: 4px;
+  --zur-space-xs: 8px;
+  --zur-space-sm: 12px;
+  --zur-space-md: 16px;
+  --zur-space-lg: 24px;
+  --zur-space-xl: 32px;
+  --zur-space-xxl: 48px;
+  --zur-space-3xl: 64px;
+  --zur-space-section: 96px;
+  --zur-space-section-lg: 128px;
+
+  /* ── Elevação (tier ÚNICO — Airbnb) ────────────────────── */
+  --zur-shadow-float:
+    0 0 0 1px rgba(0, 0, 0, 0.02),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.10);
+  --zur-scrim: rgba(0, 0, 0, 0.5);
+
+  /* ── Controles ─────────────────────────────────────────── */
+  --zur-control-height-sm: 36px;
+  --zur-control-height-md: 48px;
+  --zur-control-height-lg: 56px;
+  --zur-focus-ring: 0 0 0 2px var(--zur-canvas), 0 0 0 4px var(--zur-primary);
+
+  color-scheme: light;
+}
+
+/* ============================================================
+   Tema escuro — redesenhado com a filosofia de imersão quase-preta
+   do Spotify (conteúdo em primeiro plano, UI quase invisível),
+   mantendo a identidade Zuri: leve tintura verde, escada de
+   elevação em degraus sutis e o verde-menta ainda vibrante.
+   Valores não copiados do Spotify — só a filosofia foi importada.
+   Tema claro permanece intocado.
+   ============================================================ */
+[data-theme='dark'] {
+  /* marca — mantida vibrante e multiuso, sem alteração */
+  --zur-primary: #3ee6a8;
+  --zur-primary-hover: #58ecb6;
+  --zur-primary-active: #2bd398;
+  --zur-primary-soft: #143d2e;
+  --zur-on-primary: #07251a;
+  --zur-on-primary-soft: #3ee6a8;
+
+  /* fundo quase-preto com tintura verde sutil (antes: verde-negro saturado) */
+  --zur-canvas: #151a17;
+  /* escada de elevação em degraus próximos — Spotify-like, mas verde */
+  --zur-surface-soft: #1b211d;
+  --zur-surface-strong: #232a25;
+  --zur-surface-raised: #1b211d;
+  /* bordas mantidas como já eram — não alteradas nesta revisão */
+  --zur-hairline: #23382f;
+  --zur-hairline-soft: #1a2d25;
+
+  /* texto quase neutro — a menta deve brilhar só nos acentos */
+  --zur-ink: #f3f5f4;
+  --zur-body: #c3cac7;
+  --zur-muted: #8c968f;
+  --zur-ink-inverse: #15271f;
+
+  --zur-success: #34d08c;
+  --zur-success-soft: #11352a;
+  --zur-warning: #f59e0b;
+  --zur-warning-soft: #3a2c10;
+  --zur-error: #f26d71;
+  --zur-error-soft: #3d1d20;
+  --zur-info: #60a5fa;
+  --zur-info-soft: #16293f;
+
+  /* sombra única mais pesada — sombras leves somem sobre fundo quase-preto */
+  --zur-shadow-float:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.45),
+    0 12px 28px rgba(0, 0, 0, 0.55);
+  --zur-scrim: rgba(0, 0, 0, 0.65);
+
+  /* foco mais discreto no escuro — anel único fino, sem halo duplo */
+  --zur-focus-ring: 0 0 0 2px var(--zur-primary);
+
+  color-scheme: dark;
+}
+
+/* ── Base global opcional ─────────────────────────────────── */
+.zur-root,
+body.zur-root,
+.zur-theme-scope {
+  background: var(--zur-canvas);
+  color: var(--zur-body);
+  font: var(--zur-font-body);
+  transition: background-color 200ms ease, color 200ms ease;
+}

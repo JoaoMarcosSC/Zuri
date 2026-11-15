@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+h1 {
+  font: var(--zur-font-display-md);
+  color: var(--zur-ink);
+  margin: 0 0 var(--zur-space-xs);
+}
+
+.lead {
+  font: var(--zur-font-body-lg);
+  color: var(--zur-body);
+  margin: 0 0 var(--zur-space-section);
+}
+
+zur-step p {
+  color: var(--zur-body);
+  margin: 0 0 var(--zur-space-md);
+}
+
+zur-step code {
+  background: var(--zur-surface-strong);
+  padding: 2px 6px;
+  border-radius: var(--zur-radius-xs);
+  font-size: 13px;
+}

@@ -1,0 +1,51 @@
+<h1>Layouts</h1>
+<p class="lead">
+  Shells de página prontos: escolha pelo tipo de app, conteúdo e público. Cada demo abaixo é o
+  componente rodando de verdade — role, recolha a sidebar e troque o tema.
+</p>
+
+<div class="viewport" role="group" aria-label="Largura da demonstração">
+  @for (v of viewports; track v.id) {
+    <button
+      zur-button
+      size="sm"
+      [variant]="viewport() === v.id ? 'primary' : 'secondary'"
+      [attr.aria-pressed]="viewport() === v.id"
+      (click)="viewport.set(v.id)"
+    >
+      {{ v.label }}
+    </button>
+  }
+</div>
+
+@for (l of layouts; track l.id) {
+  <section [id]="l.id" class="layout">
+    <h2>{{ l.nome }}</h2>
+    <p class="desc">{{ l.descricao }}</p>
+    <dl class="meta">
+      <div>
+        <dt>Quando usar</dt>
+        <dd>{{ l.quando }}</dd>
+      </div>
+      <div>
+        <dt>Componente</dt>
+        <dd>
+          <code>{{ l.componente }}</code>
+        </dd>
+      </div>
+      <div>
+        <dt>Largura</dt>
+        <dd>{{ l.largura }}</dd>
+      </div>
+    </dl>
+
+    <div class="frame" [attr.data-viewport]="viewport()">
+      <iframe [src]="l.url" [title]="'Demonstração: ' + l.nome" loading="lazy"></iframe>
+    </div>
+    <p class="open">
+      <a [href]="'/demo/' + l.id" target="_blank" rel="noopener">Abrir em tela cheia ↗</a>
+    </p>
+
+    <docs-code-block [code]="l.codigo" />
+  </section>
+}

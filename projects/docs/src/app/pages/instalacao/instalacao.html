@@ -1,0 +1,30 @@
+<h1>Instalação</h1>
+<p class="lead">
+  Quatro passos para ter o Zuri rodando na sua aplicação Angular.
+</p>
+
+<zur-step number="1" title="Instale o pacote">
+  <p>O pacote publica a library compilada (ng-packagr) com os tokens como asset.</p>
+  <docs-code-block [code]="stepInstall" />
+</zur-step>
+
+<zur-step number="2" title="Importe os tokens globais">
+  <p>
+    Os temas claro e escuro vivem em <code>zuri/styles/tokens.css</code> — importe uma
+    vez no <code>styles.css</code> da sua aplicação, junto com a fonte Nunito Sans.
+  </p>
+  <docs-code-block [code]="stepStyles" />
+</zur-step>
+
+<zur-step number="3" title="Monte o shell">
+  <p>
+    Coloque o <code>zur-theme-toggle</code> na navbar e um único
+    <code>zur-toast-container</code> no shell da aplicação.
+  </p>
+  <docs-code-block [code]="stepShell" />
+</zur-step>
+
+<zur-step number="4" title="Use os componentes">
+  <p>Importe cada componente standalone diretamente onde for usá-lo.</p>
+  <docs-code-block [code]="stepUse" />
+</zur-step>

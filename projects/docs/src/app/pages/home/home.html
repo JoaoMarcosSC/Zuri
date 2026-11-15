@@ -1,0 +1,46 @@
+<section class="hero">
+  <zur-logo [size]="56" />
+  <zur-badge color="mint">Design system Angular</zur-badge>
+  <h1>
+    Um design system <em>amigável</em>, com a frescura do verde-menta.
+  </h1>
+  <p class="lead">
+    Zuri é uma biblioteca de componentes Angular construída para produtos consumer —
+    cantos suaves, uma única cor de ação, tipografia arredondada e temas claro/escuro
+    completos, alternáveis por um simples toque de sol ou lua.
+  </p>
+  <div class="cta">
+    <a routerLink="/componentes"><button zur-button size="lg">Ver componentes</button></a>
+    <a routerLink="/instalacao">
+      <button zur-button variant="secondary" size="lg">Instalação</button>
+    </a>
+  </div>
+  <div class="swatches">
+    @for (token of swatches; track token) {
+      <span class="swatch" [style.background]="'var(' + token + ')'"></span>
+    }
+  </div>
+</section>
+
+<section class="traits">
+  @for (trait of traits; track trait.title) {
+    <zur-card>
+      <zur-badge color="neutral">{{ trait.badge }}</zur-badge>
+      <h3>{{ trait.title }}</h3>
+      <p>{{ trait.description }}</p>
+    </zur-card>
+  }
+</section>
+
+<section class="closing">
+  <h2>De onde vem essa identidade</h2>
+  <p>
+    As decisões de atmosfera, paleta, tipografia, formato e densidade deste sistema
+    nasceram de uma entrevista guiada por referências reais de produto — Airbnb, Notion
+    e Miro para a personalidade; Jobright e Wise para a cor; Apple e ElevenLabs para o
+    ritmo editorial. O tema escuro foi redesenhado depois, numa segunda entrevista
+    inspirada na filosofia de imersão quase-preta do Spotify — sem copiar nenhum valor,
+    só a ideia de deixar a UI recuar para o conteúdo brilhar. A especificação completa
+    vive no <code>DESIGN.md</code> do repositório.
+  </p>
+</section>

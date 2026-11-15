@@ -1,0 +1,133 @@
+:host {
+  display: block;
+}
+
+.link {
+  color: var(--zur-muted);
+  text-decoration: none;
+}
+
+.link.on {
+  color: var(--zur-ink);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--zur-space-md);
+  margin-bottom: var(--zur-space-section);
+}
+
+.hero h1 {
+  margin: 0;
+  font: var(--zur-font-display-lg);
+  color: var(--zur-ink);
+}
+
+.hero p {
+  margin: 0;
+  max-width: 560px;
+  font: var(--zur-font-body-lg);
+  color: var(--zur-body);
+}
+
+.section-title {
+  margin: 0 0 var(--zur-space-lg);
+  font: var(--zur-font-headline);
+  color: var(--zur-ink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--zur-space-md);
+  margin-bottom: var(--zur-space-xxl);
+}
+
+.card-title {
+  margin: var(--zur-space-xs) 0 var(--zur-space-xxs);
+  font: var(--zur-font-title);
+  color: var(--zur-ink);
+}
+
+.muted {
+  margin: 0;
+  color: var(--zur-muted);
+}
+
+.text {
+  margin: 0 0 var(--zur-space-md);
+  color: var(--zur-body);
+}
+
+.stat-value {
+  display: block;
+  font: var(--zur-font-headline);
+  color: var(--zur-ink);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--zur-space-sm);
+  padding: var(--zur-space-sm) 0;
+  border-bottom: 1px solid var(--zur-hairline-soft);
+  color: var(--zur-body);
+}
+
+.row strong {
+  color: var(--zur-ink);
+}
+
+.row .grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--zur-space-sm);
+  width: 100%;
+  padding: var(--zur-space-sm) var(--zur-space-md);
+  border: 0;
+  border-bottom: 1px solid var(--zur-hairline-soft);
+  background: transparent;
+  color: var(--zur-body);
+  font: var(--zur-font-body-sm);
+  text-align: left;
+  cursor: pointer;
+}
+
+.list-item:hover,
+.list-item[aria-current='true'] {
+  background: var(--zur-surface-strong);
+}
+
+.list-item strong {
+  display: block;
+  color: var(--zur-ink);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zur-space-md);
+}
+
+.auth-title {
+  margin: 0 0 var(--zur-space-md);
+  font: var(--zur-font-headline);
+  color: var(--zur-ink);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zur-space-md);
+}
+
+.demo-root {
+  min-height: 100vh;
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 64" role="img" aria-label="Zuri">
+  <title>Zuri — Z que brota</title>
+  <g>
+  <path d="M14 24 H41 L14 53 H50" fill="none" stroke="var(--zur-primary-active, #23ad7b)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M14 24 C14 14 8 10 3 9 C3 17 7 23 14 24 Z" fill="var(--zur-primary, #35d49b)" />
+  <path d="M14 24 C14 13 20 6 31 5 C31 15 25 23 14 24 Z" fill="var(--zur-primary, #35d49b)" />
+  </g>
+  <g transform="translate(74 13)">
+  <g fill="none" stroke="var(--zur-ink, #15271f)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 13 H23 L3 37 H23" />
+    <path d="M34 13 V28 A9 9 0 0 0 52 28 V13" />
+    <path d="M63 13 V37 M63 27 C63 18 69 13 77 14" />
+    <path d="M89 13 V37" />
+  </g>
+  <circle cx="89" cy="3.2" r="3.6" fill="var(--zur-primary, #35d49b)" />
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+.nav-primary {
+  padding-bottom: var(--zur-space-md);
+  border-bottom: 1px solid var(--zur-hairline);
+}
+
+.nav-secondary {
+  gap: 2px;
+}

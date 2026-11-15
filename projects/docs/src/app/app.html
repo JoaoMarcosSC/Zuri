@@ -1,0 +1,44 @@
+@if (isDemo()) {
+  <router-outlet />
+} @else {
+  <zur-docs-layout width="fluid">
+    <zur-sidebar>
+      <a zurSidebarHeader routerLink="/" aria-label="Zuri — início"><zur-logo variant="auto" [size]="28" /></a>
+
+      <zur-sidenav class="nav-primary" aria-label="Principal">
+        <a zur-sidenav-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /></svg>Home
+        </a>
+        <a zur-sidenav-item routerLink="/instalacao" routerLinkActive="active"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16" /></svg>Instalação</a>
+        <a zur-sidenav-item routerLink="/tokens" routerLinkActive="active"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4" /><circle cx="16" cy="16" r="4" /></svg>Tokens</a>
+        <a zur-sidenav-item routerLink="/componentes" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>Componentes
+        </a>
+        <a zur-sidenav-item routerLink="/layouts" routerLinkActive="active"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M9 9h12" /></svg>Layouts</a>
+      </zur-sidenav>
+
+      <zur-sidenav class="nav-secondary" aria-label="Componentes">
+        @for (group of componentGroups; track group.label) {
+          <zur-sidenav-label>{{ group.label }}</zur-sidenav-label>
+          @for (item of group.items; track item.id) {
+            <a zur-sidenav-item level="secondary" [routerLink]="['/componentes']" [fragment]="item.id">{{ item.label }}</a>
+          }
+        }
+        <zur-sidenav-label>Layouts</zur-sidenav-label>
+        @for (item of layoutLinks; track item.id) {
+          <a zur-sidenav-item level="secondary" [routerLink]="['/layouts']" [fragment]="item.id">{{ item.label }}</a>
+        }
+      </zur-sidenav>
+    </zur-sidebar>
+
+    <zur-topbar>
+      <ng-container zurTopbarActions>
+        <zur-theme-toggle />
+      </ng-container>
+    </zur-topbar>
+
+    <router-outlet />
+  </zur-docs-layout>
+}
+
+<zur-toast-container />

@@ -1,0 +1,61 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "docs: serve",
+      "type": "shell",
+      "command": "npx ng serve docs",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": { "regexp": "Building\\.\\.\\." },
+          "endsPattern": { "regexp": "bundle generation complete|Application bundle generation complete" }
+        }
+      },
+      "presentation": { "group": "run", "panel": "dedicated" }
+    },
+    {
+      "label": "zuri: build",
+      "type": "shell",
+      "command": "npx ng build zuri",
+      "group": "build",
+      "presentation": { "group": "build", "panel": "dedicated" }
+    },
+    {
+      "label": "zuri: build --watch",
+      "type": "shell",
+      "command": "npx ng build zuri --watch --configuration development",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": { "regexp": "Building Angular Package" },
+          "endsPattern": { "regexp": "Built zuri|error" }
+        }
+      },
+      "presentation": { "group": "run", "panel": "dedicated" }
+    },
+    {
+      "label": "storybook: run",
+      "type": "shell",
+      "command": "npm run storybook",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": { "regexp": "Storybook.*starting" },
+          "endsPattern": { "regexp": "Storybook.*started|Local:.*http" }
+        }
+      },
+      "presentation": { "group": "run", "panel": "dedicated" }
+    }
+  ]
+}

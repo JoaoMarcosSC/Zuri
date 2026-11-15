@@ -1,0 +1,207 @@
+<div zurThemeScope class="demo-root" (click)="blockPlaceholderLinks($event)">
+@switch (layout()) {
+  @case ('landing') {
+    <zur-landing-layout>
+      <zur-topbar>
+        <a zurTopbarStart href="#" aria-label="Zuri"><zur-logo [size]="28" /></a>
+        <ng-container zurTopbarLinks>
+          <a class="link on" href="#">Início</a>
+          <a class="link" href="#">Recursos</a>
+          <a class="link" href="#">Preços</a>
+        </ng-container>
+        <ng-container zurTopbarActions>
+          <zur-theme-toggle />
+          <button zur-button variant="pill" size="sm">Começar</button>
+        </ng-container>
+      </zur-topbar>
+
+      <section class="hero">
+        <zur-badge color="mint">Novo</zur-badge>
+        <h1>Hospedagens que parecem em casa</h1>
+        <p>Seções longas, centralizadas em ~1100px, com respiro generoso entre elas.</p>
+        <button zur-button variant="primary" size="lg">Explorar</button>
+      </section>
+
+      <h2 class="section-title">Por que escolher</h2>
+      <div class="grid">
+        @for (n of [1, 2, 3]; track n) {
+          <zur-card>
+            <h3 class="card-title">Recurso {{ n }}</h3>
+            <p class="muted">Descrição curta do benefício, em até duas linhas.</p>
+          </zur-card>
+        }
+      </div>
+
+      <h2 class="section-title">Como funciona</h2>
+      @for (n of paragrafos; track n) {
+        <p class="text">Parágrafo {{ n }} — role a página: o topbar some ao descer e volta ao subir.</p>
+      }
+
+      <zur-footer>
+        © 2026 Zuri
+        <ng-container zurFooterLinks>
+          <a href="#">Termos</a>
+          <a href="#">Privacidade</a>
+        </ng-container>
+      </zur-footer>
+    </zur-landing-layout>
+  }
+
+  @case ('dashboard') {
+    <zur-dashboard-layout>
+      <zur-sidebar>
+          <span zurSidebarHeader><zur-logo variant="auto" [size]="28" /></span>
+          <zur-sidenav aria-label="Principal">
+            <a zur-sidenav-item href="#" [active]="true"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="icons.home" /></svg>Início</a>
+            <a zur-sidenav-item href="#"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="icons.chart" /></svg>Relatórios</a>
+            <a zur-sidenav-item href="#"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="icons.users" /></svg>Clientes</a>
+            <zur-sidenav-label>Atalhos</zur-sidenav-label>
+            <a zur-sidenav-item level="secondary" href="#">Reservas</a>
+            <a zur-sidenav-item level="secondary" href="#">Calendário</a>
+          </zur-sidenav>
+        </zur-sidebar>
+      <zur-topbar>
+        <ng-container zurTopbarActions>
+          <zur-theme-toggle />
+          <zur-avatar name="Ana Silva" size="sm" />
+        </ng-container>
+      </zur-topbar>
+
+      <zur-page-header title="Visão geral" description="Resumo das últimas 4 semanas.">
+        <zur-breadcrumb [items]="trilha" />
+        <button zurPageHeaderActions zur-button variant="primary" size="sm">Nova reserva</button>
+      </zur-page-header>
+
+      <div class="grid">
+        @for (s of stats; track s.label) {
+          <zur-card>
+            <p class="muted">{{ s.label }}</p>
+            <strong class="stat-value">{{ s.value }}</strong>
+            <zur-badge color="success">{{ s.delta }}</zur-badge>
+          </zur-card>
+        }
+      </div>
+
+      <h2 class="section-title">Reservas recentes</h2>
+      @for (r of reservas; track r.id) {
+        <div class="row">
+          <zur-avatar [name]="r.nome" size="sm" />
+          <span class="grow"><strong>{{ r.nome }}</strong> · {{ r.local }}</span>
+          <span>{{ r.data }}</span>
+        </div>
+      }
+      @for (n of paragrafos; track n) {
+        <p class="text">Linha de conteúdo {{ n }} para rolar a página.</p>
+      }
+    </zur-dashboard-layout>
+  }
+
+  @case ('lista-detalhe') {
+    <zur-list-detail-layout [(detailOpen)]="detailOpen">
+      <zur-topbar>
+        <span zurTopbarStart>Reservas</span>
+        <ng-container zurTopbarActions>
+          <zur-theme-toggle />
+        </ng-container>
+      </zur-topbar>
+
+      <div zurList>
+        @for (r of reservas; track r.id) {
+          <button type="button" class="list-item" [attr.aria-current]="r.id === 1" (click)="detailOpen.set(true)">
+            <zur-avatar [name]="r.nome" size="sm" />
+            <span><strong>{{ r.nome }}</strong>{{ r.local }} · {{ r.data }}</span>
+          </button>
+        }
+      </div>
+
+      <article zurDetail>
+        <zur-page-header title="Ana Silva" description="Chalé na serra · 12–15 dez">
+          <button zurPageHeaderActions zur-button variant="secondary" size="sm">Editar</button>
+        </zur-page-header>
+        <p><zur-badge color="success">Confirmada</zur-badge></p>
+        @for (n of paragrafos; track n) {
+          <p class="text">Detalhe {{ n }}: o painel direito rola com a página, a lista fica fixa.</p>
+        }
+      </article>
+    </zur-list-detail-layout>
+  }
+
+  @case ('formulario') {
+    <zur-form-layout [steps]="etapas" [current]="etapaAtual()">
+      <zur-topbar>
+        <span zurTopbarStart><zur-logo [size]="28" /></span>
+        <ng-container zurTopbarActions>
+          <zur-theme-toggle />
+        </ng-container>
+      </zur-topbar>
+
+      <zur-page-header title="Nova reserva" description="Preencha os dados do hóspede." />
+      <div class="fields">
+        <zur-input label="Nome completo" placeholder="Ana Silva" />
+        <zur-input label="E-mail" placeholder="voce@exemplo.com" hint="Enviaremos a confirmação." />
+        <zur-input label="Telefone" placeholder="(11) 99999-0000" />
+        @for (n of paragrafos; track n) {
+          <zur-input [label]="'Campo ' + n" />
+        }
+      </div>
+
+      <div zurLayoutActions>
+        <button zur-button variant="ghost" (click)="etapaAtual.set(max(etapaAtual() - 1))">Voltar</button>
+        <button zur-button variant="primary" (click)="etapaAtual.set(min(etapaAtual() + 1))">Continuar</button>
+      </div>
+    </zur-form-layout>
+  }
+
+  @case ('documentacao') {
+    <zur-docs-layout>
+      <zur-sidebar>
+          <span zurSidebarHeader><zur-logo variant="auto" [size]="28" /></span>
+          <zur-sidenav aria-label="Principal">
+            <a zur-sidenav-item href="#" [active]="true"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="icons.home" /></svg>Início</a>
+            <a zur-sidenav-item href="#"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="icons.chart" /></svg>Relatórios</a>
+            <a zur-sidenav-item href="#"><svg zurSidenavIcon viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="icons.users" /></svg>Clientes</a>
+            <zur-sidenav-label>Atalhos</zur-sidenav-label>
+            <a zur-sidenav-item level="secondary" href="#">Reservas</a>
+            <a zur-sidenav-item level="secondary" href="#">Calendário</a>
+          </zur-sidenav>
+        </zur-sidebar>
+      <zur-topbar>
+        <ng-container zurTopbarActions>
+          <zur-theme-toggle />
+        </ng-container>
+      </zur-topbar>
+
+      <zur-page-header title="Primeiros passos" description="Coluna de leitura de ~760px.">
+        <zur-breadcrumb [items]="trilha" />
+      </zur-page-header>
+      @for (n of paragrafos; track n) {
+        <p class="text">Parágrafo {{ n }} da documentação. A sidebar recolhe para ícones e vira gaveta no mobile.</p>
+      }
+    </zur-docs-layout>
+  }
+
+  @case ('autenticacao') {
+    <zur-auth-layout>
+      <span zurAuthBrand><zur-logo [size]="36" /></span>
+      <h1 class="auth-title">Entrar</h1>
+      <div class="stack">
+        <zur-input label="E-mail" placeholder="voce@exemplo.com" />
+        <zur-input label="Senha" type="password" />
+        <button zur-button variant="primary">Entrar</button>
+      </div>
+      <span zurAuthFooter>Não tem conta? <a href="#">Criar conta</a></span>
+    </zur-auth-layout>
+  }
+
+  @case ('erro') {
+    <zur-error-layout
+      code="404"
+      title="Página não encontrada"
+      description="O endereço que você tentou abrir não existe ou foi movido."
+    >
+      <button zur-button variant="primary">Voltar ao início</button>
+      <button zur-button variant="secondary">Falar com o suporte</button>
+    </zur-error-layout>
+  }
+}
+</div>

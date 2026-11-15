@@ -1,0 +1,334 @@
+<h1>Componentes</h1>
+<p class="lead">
+  Cada seção mostra o componente rodando de verdade — não é um mockup — seguido do
+  código exato usado na demo.
+</p>
+
+<!-- ───────── Fundamentos ───────── -->
+<p class="section-label">Fundamentos</p>
+
+<section id="button" class="component">
+  <h2>Button</h2>
+  <p>Variantes <code>primary</code>, <code>secondary</code>, <code>ghost</code> e <code>pill</code>.</p>
+  <div class="demo">
+    <button zur-button variant="primary">Reservar agora</button>
+    <button zur-button variant="secondary">Cancelar</button>
+    <button zur-button variant="ghost">Saiba mais</button>
+    <button zur-button variant="pill" size="sm">Pill</button>
+  </div>
+  <docs-code-block [code]="codeButton" />
+</section>
+
+<section id="badge" class="component">
+  <h2>Badge</h2>
+  <p>Pill nas cores soft do sistema.</p>
+  <div class="demo">
+    <zur-badge color="mint">NOVO</zur-badge>
+    <zur-badge color="success">Confirmado</zur-badge>
+    <zur-badge color="warning">Pendente</zur-badge>
+    <zur-badge color="error">Cancelado</zur-badge>
+  </div>
+  <docs-code-block [code]="codeBadge" />
+</section>
+
+<section id="card" class="component">
+  <h2>Card</h2>
+  <p>Superfície 14px com hairline; eleva ao tier único de sombra com <code>interactive</code>.</p>
+  <div class="demo">
+    <zur-card [interactive]="true" style="max-width: 320px;">
+      <zur-badge color="mint">DESTAQUE</zur-badge>
+      <h3 class="card-title">Chalé na serra</h3>
+      <p class="card-text">Vista para o vale, lareira e café da manhã incluso.</p>
+      <button zur-button size="sm">Ver detalhes</button>
+    </zur-card>
+  </div>
+  <docs-code-block [code]="codeCard" />
+</section>
+
+<section id="avatar" class="component">
+  <h2>Avatar</h2>
+  <p>Círculo com iniciais derivadas do nome, ou imagem.</p>
+  <div class="demo">
+    <zur-avatar name="Ana Silva" size="sm" />
+    <zur-avatar name="João Marcos" size="md" />
+    <zur-avatar name="Maria Oliveira Costa" size="lg" />
+  </div>
+  <docs-code-block [code]="codeAvatar" />
+</section>
+
+<!-- ───────── Formulários ───────── -->
+<section id="logo" class="component">
+  <h2>Logo</h2>
+  <p>
+    Z com broto + wordmark. Usa as cores dos tokens, então acompanha o tema. Variantes
+    <code>horizontal</code>, <code>symbol</code> e <code>auto</code> (vira símbolo na sidebar
+    recolhida).
+  </p>
+  <div class="demo demo-logos">
+    <div class="logo-box" data-theme="light">
+      <zur-logo [size]="40" />
+      <zur-logo variant="symbol" [size]="40" />
+      <zur-logo variant="symbol" [size]="16" />
+    </div>
+    <div class="logo-box" data-theme="dark">
+      <zur-logo [size]="40" />
+      <zur-logo variant="symbol" [size]="40" />
+      <zur-logo variant="symbol" [size]="16" />
+    </div>
+  </div>
+  <docs-code-block [code]="codeLogo" />
+</section>
+
+<section id="theme-scope" class="component">
+  <h2>Theme scope</h2>
+  <p>
+    A diretiva <code>zurThemeScope</code> isola o tema: o <code>zur-theme-toggle</code> dentro
+    dela muda só aquele trecho, sem alterar a página.
+  </p>
+  <div class="demo demo-scopes">
+    <div zurThemeScope class="scope-box">
+      <zur-theme-toggle />
+      <span>Escopo A</span>
+    </div>
+    <div zurThemeScope class="scope-box">
+      <zur-theme-toggle />
+      <span>Escopo B</span>
+    </div>
+  </div>
+  <docs-code-block [code]="codeThemeScope" />
+</section>
+
+<p class="section-label">Formulários</p>
+
+<section id="input" class="component">
+  <h2>Input</h2>
+  <p>56px, label em caption acima, foco com borda 2px ink.</p>
+  <div class="demo demo-form">
+    <zur-input
+      label="E-mail"
+      placeholder="voce@exemplo.com"
+      hint="Nunca compartilharemos seu e-mail."
+      [ngModel]="email()"
+      (ngModelChange)="email.set($event)"
+    />
+  </div>
+  <docs-code-block [code]="codeInput" />
+</section>
+
+<section id="select" class="component">
+  <h2>Select</h2>
+  <p>Mesmo chrome do input, com seta customizada.</p>
+  <div class="demo demo-form">
+    <zur-select
+      label="Destino"
+      placeholder="Escolha um destino"
+      [options]="destinoOptions"
+      [ngModel]="destino()"
+      (ngModelChange)="destino.set($event)"
+    />
+  </div>
+  <docs-code-block [code]="codeSelect" />
+</section>
+
+<section id="checkbox" class="component">
+  <h2>Checkbox</h2>
+  <p>20px, marcado em menta com check em tinta.</p>
+  <div class="demo">
+    <zur-checkbox [ngModel]="aceito()" (ngModelChange)="aceito.set($event)">
+      Aceito os termos de uso
+    </zur-checkbox>
+  </div>
+  <docs-code-block [code]="codeCheckbox" />
+</section>
+
+<section id="radio" class="component">
+  <h2>Radio</h2>
+  <p>Vincule todos os radios do grupo ao mesmo modelo e <code>name</code>.</p>
+  <div class="demo demo-column">
+    <zur-radio name="plano" value="mensal" [ngModel]="plano()" (ngModelChange)="plano.set($event)">
+      Mensal
+    </zur-radio>
+    <zur-radio name="plano" value="anual" [ngModel]="plano()" (ngModelChange)="plano.set($event)">
+      Anual (2 meses grátis)
+    </zur-radio>
+  </div>
+  <docs-code-block [code]="codeRadio" />
+</section>
+
+<section id="switch" class="component">
+  <h2>Switch</h2>
+  <p>Trilho pill 44×24px; ligado = menta.</p>
+  <div class="demo">
+    <zur-switch [ngModel]="notificacoes()" (ngModelChange)="notificacoes.set($event)">
+      Receber notificações
+    </zur-switch>
+  </div>
+  <docs-code-block [code]="codeSwitch" />
+</section>
+
+<!-- ───────── Navegação ───────── -->
+<p class="section-label">Navegação</p>
+
+<section id="navbar" class="component">
+  <h2>Navbar</h2>
+  <p>
+    80px, canvas com hairline inferior; hospeda o toggle de tema (aqui isolado com
+    <code>zurThemeScope</code>, então só a demo muda).
+  </p>
+  <div class="demo demo-navbar" zurThemeScope>
+    <zur-navbar>
+      <strong zurNavbarLogo>Minha Marca</strong>
+      <ng-container zurNavbarLinks>
+        <a href="javascript:void(0)">Início</a>
+        <a href="javascript:void(0)">Explorar</a>
+      </ng-container>
+      <ng-container zurNavbarActions>
+        <zur-theme-toggle />
+      </ng-container>
+    </zur-navbar>
+  </div>
+  <docs-code-block [code]="codeNavbar" />
+</section>
+
+<section id="tabs" class="component">
+  <h2>Tabs</h2>
+  <p>Sublinhado 2px ink na aba ativa.</p>
+  <div class="demo demo-form">
+    <zur-tabs [index]="tabIndex()" (indexChange)="tabIndex.set($event)">
+      <zur-tab label="Visão geral">Um refúgio na serra com vista para o vale.</zur-tab>
+      <zur-tab label="Comodidades">Wi-Fi, lareira, cozinha completa e estacionamento.</zur-tab>
+      <zur-tab label="Avaliações">4,91 — "Simplesmente perfeito", diz a Ana.</zur-tab>
+    </zur-tabs>
+  </div>
+  <docs-code-block [code]="codeTabs" />
+</section>
+
+<section id="menu" class="component">
+  <h2>Menu</h2>
+  <p>Dropdown no tier único de sombra; fecha ao clicar fora ou ESC.</p>
+  <div class="demo">
+    <zur-menu>
+      <button zur-button variant="secondary" size="sm" zurMenuTrigger>Conta ▾</button>
+      <zur-menu-item>Perfil</zur-menu-item>
+      <zur-menu-item>Minhas reservas</zur-menu-item>
+      <zur-menu-item>Sair</zur-menu-item>
+    </zur-menu>
+  </div>
+  <docs-code-block [code]="codeMenu" />
+</section>
+
+<section id="breadcrumb" class="component">
+  <h2>Breadcrumb</h2>
+  <p>Caption muted com separador "/".</p>
+  <div class="demo">
+    <zur-breadcrumb [items]="breadcrumbItems" />
+  </div>
+  <docs-code-block [code]="codeBreadcrumb" />
+</section>
+
+<!-- ───────── Feedback ───────── -->
+<section id="sidenav" class="component">
+  <h2>Sidenav</h2>
+  <p>
+    Navegação lateral com item ativo em verde sólido. Use <code>[active]</code> ou
+    <code>routerLinkActive="active"</code>.
+  </p>
+  <div class="demo demo-sidenav">
+    <zur-sidenav aria-label="Exemplo">
+      <a zur-sidenav-item href="#sidenav" [active]="true">Home</a>
+      <a zur-sidenav-item href="#sidenav">Instalação</a>
+      <zur-sidenav-label>Fundamentos</zur-sidenav-label>
+      <a zur-sidenav-item level="secondary" href="#sidenav">Button</a>
+      <a zur-sidenav-item level="secondary" href="#sidenav">Badge</a>
+    </zur-sidenav>
+  </div>
+  <docs-code-block [code]="codeSidenav" />
+</section>
+
+<p class="section-label">Conteúdo</p>
+
+<section id="step" class="component">
+  <h2>Step</h2>
+  <p>Passo numerado com círculo verde e conteúdo projetado abaixo do título.</p>
+  <div class="demo demo-column">
+    <zur-step number="1" title="Instale o pacote">
+      <p class="step-text">Conteúdo do passo, qualquer markup.</p>
+    </zur-step>
+    <zur-step number="2" title="Importe os tokens">
+      <p class="step-text">Cada passo tem seu próprio título.</p>
+    </zur-step>
+  </div>
+  <docs-code-block [code]="codeStep" />
+</section>
+
+<p class="section-label">Feedback</p>
+
+<section id="modal" class="component">
+  <h2>Modal</h2>
+  <p>20px, padding 32px, scrim 50%; fecha por ESC, clique fora ou ×.</p>
+  <div class="demo">
+    <button zur-button (click)="modalOpen.set(true)">Abrir modal</button>
+    <zur-modal [open]="modalOpen()" (openChange)="modalOpen.set($event)" title="Confirmar reserva">
+      <p style="margin:0;">
+        Chalé na serra · 12–15 de dezembro · 2 hóspedes. Deseja confirmar a reserva?
+      </p>
+      <div zurModalActions>
+        <button zur-button variant="ghost" (click)="modalOpen.set(false)">Voltar</button>
+        <button zur-button variant="primary" (click)="modalOpen.set(false)">Confirmar</button>
+      </div>
+    </zur-modal>
+  </div>
+  <docs-code-block [code]="codeModal" />
+</section>
+
+<section id="toast" class="component">
+  <h2>Toast</h2>
+  <p>Service + container único no shell; auto-dismiss em 4s.</p>
+  <div class="demo">
+    <button zur-button size="sm" (click)="showToast('success')">Sucesso</button>
+    <button zur-button variant="secondary" size="sm" (click)="showToast('error')">Erro</button>
+    <button zur-button variant="ghost" size="sm" (click)="showToast('neutral')">Neutro</button>
+  </div>
+  <docs-code-block [code]="codeToast" />
+</section>
+
+<section id="tooltip" class="component">
+  <h2>Tooltip</h2>
+  <p>Directive; bolha ink 8px com caption invertida.</p>
+  <div class="demo">
+    <button zur-button variant="secondary" zurTooltip="Salvar nos favoritos">♥ Favoritar</button>
+  </div>
+  <docs-code-block [code]="codeTooltip" />
+</section>
+
+<section id="alert" class="component">
+  <h2>Alert</h2>
+  <p>Bandas soft das cores semânticas, com ícone e raio 14px.</p>
+  <div class="demo demo-column">
+    <zur-alert kind="success">Reserva confirmada com sucesso.</zur-alert>
+    <zur-alert kind="info">O check-in abre às 14h.</zur-alert>
+    <zur-alert kind="warning">Restam apenas 2 datas disponíveis.</zur-alert>
+    <zur-alert kind="error">Não foi possível processar o pagamento.</zur-alert>
+  </div>
+  <docs-code-block [code]="codeAlert" />
+</section>
+
+<section id="spinner" class="component">
+  <h2>Spinner &amp; Skeleton</h2>
+  <p>Anel giratório em menta e placeholder pulsante para carregamento.</p>
+  <div class="demo">
+    <zur-spinner size="sm" />
+    <zur-spinner size="md" />
+    <zur-spinner size="lg" />
+  </div>
+  <div class="demo demo-form">
+    <div style="display:flex; gap:12px; align-items:center;">
+      <zur-skeleton width="40px" height="40px" [circle]="true" />
+      <div style="flex:1; display:grid; gap:8px;">
+        <zur-skeleton height="14px" width="60%" />
+        <zur-skeleton height="12px" width="40%" />
+      </div>
+    </div>
+  </div>
+  <docs-code-block [code]="codeSpinner" />
+</section>

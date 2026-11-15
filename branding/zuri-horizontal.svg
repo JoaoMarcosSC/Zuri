@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 0 130 64" role="img" aria-label="Zuri">
+  <title>Zuri — horizontal (segue o tema via CSS variables)</title>
+  <path d="M15 20 H50.1 L15 56 H59.2" fill="none" stroke="var(--zur-primary-active, #23ad7b)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M44 17 C44 8 51 3.5 60.5 3.5 C60.5 12.5 54 18 44 17 Z" transform="translate(50.1 20) scale(1.1) translate(-42 -19)" fill="var(--zur-primary, #35d49b)" />
+  <g fill="none" stroke="var(--zur-ink, #15271f)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M73 28 V46 A10 10 0 0 0 93 46 V28" />
+    <path d="M105 28 V56 M105 43 C105 33 110 28 118 29" />
+    <path d="M131 28 V56" />
+  </g>
+  <circle cx="131" cy="16" r="4.4" fill="var(--zur-primary, #35d49b)" />
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Zuri">
+  <title>Zuri — Z de duas folhas</title>
+  <path d="M7 19 C19 5 42 5 57 15 C45 26 21 26 7 19 Z" fill="var(--zur-primary, #35d49b)" />
+  <path d="M7 49 C19 38 43 38 57 45 C45 61 21 61 7 49 Z" fill="var(--zur-primary-active, #23ad7b)" />
+  <path d="M46 20 L18 44" fill="none" stroke="var(--zur-primary-active, #23ad7b)" stroke-width="8" stroke-linecap="round" />
+</svg>

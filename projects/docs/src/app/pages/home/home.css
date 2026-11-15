@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zur-space-lg);
+  margin-bottom: var(--zur-space-section);
+}
+
+h1 {
+  font: var(--zur-font-display-lg);
+  letter-spacing: var(--zur-tracking-display-lg);
+  color: var(--zur-ink);
+  margin: 0;
+}
+
+h1 em {
+  color: var(--zur-primary-active);
+  font-style: normal;
+}
+
+.lead {
+  font: var(--zur-font-body-lg);
+  color: var(--zur-body);
+  max-width: 620px;
+  margin: 0;
+}
+
+.cta {
+  display: flex;
+  gap: var(--zur-space-md);
+}
+
+.cta a {
+  text-decoration: none;
+}
+
+.swatches {
+  display: flex;
+  gap: var(--zur-space-sm);
+  margin-top: var(--zur-space-md);
+}
+
+.swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--zur-radius-md);
+  border: 1px solid var(--zur-hairline);
+}
+
+.traits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--zur-space-lg);
+  margin-bottom: var(--zur-space-section);
+}
+
+.traits h3 {
+  font: var(--zur-font-title);
+  color: var(--zur-ink);
+  margin: var(--zur-space-sm) 0 4px;
+}
+
+.traits p {
+  margin: 0;
+  color: var(--zur-body);
+}
+
+.closing h2 {
+  font: var(--zur-font-headline);
+  color: var(--zur-ink);
+}
+
+.closing p {
+  color: var(--zur-body);
+  line-height: 1.7;
+}
+
+.closing code {
+  background: var(--zur-surface-strong);
+  padding: 2px 6px;
+  border-radius: var(--zur-radius-xs);
+}
+
+@media (max-width: 720px) {
+  .traits {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero zur-badge {
+  align-self: flex-start;
+}
+
+.hero zur-logo {
+  align-self: flex-start;
+}
