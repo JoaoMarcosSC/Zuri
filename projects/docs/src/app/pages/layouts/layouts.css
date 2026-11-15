@@ -17,15 +17,10 @@ h1 {
 }
 
 .viewport {
-  position: sticky;
-  top: 72px;
-  z-index: 5;
   display: flex;
   flex-wrap: wrap;
   gap: var(--zur-space-xs);
-  padding: var(--zur-space-sm) 0;
   margin-bottom: var(--zur-space-xl);
-  background: var(--zur-canvas);
 }
 
 .layout {
