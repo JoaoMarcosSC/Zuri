@@ -12,6 +12,8 @@
 [![npm](https://img.shields.io/npm/v/@juau/zuri?color=23ad7b&label=npm)](https://www.npmjs.com/package/@juau/zuri)
 ![License](https://img.shields.io/badge/licença-MIT-lightgrey)
 
+[Documentação](https://joaomarcossc.github.io/Zuri/) · [Storybook](https://joaomarcossc.github.io/Zuri/storybook/) · [npm](https://www.npmjs.com/package/@juau/zuri)
+
 </div>
 
 <br>
@@ -31,7 +33,7 @@ A documentação deste repositório foi feita com o próprio Zuri, então cada c
 
 ## Veja em ação
 
-A documentação com demos ao vivo está em **https://joaomarcossc.github.io/Zuri/** e o catálogo de componentes (Storybook) em **https://joaomarcossc.github.io/Zuri/storybook/**.
+Tudo abaixo está rodando na [documentação online](https://joaomarcossc.github.io/Zuri/), onde cada componente e cada layout tem demo ao vivo e o código ao lado. O [Storybook](https://joaomarcossc.github.io/Zuri/storybook/) tem o catálogo de componentes e uma story por layout.
 
 <table>
   <tr>
@@ -158,6 +160,17 @@ A especificação completa (cores, tipografia, espaçamento, elevação, compone
 ```
 
 A documentação lê a biblioteca de `dist/zuri`. Depois de mexer na biblioteca, rode `npx ng build zuri` ou deixe `npm run watch` aberto.
+
+## Publicação da documentação
+
+A documentação e o Storybook são publicados no GitHub Pages a cada push na `main`, pelo workflow [`deploy-docs.yml`](.github/workflows/deploy-docs.yml). Ele compila a biblioteca, a documentação e o Storybook, e leva uns 2 a 4 minutos. O site é estático e fica em `https://joaomarcossc.github.io/Zuri/`, então o `base href` é ajustado no build e o `404.html` reaproveita o `index.html` para as rotas funcionarem ao recarregar a página.
+
+Para testar do mesmo jeito localmente:
+
+```bash
+npx ng build zuri
+npx ng build docs --base-href /Zuri/
+```
 
 ## Scripts
 
