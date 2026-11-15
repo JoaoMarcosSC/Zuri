@@ -9,7 +9,8 @@
 
 ![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Status](https://img.shields.io/badge/status-0.0.1%20(pré--lançamento)-lightgrey)
+[![npm](https://img.shields.io/npm/v/@juau/zuri?color=23ad7b&label=npm)](https://www.npmjs.com/package/@juau/zuri)
+![License](https://img.shields.io/badge/licença-MIT-lightgrey)
 
 </div>
 
@@ -43,23 +44,13 @@ A documentação deste repositório foi feita com o próprio Zuri, então cada c
 
 ## Começando
 
-O pacote `@juau/zuri` ainda não foi publicado no npm. Por enquanto, rode direto deste repositório:
-
-```bash
-git clone https://github.com/JoaoMarcosSC/Zuri.git
-cd Zuri
-npm install
-
-npm start                 # documentação em http://localhost:4200
-npm run storybook         # catálogo de componentes
-npx ng build zuri         # compila a biblioteca para dist/zuri
-```
-
-Quando o pacote for publicado, o uso será este:
+Instale o pacote:
 
 ```bash
 npm install @juau/zuri
 ```
+
+Importe os tokens e a fonte no `styles.css` global da aplicação:
 
 ```css
 /* styles.css global da aplicação */
@@ -82,6 +73,20 @@ import { ZurButton, ZurBadge, ZurLogo } from '@juau/zuri';
 <zur-logo />
 <zur-badge color="mint">Novo</zur-badge>
 <button zur-button variant="primary" size="lg">Reservar agora</button>
+```
+
+## Rodando este repositório
+
+Para ver a documentação e o Storybook localmente, ou para mexer na biblioteca:
+
+```bash
+git clone https://github.com/JoaoMarcosSC/Zuri.git
+cd Zuri
+npm install
+
+npm start                 # documentação em http://localhost:4200
+npm run storybook         # catálogo de componentes
+npx ng build zuri         # compila a biblioteca para dist/zuri
 ```
 
 ## Componentes
