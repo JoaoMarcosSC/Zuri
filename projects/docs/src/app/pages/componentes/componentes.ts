@@ -44,6 +44,8 @@ import {
   ZurTooltip,
 } from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
+import { FormsAdvanced } from './forms-advanced';
+import { Patterns } from './patterns';
 
 @Component({
   selector: 'docs-componentes',
@@ -51,6 +53,8 @@ import { CodeBlock } from '../../shared/code-block/code-block';
   imports: [
     FormsModule,
     CodeBlock,
+    FormsAdvanced,
+    Patterns,
     ZurButton,
     ZurBadge,
     ZurCard,

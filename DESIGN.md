@@ -353,6 +353,19 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 - **`zur-checkbox`** / **`zur-radio`** — 20px, marcados em menta com check em tinta.
 - **`zur-switch`** — trilho pill 44×24px; ligado = menta.
 - **`zur-textarea`** — mesmo chrome do input, `resize: vertical`; contador opcional com `maxlength`.
+- **`zur-combobox`** — input 56px com listbox filtrável no tier de sombra único; busca sem
+  acento e por iniciais; opção ativa em surface-soft, escolhida em negrito com check menta.
+- **`zur-date-picker`** — campo-botão 56px + calendário em painel `{rounded.md}`; dias 40px em
+  círculo, **selecionado em pill ink** (Airbnb), hoje com ponto menta, faixa (`mode="range"`) em
+  lozenge surface-strong com pontas arredondadas; fora de `min`/`max` riscado e muted.
+- **`zur-file-upload`** — área tracejada 2px em surface-soft (ao arrastar: borda menta + fundo
+  primary-soft); arquivos como cartões hairline `{rounded.md}` com `zur-progress` sm; o envio é
+  da aplicação.
+- **`zur-chips`** — campo com chips em pill primary-soft; Enter/vírgula adiciona, Backspace remove.
+- **`zur-slider`** — trilha 6px surface-strong, preenchimento menta, controle 24px canvas com
+  borda primary-active; valor único ou faixa (`range`).
+- **`zur-segmented`** — trilho pill surface-strong; opção ativa em surface-raised com hairline
+  (nunca menta sólido: é seleção, não ação).
 
 ### Navegação
 - **`zur-navbar`** — 80px, canvas + hairline inferior; slots para logo, links e ações;
@@ -392,6 +405,24 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   clique no fundo e foco preso, devolvido ao gatilho ao fechar.
 - **`zur-popover`** — painel flutuante `{rounded.md}` ancorado ao `[zurPopoverTrigger]`; fecha com
   ESC ou clique fora.
+
+### Padrões compostos
+Componentes de alto nível montados com os primitivos acima; nenhum token novo.
+- **`zur-chat`** (+ `zur-chat-message`, `zur-chat-divider`, `zur-chat-typing`,
+  `zur-chat-composer`) — área `role="log"` que gruda no fim (inclusive texto em streaming) a
+  menos que o usuário suba; **bolha "me" em primary-soft, "them" em surface-soft**, ambas
+  `{rounded.md}` com o canto do lado do autor em `{rounded.xs}`; mensagens seguidas do mesmo
+  autor se agrupam (`continued`); compositor com campo pill que cresce e botão de envio
+  circular menta.
+- **`zur-command-palette`** — Ctrl/⌘+K; modal a 12vh do topo, `{rounded.lg}`, busca 60px,
+  grupos em caption uppercase, item ativo em surface-soft com ícone em primary-soft, atalhos
+  em `kbd`.
+- **`zur-notification-center`** — sino circular 44px com contador menta; painel via
+  `zur-popover` agrupado em Hoje/Anteriores, não lidas com ponto colorido e título em negrito.
+- **`zur-kanban`** — colunas surface-soft `{rounded.md}`, cartões surface-raised hairline; ao
+  arrastar, coluna-alvo em primary-soft e linha de inserção menta 3px; cartão pego pelo teclado
+  ganha a sombra única + anel de foco. Drag and drop nativo + teclado (Espaço, setas, Esc),
+  com anúncios `aria-live`.
 
 ## Identidade — nome e logo
 
@@ -473,5 +504,9 @@ e `zur-footer`. Breadcrumb, page-header e rodapé são slots **opcionais**.
   e `aria-pressed`.
 - Textos internos dos componentes (`aria-label` do fechar, "Voltar", rótulos de regiões) vêm
   do token `ZUR_I18N`: português por padrão, inglês com `provideZuriI18n('en')`.
+- Componentes compostos seguem os padrões ARIA: combobox (`aria-activedescendant`), grade do
+  calendário com roving tabindex, `radiogroup` no segmented, `role="slider"` por controle, chat em
+  `role="log"`, paleta como diálogo modal com foco devolvido, e kanban movível 100% pelo teclado
+  com anúncios em `aria-live` (nunca só arrastar com mouse).
 - Cada story do Storybook roda como teste com o axe (`npm run test:stories`); violação de
   acessibilidade quebra o CI.

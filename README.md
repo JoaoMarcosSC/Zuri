@@ -212,7 +212,7 @@ O workflow [`release.yml`](.github/workflows/release.yml) confere se a tag bate 
 
 ## Nome e logo
 
-Zuri quer dizer "bonito" em suaíli. No logo, o Z com a folha na ponta é a primeira letra do nome, e o resto é só "uri". As cores vêm dos tokens, então o logo muda junto com o tema.
+Zuri quer dizer "bonito" em suaíli. As cores vêm dos tokens, então o logo muda junto com o tema.
 
 ## Licença
 

@@ -23,4 +23,15 @@ describe('ZUR_I18N', () => {
     expect(ZUR_I18N_PT.page(3)).toBe('Página 3');
     expect(ZUR_I18N_EN.characterCount(12, 200)).toBe('12 of 200 characters');
   });
+
+  it('tem as mesmas chaves nos dois idiomas', () => {
+    expect(Object.keys(ZUR_I18N_EN).sort()).toEqual(Object.keys(ZUR_I18N_PT).sort());
+  });
+
+  it('formata os textos dos componentes novos', () => {
+    expect(ZUR_I18N_PT.unreadNotifications(1)).toBe('Notificações, 1 não lida');
+    expect(ZUR_I18N_PT.unreadNotifications(0)).toBe('Notificações');
+    expect(ZUR_I18N_EN.typing('Ana')).toBe('Ana is typing…');
+    expect(ZUR_I18N_PT.cardMoved('Regar', 'Feito', 2)).toBe('Regar: coluna Feito, posição 2.');
+  });
 });

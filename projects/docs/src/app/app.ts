@@ -88,6 +88,12 @@ export class App {
         { id: 'radio', label: 'Radio' },
         { id: 'switch', label: 'Switch' },
         { id: 'textarea', label: 'Textarea' },
+        { id: 'combobox', label: 'Combobox' },
+        { id: 'date-picker', label: 'Date picker' },
+        { id: 'file-upload', label: 'Upload de arquivos' },
+        { id: 'chips', label: 'Chips' },
+        { id: 'slider', label: 'Slider' },
+        { id: 'segmented', label: 'Segmented' },
       ],
     },
     {
@@ -131,6 +137,15 @@ export class App {
       items: [
         { id: 'drawer', label: 'Drawer' },
         { id: 'popover', label: 'Popover' },
+      ],
+    },
+    {
+      label: 'Padrões',
+      items: [
+        { id: 'chat', label: 'Chat' },
+        { id: 'command-palette', label: 'Command palette' },
+        { id: 'notifications', label: 'Notificações' },
+        { id: 'kanban', label: 'Kanban' },
       ],
     },
   ];

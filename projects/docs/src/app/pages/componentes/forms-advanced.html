@@ -1,0 +1,107 @@
+<section id="combobox" class="component">
+  <h2>Combobox</h2>
+  <p>
+    Select com busca: digite e a lista filtra, sem diferenciar acento e aceitando iniciais
+    (<code>cda</code> acha "Costela-de-adão"). Setas navegam, Enter escolhe, Esc fecha.
+  </p>
+  <div class="demo demo-form">
+    <zur-combobox
+      label="Planta"
+      placeholder="Busque pelo nome"
+      hint="Experimente digitar orquidea ou cda."
+      [options]="plantas"
+      [ngModel]="planta()"
+      (ngModelChange)="planta.set($event)"
+    />
+    <p class="readout">Valor: <code>{{ planta() ?? 'null' }}</code></p>
+  </div>
+  <docs-code-block [code]="codeCombobox" />
+</section>
+
+<section id="date-picker" class="component">
+  <h2>Date picker</h2>
+  <p>
+    Calendário em painel, com data única ou faixa (primeiro clique é o início, o segundo o fim).
+    Navegue pelo teclado na grade: setas, PageUp/PageDown, Home/End. Nomes de mês e dia seguem o
+    idioma do i18n.
+  </p>
+  <div class="demo">
+    <div style="display:grid; gap:24px; width:100%; max-width:360px;">
+      <zur-date-picker
+        label="Entrega"
+        placeholder="Escolha a data"
+        hint="Não aceita datas passadas."
+        [min]="hoje"
+        [ngModel]="entrega()"
+        (ngModelChange)="entrega.set($event)"
+      />
+      <zur-date-picker
+        label="Férias (quem rega?)"
+        placeholder="Início e fim"
+        mode="range"
+        [ngModel]="ferias()"
+        (ngModelChange)="ferias.set($event)"
+      />
+      <p class="readout">Faixa: {{ formatRange(ferias()) }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeDatePicker" />
+</section>
+
+<section id="file-upload" class="component">
+  <h2>Upload de arquivos</h2>
+  <p>
+    Arraste e solte ou escolha no computador. Valida tipo e tamanho, e lista os arquivos com
+    progresso. O envio fica com a aplicação — aqui ele é simulado.
+  </p>
+  <div class="demo demo-form" style="max-width: 520px">
+    <zur-file-upload
+      label="Fotos da sua planta"
+      accept="image/*,.pdf"
+      [maxSize]="5242880"
+      multiple
+      hint="PNG, JPG ou PDF até 5 MB."
+      [files]="fotos()"
+      (filesChange)="fotos.set($event)"
+      (filesAdded)="simularEnvio($event)"
+    />
+  </div>
+  <docs-code-block [code]="codeFileUpload" />
+</section>
+
+<section id="chips" class="component">
+  <h2>Chips</h2>
+  <p>Enter ou vírgula transforma o texto em chip; Backspace no campo vazio remove o último.</p>
+  <div class="demo demo-form">
+    <zur-chips
+      label="Ambientes"
+      placeholder="Digite e tecle Enter"
+      [max]="6"
+      [ngModel]="ambientes()"
+      (ngModelChange)="ambientes.set($event)"
+    />
+  </div>
+  <docs-code-block [code]="codeChips" />
+</section>
+
+<section id="slider" class="component">
+  <h2>Slider</h2>
+  <p>Valor único ou faixa. Arraste, clique na trilha ou use setas, PageUp/PageDown e Home/End.</p>
+  <div class="demo demo-form">
+    <div style="display:grid; gap:32px;">
+      <zur-slider label="Altura máxima (cm)" [min]="10" [max]="200" [step]="5" [ngModel]="altura()" (ngModelChange)="altura.set($event)" />
+      <zur-slider label="Faixa de preço" range [min]="0" [max]="500" [step]="10" [format]="reais" [ngModel]="preco()" (ngModelChange)="preco.set($event)" />
+    </div>
+  </div>
+  <docs-code-block [code]="codeSlider" />
+</section>
+
+<section id="segmented" class="component">
+  <h2>Segmented</h2>
+  <p>Alternador em pílulas para poucas opções exclusivas. É um radiogroup: setas trocam a opção.</p>
+  <div class="demo">
+    <zur-segmented label="Visualização" [options]="visoes" [ngModel]="visao()" (ngModelChange)="visao.set($event)" />
+    <zur-segmented label="Período" size="sm" [options]="[{ value: 'd', label: 'Dia' }, { value: 's', label: 'Semana' }, { value: 'm', label: 'Mês' }]" ngModel="s" />
+  </div>
+  <docs-code-block [code]="codeSegmented" />
+</section>

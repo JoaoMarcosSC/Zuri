@@ -4,6 +4,20 @@ As mudanças do pacote [`@juau/zuri`](https://www.npmjs.com/package/@juau/zuri) 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.2.0] - 2026-11-15
+
+### Adicionado
+- Formulários avançados: `zur-combobox` (select com busca, sem acento e por iniciais),
+  `zur-date-picker` (data única ou faixa, teclado na grade, nomes no locale do i18n),
+  `zur-file-upload` (arrastar e soltar, validação de tipo/tamanho, progresso controlado pela
+  aplicação), `zur-chips`, `zur-slider` (valor único ou faixa) e `zur-segmented`.
+- Padrões compostos: `zur-chat` (com `zur-chat-message`, `zur-chat-divider`, `zur-chat-typing` e
+  `zur-chat-composer`; rola sozinho inclusive com texto em streaming), `zur-command-palette`
+  (Ctrl/⌘+K), `zur-notification-center` e `zur-kanban` (drag and drop nativo e por teclado,
+  com anúncios para leitores de tela).
+- Funções utilitárias exportadas: `zurFormatBytes`, `zurAcceptsFile` e `zurKanbanMove`.
+- Chaves novas no `ZurI18n` (inclusive `locale`), em português e inglês.
+
 ## [0.1.0] - 2026-11-15
 
 ### Adicionado
@@ -36,5 +50,6 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 - Primeira versão publicada: componentes de fundamentos, formulários, navegação, conteúdo e
   feedback, 7 layouts de página, tema claro/escuro com `zurThemeScope` e o logo `zur-logo`.
 
+[0.2.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.2.0
 [0.1.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.1.0
 [0.0.1]: https://www.npmjs.com/package/@juau/zuri/v/0.0.1

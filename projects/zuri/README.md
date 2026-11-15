@@ -62,11 +62,12 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 |---|---|
 | Tema e marca | `ZurThemeService`, `zur-theme-toggle`, `[zurThemeScope]` (tema isolado), `zur-logo` |
 | Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar` |
-| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch` (todos ControlValueAccessor) |
+| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch`, `zur-combobox`, `zur-date-picker`, `zur-chips`, `zur-slider`, `zur-segmented` (todos ControlValueAccessor), `zur-file-upload` |
 | Navegação | `zur-navbar`, `zur-tabs`/`zur-tab`, `zur-menu`/`zur-menu-item`, `zur-breadcrumb`, `zur-sidenav`/`zur-sidenav-item`/`zur-sidenav-label` |
 | Dados | `table[zur-table]` + `th[zurSortable]`, `zur-pagination` |
 | Conteúdo | `zur-step`, `zur-accordion`, `zur-empty-state` |
 | Sobreposição | `zur-drawer`, `zur-popover` + `[zurPopoverTrigger]` |
+| Padrões | `zur-chat` (+ `-message`, `-divider`, `-typing`, `-composer`), `zur-command-palette`, `zur-notification-center`, `zur-kanban` + `ng-template[zurKanbanCard]` |
 | Layouts de página | `zur-landing-layout`, `zur-dashboard-layout`, `zur-list-detail-layout`, `zur-form-layout`, `zur-docs-layout`, `zur-auth-layout`, `zur-error-layout` + `zur-sidebar`, `zur-topbar`, `zur-page-header`, `zur-footer` — veja [`LAYOUTS.md`](../../LAYOUTS.md) |
 | Feedback | `zur-modal`, `ZurToastService` + `zur-toast-container`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton`, `zur-progress` |
 
@@ -94,6 +95,20 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
     <button zur-button variant="primary">Confirmar</button>
   </div>
 </zur-modal>
+```
+
+```html
+<zur-combobox label="Planta" [options]="plantas" [(ngModel)]="planta" />
+<zur-date-picker label="Período" mode="range" [(ngModel)]="periodo" />
+
+<zur-chat style="height: 480px">
+  @for (m of mensagens(); track m.id) {
+    <zur-chat-message [from]="m.from" [author]="m.autor">{{ m.texto }}</zur-chat-message>
+  }
+  <zur-chat-composer (send)="enviar($event)" />
+</zur-chat>
+
+<zur-command-palette [commands]="comandos" (selected)="executar($event)" />  <!-- Ctrl+K -->
 ```
 
 ```ts

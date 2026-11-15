@@ -1,0 +1,86 @@
+<section id="chat" class="component">
+  <h2>Chat</h2>
+  <p>
+    Conversa com bolhas agrupadas, separador de data, indicador "digitando…" e campo que
+    cresce com o texto (Enter envia, Shift+Enter quebra linha). A área de mensagens rola
+    sozinha quando chega conteúdo — inclusive texto em streaming, como num assistente de IA —
+    a menos que você tenha subido para ler o histórico. Mande uma mensagem para ver a Ana
+    responder.
+  </p>
+  <div class="demo demo-chat">
+    <zur-chat>
+      <zur-chat-divider>Hoje</zur-chat-divider>
+      @for (m of messages(); track $index; let i = $index) {
+        <zur-chat-message
+          [from]="m.from"
+          [author]="m.from === 'them' ? 'Ana · Casa Verde' : ''"
+          [time]="m.time"
+          [continued]="i > 0 && messages()[i - 1].from === m.from"
+        >{{ m.text }}</zur-chat-message>
+      }
+      @if (typing()) {
+        <zur-chat-typing name="Ana" />
+      }
+      <zur-chat-composer attach accept="image/*" (send)="send($event)" (attached)="attached($event)" />
+    </zur-chat>
+  </div>
+  <docs-code-block [code]="codeChat" />
+</section>
+
+<section id="command-palette" class="component">
+  <h2>Command palette</h2>
+  <p>
+    Busca global de páginas e ações. Aperte <kbd>Ctrl</kbd> + <kbd>K</kbd> (ou <kbd>⌘</kbd> +
+    <kbd>K</kbd>) em qualquer lugar desta página. Filtra sem acento, por iniciais e por
+    palavras-chave; setas navegam e Enter executa.
+  </p>
+  <div class="demo">
+    <button zur-button variant="secondary" (click)="paletteOpen.set(true)">
+      Abrir paleta de comandos
+    </button>
+    <zur-command-palette [commands]="commands" [open]="paletteOpen()" (openChange)="paletteOpen.set($event)" (selected)="runCommand($event)" />
+  </div>
+  <docs-code-block [code]="codePalette" />
+</section>
+
+<section id="notifications" class="component">
+  <h2>Central de notificações</h2>
+  <p>
+    Sino com contador de não lidas e painel agrupado em Hoje e Anteriores. Clique em um item
+    para marcá-lo como lido.
+  </p>
+  <div class="demo demo-notifications">
+    <button zur-button variant="ghost" size="sm" (click)="addNotification()">Simular nova notificação</button>
+    <zur-notification-center
+      [notifications]="notifications()"
+      emptyDescription="Avisos de pedidos e regas aparecem aqui."
+      (read)="markRead($event)"
+      (readAll)="markAllRead()"
+    />
+  </div>
+  <docs-code-block [code]="codeNotifications" />
+</section>
+
+<section id="kanban" class="component">
+  <h2>Kanban</h2>
+  <p>
+    Quadro com cartões arrastáveis. Com mouse ou toque, arraste entre colunas. Pelo teclado,
+    foque um cartão, aperte Espaço para pegá-lo, use as setas (↑↓ na coluna, ←→ entre colunas)
+    e Espaço de novo para soltar — Esc desfaz. Cada passo é anunciado a leitores de tela.
+  </p>
+  <div class="demo demo-kanban">
+    <zur-kanban
+      [columns]="board()"
+      (columnsChange)="board.set($any($event))"
+      addLabel="Adicionar pedido"
+      (moved)="onMoved($event)"
+      (add)="addOrder($event)"
+    >
+      <ng-template zurKanbanCard let-item>
+        <span class="kanban-title">{{ item.title }}</span>
+        <span class="kanban-meta">#{{ item.id }} · {{ item.client }}</span>
+      </ng-template>
+    </zur-kanban>
+  </div>
+  <docs-code-block [code]="codeKanban" />
+</section>

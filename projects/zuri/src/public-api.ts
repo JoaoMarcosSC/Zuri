@@ -24,6 +24,12 @@ export * from './lib/checkbox/checkbox';
 export * from './lib/radio/radio';
 export * from './lib/switch/switch';
 export * from './lib/textarea/textarea';
+export * from './lib/combobox/combobox';
+export * from './lib/date-picker/date-picker';
+export * from './lib/file-upload/file-upload';
+export * from './lib/chips/chips';
+export * from './lib/slider/slider';
+export * from './lib/segmented/segmented';
 
 // Navegação
 export * from './lib/navbar/navbar';
@@ -57,3 +63,9 @@ export * from './lib/progress/progress';
 // Sobreposição
 export * from './lib/drawer/drawer';
 export * from './lib/popover/popover';
+
+// Padrões compostos
+export * from './lib/chat/chat';
+export * from './lib/command-palette/command-palette';
+export * from './lib/notifications/notification-center';
+export * from './lib/kanban/kanban';

@@ -7,12 +7,33 @@ import { ZurCheckbox } from '../lib/checkbox/checkbox';
 import { ZurRadio } from '../lib/radio/radio';
 import { ZurSwitch } from '../lib/switch/switch';
 import { ZurTextarea } from '../lib/textarea/textarea';
+import { ZurCombobox } from '../lib/combobox/combobox';
+import { ZurDatePicker } from '../lib/date-picker/date-picker';
+import { ZurFileUpload } from '../lib/file-upload/file-upload';
+import { ZurChips } from '../lib/chips/chips';
+import { ZurSlider } from '../lib/slider/slider';
+import { ZurSegmented } from '../lib/segmented/segmented';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta: Meta = {
   title: 'Formulários/Controles',
   decorators: [
     moduleMetadata({
-      imports: [FormsModule, ZurInput, ZurSelect, ZurCheckbox, ZurRadio, ZurSwitch, ZurTextarea],
+      imports: [
+        FormsModule,
+        ZurInput,
+        ZurSelect,
+        ZurCheckbox,
+        ZurRadio,
+        ZurSwitch,
+        ZurTextarea,
+        ZurCombobox,
+        ZurDatePicker,
+        ZurFileUpload,
+        ZurChips,
+        ZurSlider,
+        ZurSegmented,
+      ],
     }),
   ],
 };
@@ -81,4 +102,98 @@ export const Textarea: Story = {
       </div>
     `,
   }),
+};
+
+const plantas = [
+  { value: 'jiboia', label: 'Jiboia', description: 'Meia-sombra · fácil' },
+  { value: 'costela', label: 'Costela-de-adão', description: 'Luz indireta · média' },
+  { value: 'orquidea', label: 'Orquídea', description: 'Luz filtrada · exigente' },
+  { value: 'zamioculca', label: 'Zamioculca', description: 'Pouca luz · muito fácil' },
+  { value: 'espada', label: 'Espada-de-são-jorge', description: 'Qualquer luz · muito fácil' },
+];
+
+export const Combobox: Story = {
+  render: () => ({
+    props: { planta: null, plantas },
+    template: `
+      <div style="max-width:360px; min-height:340px;">
+        <zur-combobox label="Planta" placeholder="Busque pelo nome" [options]="plantas" [(ngModel)]="planta"
+          hint="Aceita sem acento e por iniciais (ex.: cda)." />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const field = canvas.getByRole('combobox', { name: 'Planta' });
+    await userEvent.type(field, 'orq');
+    await expect(canvas.getByRole('option', { name: /Orquídea/ })).toBeTruthy();
+  },
+};
+
+export const DatePicker: Story = {
+  name: 'Date picker',
+  render: () => ({
+    props: { entrega: null, periodo: null, hoje: new Date() },
+    template: `
+      <div style="display:grid; gap:24px; max-width:360px; min-height:460px;">
+        <zur-date-picker label="Entrega" placeholder="Escolha a data" [min]="hoje" [(ngModel)]="entrega" />
+        <zur-date-picker label="Férias (quem rega?)" placeholder="Início e fim" mode="range" [(ngModel)]="periodo" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /Entrega/ }));
+    await expect(canvas.getByRole('grid')).toBeTruthy();
+  },
+};
+
+export const FileUpload: Story = {
+  name: 'Upload de arquivos',
+  render: () => ({
+    props: {
+      fotos: [
+        { id: 'f1', file: new File(['x'.repeat(240000)], 'monstera-folha-nova.jpg'), progress: null, status: 'done' },
+        { id: 'f2', file: new File(['x'.repeat(1800000)], 'jiboia-varanda.png'), progress: 62, status: 'uploading' },
+        { id: 'f3', file: new File(['x'.repeat(90000)], 'nota-fiscal.pdf'), progress: null, status: 'error', error: 'Falha no envio. Tente de novo.' },
+      ],
+    },
+    template: `
+      <div style="max-width:480px;">
+        <zur-file-upload label="Fotos da sua planta" accept="image/*,.pdf" [maxSize]="5242880" multiple
+          hint="PNG, JPG ou PDF até 5 MB." [(files)]="fotos" />
+      </div>
+    `,
+  }),
+};
+
+export const ChipsSliderSegmented: Story = {
+  name: 'Chips · Slider · Segmented',
+  render: () => ({
+    props: {
+      ambientes: ['Sala', 'Varanda'],
+      altura: 40,
+      preco: [50, 300],
+      visao: 'grade',
+      visoes: [
+        { value: 'grade', label: 'Grade' },
+        { value: 'lista', label: 'Lista' },
+        { value: 'mapa', label: 'Mapa' },
+      ],
+      reais: (v: number) => 'R$ ' + v,
+    },
+    template: `
+      <div style="display:grid; gap:32px; max-width:420px;">
+        <zur-chips label="Ambientes" placeholder="Digite e tecle Enter" [(ngModel)]="ambientes" />
+        <zur-slider label="Altura máxima (cm)" [min]="10" [max]="200" [step]="5" [(ngModel)]="altura" />
+        <zur-slider label="Faixa de preço" range [min]="0" [max]="500" [step]="10" [format]="reais" [(ngModel)]="preco" />
+        <zur-segmented label="Visualização" [options]="visoes" [(ngModel)]="visao" />
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByLabelText('Ambientes'), 'Cozinha{enter}');
+    await expect(canvas.getByText('Cozinha')).toBeTruthy();
+  },
 };
