@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -45,6 +46,7 @@ interface ComponentGroup {
 })
 export class App {
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
 
   /** Rotas /demo/* (iframes da página Layouts) renderizam sem o shell da docs. */
   protected readonly isDemo = toSignal(
@@ -52,7 +54,7 @@ export class App {
       filter((e) => e instanceof NavigationEnd),
       map(() => this.router.url.startsWith('/demo')),
     ),
-    { initialValue: typeof location !== 'undefined' && location.pathname.startsWith('/demo') },
+    { initialValue: this.location.path().startsWith('/demo') },
   );
 
   protected readonly layoutLinks: ComponentLink[] = [

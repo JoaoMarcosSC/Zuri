@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ZurButton } from '@juau/zuri';
@@ -160,6 +161,7 @@ const CODIGOS: Record<string, string> = {
 })
 export class Layouts {
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly doc = inject(DOCUMENT);
 
   protected readonly viewport = signal<Viewport>('desktop');
   protected readonly viewports: { id: Viewport; label: string }[] = [
@@ -171,6 +173,7 @@ export class Layouts {
   protected readonly layouts: (LayoutInfo & { url: SafeResourceUrl })[] = LAYOUTS.map((l) => ({
     ...l,
     codigo: CODIGOS[l.id],
-    url: this.sanitizer.bypassSecurityTrustResourceUrl(`/demo/${l.id}`),
+    // new URL(..., baseURI) respeita o <base href> (ex.: /Zuri/ no GitHub Pages)
+    url: this.sanitizer.bypassSecurityTrustResourceUrl(new URL(`demo/${l.id}`, this.doc.baseURI).href),
   }));
 }

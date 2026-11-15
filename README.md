@@ -31,6 +31,8 @@ A documentação deste repositório foi feita com o próprio Zuri, então cada c
 
 ## Veja em ação
 
+A documentação com demos ao vivo está em **https://joaomarcossc.github.io/Zuri/** e o catálogo de componentes (Storybook) em **https://joaomarcossc.github.io/Zuri/storybook/**.
+
 <table>
   <tr>
     <td width="50%"><img src="branding/screenshots/layout-dashboard-light.png" alt="Layout Dashboard, tema claro"><br><sub>Dashboard, tema claro. A sidebar recolhe e o topbar some ao rolar.</sub></td>

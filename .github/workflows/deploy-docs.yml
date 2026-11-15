@@ -1,0 +1,65 @@
+name: Publicar documentação
+
+# Publica a documentação (e o Storybook em /storybook/) no GitHub Pages
+# a cada push na main. Também dá para rodar à mão na aba Actions.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # A documentação lê a biblioteca de dist/zuri, então ela vem primeiro.
+      - name: Compilar a biblioteca
+        run: npx ng build zuri
+
+      # O site fica em https://<usuário>.github.io/<repositório>/
+      - name: Compilar a documentação
+        run: npx ng build docs --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Compilar o Storybook
+        run: npx ng run zuri:build-storybook
+
+      - name: Montar o site
+        run: |
+          cp -r storybook-static dist/docs/browser/storybook
+          # O Pages não conhece as rotas do Angular: o 404.html reaproveita o index.html
+          # para /layouts, /componentes etc. funcionarem ao recarregar a página.
+          cp dist/docs/browser/index.html dist/docs/browser/404.html
+          touch dist/docs/browser/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/docs/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
