@@ -27,8 +27,12 @@ let nextId = 0;
  * iniciais). Navegação por setas, Enter escolhe, Esc fecha. Funciona com
  * `ngModel` e formulários reativos; o valor é o `value` da opção (ou `null`).
  *
+ * Com `multiple`, vira seleção múltipla: as escolhas aparecem como chips dentro do campo, a lista
+ * continua aberta ao escolher e o valor é um `string[]`.
+ *
  * ```html
  * <zur-combobox label="Planta" [options]="plantas" [(ngModel)]="planta" />
+ * <zur-combobox label="Ambientes" multiple [options]="ambientes" [(ngModel)]="escolhidos" />
  * ```
  */
 @Component({
@@ -40,7 +44,19 @@ let nextId = 0;
     @if (label()) {
       <label class="label" [for]="id">{{ label() }}</label>
     }
-    <div class="control" [class.has-error]="!!error()" [class.disabled]="isDisabled()">
+    <div class="control" [class.multi]="multiple()" [class.has-error]="!!error()" [class.disabled]="isDisabled()">
+      @if (multiple()) {
+        @for (tag of selectedOptions(); track tag.value) {
+          <span class="tag">
+            <span class="tag-label">{{ tag.label }}</span>
+            @if (!isDisabled()) {
+              <button type="button" class="tag-remove" [attr.aria-label]="i18n.removeChip(tag.label)" (click)="removeTag(tag.value)">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+              </button>
+            }
+          </span>
+        }
+      }
       <input
         [id]="id"
         class="field"
@@ -60,21 +76,21 @@ let nextId = 0;
         (keydown)="onKeydown($event)"
         (click)="openList()"
       />
-      @if (value() !== null && !isDisabled()) {
+      @if (hasValue() && !isDisabled()) {
         <button type="button" class="clear" [attr.aria-label]="i18n.clear" (click)="clear()">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
         </button>
       }
       <svg class="chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
     </div>
-    <ul class="list" role="listbox" [id]="listId" [attr.aria-label]="label() || null" [hidden]="!open()">
+    <ul class="list" role="listbox" [id]="listId" [attr.aria-label]="label() || null" [attr.aria-multiselectable]="multiple() ? true : null" [hidden]="!open()">
       @for (opt of filtered(); track opt.value; let i = $index) {
         <li
           role="option"
           class="option"
           [id]="optionId(i)"
           [class.active]="i === activeIndex()"
-          [attr.aria-selected]="opt.value === value()"
+          [attr.aria-selected]="isSelected(opt.value)"
           (mousedown)="$event.preventDefault()"
           (click)="select(opt)"
           (mouseenter)="activeIndex.set(i)"
@@ -83,7 +99,7 @@ let nextId = 0;
           @if (opt.description) {
             <span class="option-desc">{{ opt.description }}</span>
           }
-          @if (opt.value === value()) {
+          @if (isSelected(opt.value)) {
             <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7" /></svg>
           }
         </li>
@@ -91,7 +107,7 @@ let nextId = 0;
         <li class="empty" role="presentation">{{ i18n.noResults }}</li>
       }
     </ul>
-    <span class="sr-only" aria-live="polite">{{ open() && filtered().length === 0 ? i18n.noResults : '' }}</span>
+    <span class="sr-only" aria-live="polite">{{ open() && filtered().length === 0 ? i18n.noResults : announcement() }}</span>
     @if (error()) {
       <p class="help error" [id]="id + '-error'">{{ error() }}</p>
     } @else if (hint()) {
@@ -131,6 +147,76 @@ let nextId = 0;
     }
     .field::placeholder {
       color: var(--zur-muted);
+    }
+    /* seleção múltipla: o campo vira um contêiner com chips e o input em linha */
+    .control.multi {
+      flex-wrap: wrap;
+      gap: var(--zur-space-xxs);
+      box-sizing: border-box;
+      min-height: var(--zur-control-height-lg);
+      padding-block: 6px;
+      padding-inline: var(--zur-space-sm) 76px;
+      background: var(--zur-canvas);
+      border: 1px solid var(--zur-hairline);
+      border-radius: var(--zur-radius-sm);
+    }
+    .control.multi:focus-within {
+      border-color: var(--zur-ink);
+      box-shadow: 0 0 0 1px var(--zur-ink);
+    }
+    .control.multi.has-error {
+      border-color: var(--zur-error);
+    }
+    .control.multi.disabled {
+      background: var(--zur-surface-soft);
+    }
+    .multi .field,
+    .multi .field:focus {
+      flex: 1;
+      width: auto;
+      min-width: 96px;
+      height: 32px;
+      padding: 0 var(--zur-space-xxs);
+      border: none;
+      background: transparent;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      max-width: 100%;
+      padding-block: 3px;
+      padding-inline: var(--zur-space-sm) 4px;
+      border-radius: var(--zur-radius-full);
+      background: var(--zur-surface-strong);
+      color: var(--zur-ink);
+      font: var(--zur-font-body-sm);
+    }
+    .tag-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tag-remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      border: none;
+      border-radius: var(--zur-radius-full);
+      background: transparent;
+      color: var(--zur-muted);
+      cursor: pointer;
+    }
+    .tag-remove:hover {
+      background: var(--zur-hairline);
+      color: var(--zur-ink);
+    }
+    .tag-remove:focus-visible {
+      outline: none;
+      box-shadow: var(--zur-focus-ring);
     }
     .field:focus {
       outline: none;
@@ -249,11 +335,16 @@ export class ZurCombobox implements ControlValueAccessor {
   readonly error = input('');
   readonly options = input<ZurComboboxOption[]>([]);
   readonly disabled = input(false, { transform: booleanAttribute });
+  /** Seleção múltipla: chips no campo, lista aberta ao escolher, valor `string[]`. */
+  readonly multiple = input(false, { transform: booleanAttribute });
 
   protected readonly id = `zur-combobox-${nextId++}`;
   protected readonly listId = `${this.id}-list`;
 
   readonly value = signal<string | null>(null);
+  /** Valores escolhidos no modo `multiple`. */
+  readonly values = signal<string[]>([]);
+  protected readonly announcement = signal('');
   /** Texto digitado; `null` quando o campo só mostra o rótulo escolhido. */
   private readonly typed = signal<string | null>(null);
   readonly open = signal(false);
@@ -264,7 +355,13 @@ export class ZurCombobox implements ControlValueAccessor {
     () => this.options().find((o) => o.value === this.value())?.label ?? '',
   );
 
-  protected readonly query = computed(() => this.typed() ?? this.selectedLabel());
+  protected readonly selectedOptions = computed(() =>
+    this.values().map((v) => this.options().find((o) => o.value === v) ?? { value: v, label: v }),
+  );
+
+  protected readonly query = computed(() =>
+    this.multiple() ? (this.typed() ?? '') : (this.typed() ?? this.selectedLabel()),
+  );
 
   /** Enquanto o usuário não digita, mostra todas as opções. */
   protected readonly filtered = computed(() => {
@@ -273,8 +370,16 @@ export class ZurCombobox implements ControlValueAccessor {
     return this.options().filter((o) => zurMatches(o.label, q) || zurMatches(o.description ?? '', q));
   });
 
-  protected onChange: (value: string | null) => void = () => {};
+  protected onChange: (value: string | string[] | null) => void = () => {};
   protected onTouched: () => void = () => {};
+
+  protected hasValue(): boolean {
+    return this.multiple() ? this.values().length > 0 : this.value() !== null;
+  }
+
+  protected isSelected(value: string): boolean {
+    return this.multiple() ? this.values().includes(value) : value === this.value();
+  }
 
   protected optionId(i: number): string {
     return `${this.id}-opt-${i}`;
@@ -288,7 +393,7 @@ export class ZurCombobox implements ControlValueAccessor {
     if (this.isDisabled()) return;
     if (!this.open()) {
       this.open.set(true);
-      const i = this.filtered().findIndex((o) => o.value === this.value());
+      const i = this.multiple() ? -1 : this.filtered().findIndex((o) => o.value === this.value());
       this.activeIndex.set(i >= 0 ? i : 0);
     }
   }
@@ -332,12 +437,18 @@ export class ZurCombobox implements ControlValueAccessor {
         }
         break;
       }
+      case 'Backspace':
+        if (this.multiple() && !(event.target as HTMLInputElement).value && this.values().length) {
+          const last = this.values()[this.values().length - 1];
+          this.removeTag(last);
+        }
+        break;
       case 'Escape':
         if (this.open()) {
           event.preventDefault();
           event.stopPropagation();
           this.closeList();
-        } else if (this.value() !== null) {
+        } else if (!this.multiple() && this.value() !== null) {
           this.clear();
         }
         break;
@@ -345,16 +456,40 @@ export class ZurCombobox implements ControlValueAccessor {
   }
 
   select(option: ZurComboboxOption): void {
+    if (this.multiple()) return this.toggle(option);
     this.value.set(option.value);
     this.typed.set(null);
     this.onChange(option.value);
     this.open.set(false);
   }
 
-  clear(): void {
-    this.value.set(null);
+  /** Marca ou desmarca uma opção no modo `multiple`; a lista continua aberta. */
+  toggle(option: ZurComboboxOption): void {
+    const had = this.values().includes(option.value);
+    this.values.update((v) => (had ? v.filter((x) => x !== option.value) : [...v, option.value]));
     this.typed.set(null);
-    this.onChange(null);
+    this.onChange([...this.values()]);
+    this.announcement.set(had ? this.i18n.optionRemoved(option.label) : this.i18n.optionAdded(option.label));
+    const i = this.filtered().findIndex((o) => o.value === option.value);
+    this.activeIndex.set(i >= 0 ? i : 0);
+  }
+
+  protected removeTag(value: string): void {
+    const opt = this.options().find((o) => o.value === value) ?? { value, label: value };
+    this.toggle(opt);
+    this.host.nativeElement.querySelector('input')?.focus();
+  }
+
+  clear(): void {
+    if (this.multiple()) {
+      this.values.set([]);
+      this.typed.set(null);
+      this.onChange([]);
+    } else {
+      this.value.set(null);
+      this.typed.set(null);
+      this.onChange(null);
+    }
     this.host.nativeElement.querySelector('input')?.focus();
   }
 
@@ -371,11 +506,17 @@ export class ZurCombobox implements ControlValueAccessor {
     }
   }
 
-  writeValue(value: string | null): void {
-    this.value.set(value ?? null);
+  writeValue(value: string | string[] | null): void {
+    if (Array.isArray(value)) {
+      this.values.set([...value]);
+      this.value.set(null);
+    } else {
+      this.value.set(value ?? null);
+      this.values.set([]);
+    }
     this.typed.set(null);
   }
-  registerOnChange(fn: (value: string | null) => void): void {
+  registerOnChange(fn: (value: string | string[] | null) => void): void {
     this.onChange = fn;
   }
   registerOnTouched(fn: () => void): void {

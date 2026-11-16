@@ -78,3 +78,92 @@ describe('ZurCombobox', () => {
     expect(input.value).toBe('');
   });
 });
+
+@Component({
+  imports: [ZurCombobox, ReactiveFormsModule],
+  template: `<zur-combobox label="Ambientes" multiple [options]="options" [formControl]="ctrl" />`,
+})
+class MultiHost {
+  options: ZurComboboxOption[] = [
+    { value: 'sala', label: 'Sala' },
+    { value: 'varanda', label: 'Varanda' },
+    { value: 'quarto', label: 'Quarto' },
+  ];
+  ctrl = new FormControl<string[]>(['sala']);
+}
+
+describe('ZurCombobox multiple', () => {
+  async function setupMulti() {
+    const fixture = TestBed.createComponent(MultiHost);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    const input = el.querySelector('input') as HTMLInputElement;
+    const key = async (k: string) => {
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true }));
+      await fixture.whenStable();
+    };
+    const tags = () => Array.from(el.querySelectorAll('.tag-label')).map((t) => t.textContent!.trim());
+    const list = el.querySelector('[role=listbox]') as HTMLElement;
+    return { fixture, el, input, key, tags, list, ctrl: fixture.componentInstance.ctrl };
+  }
+
+  it('mostra os valores iniciais como chips e marca a lista como multiselecionável', async () => {
+    const { tags, list, el } = await setupMulti();
+    expect(tags()).toEqual(['Sala']);
+    expect(list.getAttribute('aria-multiselectable')).toBe('true');
+    expect(el.querySelector('[role=option][aria-selected=true]')?.textContent).toContain('Sala');
+  });
+
+  it('escolher com setas e Enter adiciona sem fechar a lista e atualiza o formulário', async () => {
+    const { key, tags, input, ctrl, list } = await setupMulti();
+    input.click(); // abre a lista com o primeiro item ativo
+    await key('ArrowDown'); // Varanda
+    await key('Enter');
+    expect(ctrl.value).toEqual(['sala', 'varanda']);
+    expect(tags()).toEqual(['Sala', 'Varanda']);
+    expect(list.hidden).toBe(false);
+  });
+
+  it('clicar numa opção já marcada desmarca', async () => {
+    const { fixture, el, ctrl, input } = await setupMulti();
+    input.click();
+    await fixture.whenStable();
+    (el.querySelector('[role=option]') as HTMLElement).click(); // Sala
+    await fixture.whenStable();
+    expect(ctrl.value).toEqual([]);
+    expect(el.querySelectorAll('.tag').length).toBe(0);
+  });
+
+  it('o botão do chip remove com rótulo acessível e Backspace remove o último', async () => {
+    const { fixture, el, key, ctrl, input, tags } = await setupMulti();
+    ctrl.setValue(['sala', 'quarto']);
+    await fixture.whenStable();
+    const remove = el.querySelectorAll('.tag-remove')[1] as HTMLButtonElement;
+    expect(remove.getAttribute('aria-label')).toBe('Remover Quarto');
+    remove.click();
+    await fixture.whenStable();
+    expect(ctrl.value).toEqual(['sala']);
+    input.value = '';
+    await key('Backspace');
+    expect(ctrl.value).toEqual([]);
+    expect(tags()).toEqual([]);
+  });
+
+  it('Esc com a lista fechada não apaga as escolhas e o botão limpar zera tudo', async () => {
+    const { fixture, el, key, ctrl } = await setupMulti();
+    await key('Escape');
+    expect(ctrl.value).toEqual(['sala']);
+    (el.querySelector('.clear') as HTMLButtonElement).click();
+    await fixture.whenStable();
+    expect(ctrl.value).toEqual([]);
+  });
+
+  it('anuncia a escolha para leitores de tela', async () => {
+    const { fixture, el, key, input } = await setupMulti();
+    input.click();
+    await key('ArrowDown');
+    await key('Enter');
+    await fixture.whenStable();
+    expect(el.querySelector('[aria-live=polite]')?.textContent).toContain('Varanda selecionado');
+  });
+});

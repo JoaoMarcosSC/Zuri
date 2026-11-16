@@ -1,0 +1,67 @@
+<section id="table-extras" class="component">
+  <h2>Tabela: colunas, lote e carregamento</h2>
+  <p>
+    Cabeçalho e primeira coluna fixos dentro de um contêiner com rolagem, colunas redimensionáveis (mouse, toque e teclado),
+    barra que vira "n selecionadas" com ações em lote e corpo em skeleton enquanto carrega.
+    Continua valendo o padrão do Zuri: a tabela avisa e a sua aplicação decide.
+  </p>
+  <div class="demo demo-wide" style="display: block">
+    <div class="stack" style="max-width: none">
+      <div>
+        <zur-table-toolbar [selectedCount]="marcadas().length" (clearSelection)="marcadas.set([])">
+          <zur-search label="Buscar pedidos" style="width: 280px" />
+          <button zurTableToolbarBatch zur-button size="sm" variant="danger">Excluir</button>
+          <button zurTableToolbarBatch zur-button size="sm" variant="secondary">Exportar</button>
+        </zur-table-toolbar>
+        <div class="zur-table-scroll" style="max-height: 260px" tabindex="0" role="region" aria-label="Pedidos">
+          <table zur-table stickyHeader stickyFirstColumn [selected]="marcadas()" (selectedChange)="marcadas.set($event)" (columnResize)="salvarLargura($event)">
+            <thead>
+              <tr>
+                <th zurSelectAll></th>
+                <th zurSortable="cliente" zurResizable="cliente">Cliente</th>
+                <th zurResizable="produto" [minWidth]="120" [maxWidth]="480">Produto</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            @if (carregando()) {
+              <tbody zurTableSkeleton [rows]="6" [columns]="4"></tbody>
+            } @else {
+              <tbody>
+                @for (p of pedidos; track p.id) {
+                  <tr [zurRow]="p.id">
+                    <td zurSelect></td>
+                    <td>{{ p.cliente }}</td>
+                    <td>{{ p.produto }}</td>
+                    <td>{{ p.total }}</td>
+                  </tr>
+                }
+              </tbody>
+            }
+          </table>
+        </div>
+        <p class="readout">Larguras: {{ resumo() }}</p>
+      </div>
+      <div>
+        <button zur-button variant="ghost" size="sm" (click)="carregando.set(!carregando())">
+          {{ carregando() ? 'Mostrar dados' : 'Simular carregamento' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <docs-code-block [code]="codeTable" />
+</section>
+
+<section id="code-snippet" class="component">
+  <h2>Code snippet</h2>
+  <p>
+    Bloco de código da biblioteca, com botão de copiar que anuncia "Copiado" (ou o erro). O texto é sempre da esquerda para a
+    direita, também em RTL, e a área rola com o teclado.
+  </p>
+  <div class="demo demo-wide" style="display: block">
+    <div class="stack">
+      <zur-code-snippet language="bash" code="npm install @juau/zuri" />
+      <zur-code-snippet language="html" label="Exemplo de botão" code='<button zur-button variant="primary">Comprar</button>' />
+    </div>
+  </div>
+  <docs-code-block [code]="codeSnippet" />
+</section>

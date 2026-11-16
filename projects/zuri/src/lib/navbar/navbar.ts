@@ -30,11 +30,30 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       align-items: center;
       gap: var(--zur-space-md);
     }
+    .logo {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
     .links {
       gap: var(--zur-space-lg);
       font: var(--zur-font-body);
       font-weight: 600;
       color: var(--zur-ink);
+      min-width: 0;
+    }
+    @media (max-width: 767px) {
+      :host {
+        gap: var(--zur-space-md);
+        padding: 0 var(--zur-space-md);
+      }
+      .links {
+        gap: var(--zur-space-md);
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .links::-webkit-scrollbar {
+        display: none;
+      }
     }
   `,
 })

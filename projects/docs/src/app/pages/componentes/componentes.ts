@@ -45,10 +45,14 @@ import {
 } from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
 import { DataExtras } from './data-extras';
+import { DataMore } from './data-more';
 import { FormsAdvanced } from './forms-advanced';
+import { FormsMore } from './forms-more';
 import { InterfaceExtras } from './interface-extras';
 import { OverlaysExtras } from './overlays-extras';
+import { OverlaysMore } from './overlays-more';
 import { Patterns } from './patterns';
+import { UiMore } from './ui-more';
 
 @Component({
   selector: 'docs-componentes',
@@ -57,9 +61,13 @@ import { Patterns } from './patterns';
     FormsModule,
     CodeBlock,
     FormsAdvanced,
+    FormsMore,
     DataExtras,
+    DataMore,
     InterfaceExtras,
+    UiMore,
     OverlaysExtras,
+    OverlaysMore,
     Patterns,
     ZurButton,
     ZurBadge,

@@ -30,7 +30,7 @@ import { ZUR_SR_ONLY } from '../shared/search';
             @default { <path d="M5 12h14" /> }
           }
         </svg>
-        <span aria-hidden="true">{{ formatted() }}</span>
+        <span class="figure" aria-hidden="true">{{ formatted() }}</span>
         <span class="sr-only">
           {{ direction() === 'up' ? i18n.statUp : direction() === 'down' ? i18n.statDown : i18n.statFlat }}
           {{ formatted() }} {{ deltaLabel() || i18n.statVsPrevious }}
@@ -64,6 +64,11 @@ import { ZUR_SR_ONLY } from '../shared/search';
       letter-spacing: var(--zur-tracking-display-md);
       font-variant-numeric: tabular-nums;
       color: var(--zur-ink);
+    }
+    /* O sinal (+/−) é parte do número: isolado e em LTR para não "pular" para o fim em páginas RTL. */
+    .figure {
+      unicode-bidi: isolate;
+      direction: ltr;
     }
     .delta {
       display: inline-flex;

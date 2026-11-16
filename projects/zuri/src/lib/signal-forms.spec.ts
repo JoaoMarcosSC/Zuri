@@ -2,14 +2,18 @@ import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormField, disabled, form, required } from '@angular/forms/signals';
 import { ZurCheckbox } from './checkbox/checkbox';
+import { ZurChip, ZurChipGroup } from './chip/chip';
 import { ZurChips } from './chips/chips';
 import { ZurCombobox } from './combobox/combobox';
 import { ZurDatePicker } from './date-picker/date-picker';
+import { ZurInlineEdit } from './inline-edit/inline-edit';
 import { ZurInput } from './input/input';
+import { ZurList, ZurListItem } from './list/list';
 import { ZurNumberInput } from './number-input/number-input';
 import { ZurOtpInput } from './otp-input/otp-input';
 import { ZurRadio } from './radio/radio';
 import { ZurRating } from './rating/rating';
+import { ZurSearch } from './search/search';
 import { ZurSegmented } from './segmented/segmented';
 import { ZurSelect } from './select/select';
 import { ZurSlider } from './slider/slider';
@@ -190,5 +194,106 @@ describe('Signal Forms ([formField]) com os controles do Zuri', () => {
     await settle();
     expect(host().f.nome().valid()).toBe(false);
     expect(host().f.nome().dirty()).toBe(true);
+  });
+});
+
+/** Os controles da 0.4.0 também falam `ControlValueAccessor`, então `[formField]` funciona sem adaptador. */
+@Component({
+  imports: [FormField, ZurCombobox, ZurChip, ZurChipGroup, ZurSearch, ZurInlineEdit, ZurList, ZurListItem],
+  template: `
+    <zur-combobox label="Ambientes" multiple [options]="ambientes" [formField]="f.ambientes" />
+    <zur-chip-group label="Luz" mode="single" [formField]="f.luz">
+      <zur-chip value="sol">Sol</zur-chip>
+      <zur-chip value="sombra">Sombra</zur-chip>
+    </zur-chip-group>
+    <zur-chip-group label="Extras" mode="multiple" [formField]="f.extras">
+      <zur-chip value="vaso">Vaso</zur-chip>
+      <zur-chip value="adubo">Adubo</zur-chip>
+    </zur-chip-group>
+    <zur-search label="Buscar" [formField]="f.busca" />
+    <zur-inline-edit label="Título" [formField]="f.titulo" />
+    <zur-list label="Entrega" selection="single" [formField]="f.entrega">
+      <zur-list-item value="retirar">Retirar</zur-list-item>
+      <zur-list-item value="normal">Normal</zur-list-item>
+    </zur-list>
+  `,
+})
+class HostV04 {
+  ambientes = [{ value: 'sala', label: 'Sala' }, { value: 'varanda', label: 'Varanda' }];
+  model = signal({
+    ambientes: ['sala'] as string[],
+    luz: 'sol' as string | null,
+    extras: [] as string[],
+    busca: 'jib',
+    titulo: 'Pedido 42',
+    entrega: 'retirar' as string | null,
+  });
+  f = form(this.model);
+}
+
+describe('Signal Forms: controles da 0.4.0', () => {
+  async function setup() {
+    const fixture = TestBed.createComponent(HostV04);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    const settle = async () => {
+      await fixture.whenStable();
+      await new Promise((r) => setTimeout(r, 20));
+      await fixture.whenStable();
+    };
+    return { fixture, el, host: fixture.componentInstance, settle };
+  }
+
+  it('modelo → tela: mostram o valor inicial', async () => {
+    const { el } = await setup();
+    expect(Array.from(el.querySelectorAll('zur-combobox .tag-label')).map((t) => t.textContent)).toEqual(['Sala']);
+    expect(el.querySelector('zur-chip-group [aria-checked=true]')?.textContent).toContain('Sol');
+    expect((el.querySelector('zur-search input') as HTMLInputElement).value).toBe('jib');
+    expect(el.querySelector('zur-inline-edit .value')?.textContent).toBe('Pedido 42');
+    expect(el.querySelector('zur-list-item[aria-selected=true]')?.textContent).toContain('Retirar');
+  });
+
+  it('tela → modelo: multiselect, chips, busca, edição no lugar e lista atualizam o signal', async () => {
+    const { el, host, settle } = await setup();
+
+    el.querySelector<HTMLInputElement>('zur-combobox input')!.click();
+    await settle();
+    el.querySelectorAll<HTMLElement>('zur-combobox [role=option]')[1].click(); // Varanda
+    await settle();
+    expect(host.model().ambientes).toEqual(['sala', 'varanda']);
+
+    el.querySelectorAll<HTMLElement>('zur-chip-group')[0].querySelectorAll<HTMLElement>('button.body')[1].click();
+    el.querySelectorAll<HTMLElement>('zur-chip-group')[1].querySelectorAll<HTMLElement>('button.body')[0].click();
+    await settle();
+    expect(host.model().luz).toBe('sombra');
+    expect(host.model().extras).toEqual(['vaso']);
+
+    const busca = el.querySelector<HTMLInputElement>('zur-search input')!;
+    busca.value = 'costela';
+    busca.dispatchEvent(new Event('input'));
+    await settle();
+    expect(host.model().busca).toBe('costela');
+
+    el.querySelector<HTMLButtonElement>('zur-inline-edit .read')!.click();
+    await settle();
+    const campo = el.querySelector<HTMLInputElement>('zur-inline-edit .field')!;
+    campo.value = 'Pedido 43';
+    campo.dispatchEvent(new Event('input'));
+    campo.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await settle();
+    expect(host.model().titulo).toBe('Pedido 43');
+
+    el.querySelectorAll<HTMLElement>('zur-list-item')[1].click();
+    await settle();
+    expect(host.model().entrega).toBe('normal');
+  });
+
+  it('tela ← modelo: mudar o signal atualiza os controles', async () => {
+    const { el, host, settle } = await setup();
+    host.model.update((m) => ({ ...m, ambientes: [], extras: ['adubo'], entrega: 'normal' }));
+    await settle();
+    expect(el.querySelectorAll('zur-combobox .tag').length).toBe(0);
+    expect(el.querySelectorAll('zur-chip-group')[1].querySelector('[aria-pressed=true]')?.textContent).toContain('Adubo');
+    expect(el.querySelector('zur-list-item[aria-selected=true]')?.textContent).toContain('Normal');
   });
 });

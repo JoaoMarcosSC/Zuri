@@ -1,0 +1,105 @@
+<section id="multiselect" class="component">
+  <h2>Multiselect</h2>
+  <p>
+    <code>multiple</code> no <code>zur-combobox</code>: as escolhas viram chips dentro do campo, a lista continua aberta
+    enquanto você marca e o valor é um <code>string[]</code>. O <code>zur-select</code> continua de escolha única
+    (é um <code>&lt;select&gt;</code> nativo).
+  </p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <zur-combobox label="Ambientes da planta" multiple [options]="ambientes" hint="Escolha quantos quiser; Backspace remove o último." [ngModel]="escolhidos()" (ngModelChange)="escolhidos.set($event)" />
+      <p class="readout">Valor: {{ escolhidos().join(', ') || 'nenhum' }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeMultiselect" />
+</section>
+
+<section id="chip" class="component">
+  <h2>Chips interativos</h2>
+  <p>
+    <code>zur-chip</code> são os chips que se clicam: filtro, escolha, ação e remover. O selecionado ganha ✓ e borda de ink,
+    não só cor. Não confunda com <code>zur-chips</code>, o campo em que a pessoa digita para criar tags.
+  </p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <zur-chip-group label="Ambiente (escolha única)" mode="single" [ngModel]="ambiente()" (ngModelChange)="ambiente.set($event)">
+        <zur-chip value="sala">Sala</zur-chip>
+        <zur-chip value="varanda">Varanda</zur-chip>
+        <zur-chip value="quarto">Quarto</zur-chip>
+      </zur-chip-group>
+      <zur-chip-group label="Luz (vários)" mode="multiple" [ngModel]="luz()" (ngModelChange)="luz.set($event)">
+        <zur-chip value="sol">Pleno sol</zur-chip>
+        <zur-chip value="meia">Meia-sombra</zur-chip>
+        <zur-chip value="sombra">Sombra</zur-chip>
+        <zur-chip value="x" disabled>Indisponível</zur-chip>
+      </zur-chip-group>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center">
+        <zur-chip variant="filter" [selected]="petFriendly()" (selectedChange)="petFriendly.set($event)">Pet friendly</zur-chip>
+        <zur-chip>Ver guia de rega</zur-chip>
+        @if (!removidos().includes('Monstera')) {
+          <zur-chip removable label="Monstera" (removed)="remover('Monstera')">Monstera</zur-chip>
+        }
+      </div>
+      <p class="readout">{{ ambiente() }} · {{ luz().join(', ') || 'sem luz' }} · {{ petFriendly() ? 'pet friendly' : 'sem filtro de pet' }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeChips" />
+</section>
+
+<section id="search" class="component">
+  <h2>Busca</h2>
+  <p>
+    Campo de busca com lupa e botão de limpar. <kbd>Esc</kbd> limpa e <kbd>Enter</kbd> envia; com <code>debounceMs</code>
+    o <code>searchChange</code> espera a pessoa parar de digitar.
+  </p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <zur-search label="Buscar plantas" placeholder="Monstera, jiboia…" [debounceMs]="150" [ngModel]="termo()" (ngModelChange)="termo.set($event)" (submitted)="enviado.set($event)" />
+      <p class="readout">Digitado: {{ termo() || '—' }} · Enviado: {{ enviado() || '—' }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeSearch" />
+</section>
+
+<section id="inline-edit" class="component">
+  <h2>Edição no lugar</h2>
+  <p>
+    Texto que vira campo ao clicar. Enter salva, <kbd>Esc</kbd> cancela, <kbd>F2</kbd> abre pelo teclado e sair do campo salva.
+    O foco volta ao texto e um aviso diz o que aconteceu.
+  </p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <h3 style="margin: 0; font: var(--zur-font-title); color: var(--zur-ink)">
+        <zur-inline-edit label="Nome do pedido" [ngModel]="nome()" (ngModelChange)="nome.set($event)" (saved)="salvo.set($event)" />
+      </h3>
+      <zur-inline-edit label="Notas" multiline placeholder="Sem notas" [ngModel]="notas()" (ngModelChange)="notas.set($event)" />
+      <p class="readout">Último salvo: {{ salvo() }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeInlineEdit" />
+</section>
+
+<section id="link" class="component">
+  <h2>Link</h2>
+  <p>Link em ink sublinhado (a menta não tem contraste suficiente para texto). Externo abre em outra aba com <code>rel</code> seguro.</p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <p style="margin: 0">Leia a <a zur-link href="javascript:void(0)">política de entrega</a> antes de comprar.</p>
+      <p style="margin: 0">O <a zur-link external href="https://example.com/rega">guia de rega</a> abre em outra aba.</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeLink" />
+</section>
+
+<section id="divider" class="component">
+  <h2>Divider</h2>
+  <p>Linha fina que separa grupos. Com <code>label</code> mostra um texto no meio, que também é o nome acessível do separador.</p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <zur-divider />
+      <zur-divider label="ou" />
+      <div style="display: flex; gap: 16px; align-items: center; height: 32px">Entrar <zur-divider orientation="vertical" /> Criar conta</div>
+    </div>
+  </div>
+  <docs-code-block [code]="codeDivider" />
+</section>

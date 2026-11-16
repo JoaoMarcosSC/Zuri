@@ -10,7 +10,15 @@ import { ZurToastService } from './toast.service';
   selector: 'zur-toast-container',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="stack" role="status" aria-live="polite">
+    <div
+      class="stack"
+      role="status"
+      aria-live="polite"
+      (pointerenter)="hovering = true; sync()"
+      (pointerleave)="hovering = false; sync()"
+      (focusin)="focusWithin = true; sync()"
+      (focusout)="onFocusOut($event)"
+    >
       @for (toast of service.toasts(); track toast.id) {
         <div class="toast" [attr.data-kind]="toast.kind">
           @if (toast.kind === 'success') {
@@ -18,7 +26,10 @@ import { ZurToastService } from './toast.service';
           } @else if (toast.kind === 'error') {
             <svg class="icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M9 9l6 6M15 9l-6 6" /></svg>
           }
-          <span>{{ toast.message }}</span>
+          <span class="message">{{ toast.message }}</span>
+          @if (toast.action; as action) {
+            <button type="button" class="action" (click)="action.handler(); service.dismiss(toast.id)">{{ action.label }}</button>
+          }
           <button
             type="button"
             class="x"
@@ -70,6 +81,30 @@ import { ZurToastService } from './toast.service';
     .icon {
       flex-shrink: 0;
     }
+    .message {
+      flex: 1;
+    }
+    .action {
+      flex-shrink: 0;
+      padding: 4px var(--zur-space-xs);
+      border: none;
+      border-radius: var(--zur-radius-sm);
+      background: transparent;
+      color: inherit;
+      font: var(--zur-font-button);
+      font-size: 14px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .action:hover {
+      background: rgba(127, 127, 127, 0.2);
+    }
+    .action:focus-visible,
+    .x:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
     .x {
       background: none;
       border: none;
@@ -98,4 +133,19 @@ export class ZurToastContainer {
   protected readonly i18n = inject(ZUR_I18N);
 
   protected readonly service = inject(ZurToastService);
+
+  /** O tempo dos toasts pausa com o ponteiro ou o foco sobre a pilha. */
+  protected hovering = false;
+  protected focusWithin = false;
+
+  protected sync(): void {
+    if (this.hovering || this.focusWithin) this.service.pauseAll();
+    else this.service.resumeAll();
+  }
+
+  protected onFocusOut(event: FocusEvent): void {
+    const stack = event.currentTarget as HTMLElement;
+    this.focusWithin = stack.contains(event.relatedTarget as Node | null);
+    this.sync();
+  }
 }

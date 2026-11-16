@@ -62,6 +62,27 @@ describe('zurThemeScope', () => {
   });
 });
 
+@Component({
+  imports: [ZurThemeScope],
+  template: `<div zurThemeScope id="scope"><p>Login sem botão de tema</p></div>`,
+})
+class ScopeSemToggleHost {}
+
+describe('zurThemeScope sem zur-theme-toggle dentro', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.removeAttribute('data-theme');
+  });
+
+  it('aplica o tema salvo da página mesmo sem ninguém pedir o serviço', async () => {
+    localStorage.setItem('zur-theme', 'dark');
+    const fixture = TestBed.createComponent(ScopeSemToggleHost);
+    await fixture.whenStable();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    expect((fixture.nativeElement.querySelector('#scope') as HTMLElement).getAttribute('data-theme')).toBe('dark');
+  });
+});
+
 @Component({ imports: [ZurThemeToggle], template: `<zur-theme-toggle />` })
 class ToggleHost {}
 

@@ -345,6 +345,14 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 - **`zur-card`** — superfície `{rounded.md}` com hairline; eleva ao tier único no hover
   quando `[interactive]`.
 - **`zur-avatar`** — círculo 32/40/56px com iniciais ou imagem.
+- **`zur-icon`** — SVG de 16/20/24px no conjunto próprio (veja Ícones); decorativo (`aria-hidden`) ou
+  `role="img"` com `label`. Os direcionais se espelham em RTL.
+- **`zur-icon-button`** — quadrado com `label` obrigatório (`aria-label`), variantes `ghost`,
+  `secondary` e `primary`, na altura dos controles (acompanha a densidade). **`zur-fab`** — círculo de
+  56px menta com a sombra única; `extended` mostra o texto.
+- **`a[zur-link]`** — ink sublinhado 1px (2px no hover): a menta não tem contraste para texto.
+  `external` abre em outra aba com `rel` seguro, ícone e aviso "abre em nova aba" para leitor de tela.
+- **`zur-divider`** — hairline horizontal ou vertical; com `label` mostra o texto no meio.
 
 ### Formulários (todos ControlValueAccessor)
 - **`zur-input`** — 56px, label flutuante acima em `{typography.caption}`, foco = borda
@@ -374,10 +382,22 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   muted; `readonly` aceita frações e é lido como "4,5 de 5".
 - **`zur-time-picker`** — campo-botão + painel `{rounded.md}` com listas de hora e minuto (e AM/PM em
   12h); selecionado em pill ink, como os dias do date picker; fora de `min`/`max` riscado e muted.
+- **Multiselect** — `zur-combobox multiple`: escolhas como chips (`surface-strong`, pílula) dentro do
+  campo, lista aberta ao escolher com ✓ nas marcadas, Backspace remove o último, valor `string[]`.
+- **`zur-chip`** / **`zur-chip-group`** — pílulas de 32px com hairline; selecionado = **✓ + borda de ink
+  2px** (a menta fica para ação). `single` é radiogroup, `multiple` são botões de alternar; `filter`,
+  `assist` e `removable` avulsos. Não confundir com `zur-chips`, o campo de digitar tags.
+- **`zur-search`** — pílula de 48px com lupa, botão limpar, Esc limpa, Enter envia.
+- **`zur-inline-edit`** — texto-botão com lápis no hover/foco; campo com borda de ink; Enter salva,
+  Esc cancela, F2 abre, sair salva; foco volta ao texto e há aviso `aria-live`.
 
 ### Navegação
 - **`zur-navbar`** — 80px, canvas + hairline inferior; slots para logo, links e ações;
-  hospeda o `zur-theme-toggle`.
+  hospeda o `zur-theme-toggle`. No celular reduz padding e espaço, a marca não quebra e os links rolam.
+- **`zur-bottom-nav`** — 3 a 5 destinos com ícone e rótulo, 64px, fixa na base e escondida a partir
+  de 768px; ativo = ink, negrito e pílula `surface-strong` atrás do ícone (a menta fica só para ação);
+  `badge` em número ou ponto na cor `error-text`, sempre com texto para leitor de tela; respeita
+  `safe-area-inset-bottom`.
 - **`zur-tabs`** — tab ativa com sublinhado 2px ink (Airbnb product-tabs).
 - **`zur-menu`** — dropdown no tier único de sombra, itens 40px.
 - **`zur-breadcrumb`** — caption muted com separador "/".
@@ -386,6 +406,14 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
   permanece quando a sidebar recolhe.
 
 ### Dados
+- **`zur-list`** + `zur-list-item` — linhas com ícone/avatar, texto principal e secundário e ação;
+  `contained` (hairline + `{rounded.md}`) e `divided`. Com `selection` vira `listbox`: roving tabindex,
+  Espaço/Enter escolhem; selecionado = fundo `surface-soft`, barra de ink de 3px e texto em negrito.
+- **Tabela estendida** — `stickyHeader`/`stickyFirstColumn` (dentro de `.zur-table-scroll`),
+  `th[zurResizable]` (alça `role="separator"`, ponteiro e ←/→ de 8px, Shift 32px; layout fixo),
+  `zur-table-toolbar` (vira barra de lote em primary-soft com a contagem anunciada) e
+  `tbody[zurTableSkeleton]` com `aria-busy`.
+- **`zur-code-snippet`** — bloco ink invertido, sempre LTR, botão copiar que anuncia o resultado.
 - **`table[zur-table]`** — estilo para tabela nativa: cabeçalho em caption, hairline nas linhas,
   hover em surface-soft, densidade `comfortable`/`compact`; colunas ordenáveis com
   `th[zurSortable]` (`aria-sort` + `sortChange`).
@@ -424,7 +452,9 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 
 ### Feedback
 - **`zur-modal`** — `{rounded.lg}`, padding 32px, scrim 50%, fecha por ESC/scrim.
-- **`zur-toast`** — service + container; `{rounded.md}`, auto-dismiss 4s. O neutro é a
+- **`zur-toast`** — service + container; `{rounded.md}`, auto-dismiss 4s (8s com ação), **pausa com o
+  ponteiro ou o foco sobre a pilha** (WCAG 2.2.1), `persistent` e botão de ação ("Desfazer") em texto
+  sublinhado na cor do toast. O neutro é a
   superfície ink invertida; sucesso e erro usam a banda soft com o texto semântico
   (`success-soft`/`success-text`, `error-soft`/`error-text`), um fio de 30% e um ícone — assim o
   toast fica legível e discreto nos dois temas e a cor não é o único sinal. Verde/vermelho
@@ -436,7 +466,9 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 
 ### Sobreposição
 - **`zur-drawer`** — painel lateral 400px em surface-raised com sombra única, scrim 50%; ESC,
-  clique no fundo e foco preso, devolvido ao gatilho ao fechar.
+  clique no fundo e foco preso, devolvido ao gatilho ao fechar. `side="bottom"` é o **bottom sheet**:
+  sobe da base (máx. 90vh, raio `{rounded.lg}` no topo), tem alça e fecha arrastando para baixo mais
+  de 100px; teclado e leitor de tela seguem o mesmo diálogo modal.
 - **`zur-popover`** — painel flutuante `{rounded.md}` ancorado ao `[zurPopoverTrigger]`; fecha com
   ESC ou clique fora.
 - **`ZurDialog`** — `confirm()`/`alert()` devolvem `Promise`; `alertdialog` `{rounded.lg}` sobre scrim,
@@ -462,6 +494,14 @@ Componentes de alto nível montados com os primitivos acima; nenhum token novo.
   arrastar, coluna-alvo em primary-soft e linha de inserção menta 3px; cartão pego pelo teclado
   ganha a sombra única + anel de foco. Drag and drop nativo + teclado (Espaço, setas, Esc),
   com anúncios `aria-live`.
+
+## Ícones
+Conjunto próprio de 47 ícones, uma constante exportada por ícone (`zurIconSearch`…) para o bundler
+descartar os que não forem usados. Regras de desenho, para qualquer ícone novo:
+- grade de 24px, traço de **2px**, pontas e junções **arredondadas**, sem preenchimento (`currentColor`);
+- bordas de 1px de raio nos retângulos (`a1 1`), círculos de raio 9, pontos como traço de 0,01px;
+- direcionais (`chevron-start/end`, `external-link`, `undo`) levam `mirror: true` e se espelham em RTL;
+- sem `label` o ícone é decorativo; o significado vem sempre do texto ao lado ou do `label`.
 
 ## Gráficos
 

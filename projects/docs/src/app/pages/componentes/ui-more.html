@@ -1,0 +1,95 @@
+<section id="icon" class="component">
+  <h2>Ícones</h2>
+  <p>
+    {{ catalogo.length }} ícones no mesmo traço (2 px, pontas arredondadas, grade de 24 px). Cada um é uma constante exportada,
+    então o bundler leva só os que você usa. Sem <code>label</code> o ícone é decorativo; com <code>label</code> vira uma imagem.
+  </p>
+  <div class="demo demo-wide" style="display: block">
+    <ul class="catalog">
+      @for (icone of catalogo; track icone.name) {
+        <li>
+          <zur-icon [icon]="icone" [size]="24" />
+          <span>{{ icone.name }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+  <docs-code-block [code]="codeIcon" />
+</section>
+
+<section id="icon-button" class="component">
+  <h2>Botão de ícone e FAB</h2>
+  <p>
+    <code>zur-icon-button</code> exige <code>label</code> (o nome acessível) e acompanha a densidade.
+    <code>zur-fab</code> é a ação principal da tela: circular, menta e com a sombra única.
+  </p>
+  <div class="demo">
+    <div class="row">
+      <button zur-icon-button label="Editar" size="sm"><zur-icon [icon]="lapis" [size]="16" /></button>
+      <button zur-icon-button label="Editar"><zur-icon [icon]="lapis" /></button>
+      <button zur-icon-button label="Excluir" variant="secondary"><zur-icon [icon]="lixeira" /></button>
+      <button zur-icon-button label="Adicionar" variant="primary"><zur-icon [icon]="mais" /></button>
+      <button zur-icon-button label="Indisponível" disabled><zur-icon [icon]="lixeira" /></button>
+    </div>
+    <div class="row">
+      <button zur-fab label="Novo pedido"><zur-icon [icon]="mais" [size]="24" /></button>
+      <button zur-fab extended><zur-icon [icon]="mais" /> Novo pedido</button>
+    </div>
+  </div>
+  <docs-code-block [code]="codeIconButton" />
+</section>
+
+<section id="list" class="component">
+  <h2>Lista</h2>
+  <p>
+    Itens com ícone ou avatar, texto principal, texto secundário e ação. Com <code>selection</code> vira um
+    <code>listbox</code>: setas movem o foco, Espaço e Enter escolhem. Funciona com <code>ngModel</code> e <code>[formField]</code>.
+  </p>
+  <div class="demo demo-form">
+    <div class="stack">
+      <zur-list label="Pedidos recentes" contained divided>
+        <zur-list-item>
+          <zur-avatar zurListLeading name="Ana Silva" size="sm" />
+          Pedido 42
+          <span zurListSecondary>Monstera deliciosa e vaso de barro</span>
+          <zur-badge zurListTrailing color="success">Enviado</zur-badge>
+        </zur-list-item>
+        <zur-list-item>
+          <zur-avatar zurListLeading name="Bruno Costa" size="sm" />
+          Pedido 41
+          <span zurListSecondary>Kit de suculentas</span>
+          <zur-badge zurListTrailing color="warning">Separando</zur-badge>
+        </zur-list-item>
+        <zur-list-item interactive>Ver todos os pedidos</zur-list-item>
+      </zur-list>
+
+      <zur-list label="Tipo de entrega" selection="single" contained divided [ngModel]="entrega()" (ngModelChange)="entrega.set($event)">
+        <zur-list-item value="retirar">Retirar na loja<span zurListSecondary>Grátis · hoje</span></zur-list-item>
+        <zur-list-item value="normal">Entrega normal<span zurListSecondary>R$ 12 · 3 dias úteis</span></zur-list-item>
+        <zur-list-item value="expressa" disabled>Expressa<span zurListSecondary>Indisponível no seu CEP</span></zur-list-item>
+      </zur-list>
+      <p class="readout">Entrega: {{ entrega() }}</p>
+    </div>
+  </div>
+  <docs-code-block [code]="codeList" />
+</section>
+
+<section id="bottom-nav" class="component">
+  <h2>Barra de navegação inferior</h2>
+  <p>
+    De 3 a 5 destinos principais para celular, com ícone, rótulo e <code>badge</code> (número ou ponto). Na página real fica fixa
+    na base e some a partir de 768 px; aqui está solta para a demonstração.
+  </p>
+  <div class="demo demo-form">
+    <div class="phone">
+      <div class="phone-body">Conteúdo da tela</div>
+      <zur-bottom-nav [fixed]="false" [responsive]="false" label="Navegação principal (demo)">
+        <a zur-bottom-nav-item href="javascript:void(0)" active><zur-icon zurBottomNavIcon [icon]="casa" [size]="24" /> Início</a>
+        <a zur-bottom-nav-item href="javascript:void(0)"><zur-icon zurBottomNavIcon [icon]="coracao" [size]="24" /> Favoritos</a>
+        <a zur-bottom-nav-item href="javascript:void(0)" [badge]="3"><zur-icon zurBottomNavIcon [icon]="sino" [size]="24" /> Avisos</a>
+        <a zur-bottom-nav-item href="javascript:void(0)" badge="dot"><zur-icon zurBottomNavIcon [icon]="usuario" [size]="24" /> Perfil</a>
+      </zur-bottom-nav>
+    </div>
+  </div>
+  <docs-code-block [code]="codeBottomNav" />
+</section>

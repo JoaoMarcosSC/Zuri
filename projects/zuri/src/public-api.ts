@@ -18,6 +18,11 @@ export * from './lib/badge/badge';
 export * from './lib/card/card';
 export * from './lib/avatar/avatar';
 export * from './lib/avatar-group/avatar-group';
+export * from './lib/icon/icons';
+export * from './lib/icon/icon';
+export * from './lib/icon-button/icon-button';
+export * from './lib/link/link';
+export * from './lib/divider/divider';
 
 // Formulários
 export * from './lib/input/input';
@@ -30,6 +35,9 @@ export * from './lib/combobox/combobox';
 export * from './lib/date-picker/date-picker';
 export * from './lib/file-upload/file-upload';
 export * from './lib/chips/chips';
+export * from './lib/chip/chip';
+export * from './lib/search/search';
+export * from './lib/inline-edit/inline-edit';
 export * from './lib/slider/slider';
 export * from './lib/segmented/segmented';
 export * from './lib/number-input/number-input';
@@ -40,6 +48,7 @@ export * from './lib/time-picker/time-picker';
 // Navegação
 export * from './lib/navbar/navbar';
 export * from './lib/tabs/tabs';
+export * from './lib/bottom-nav/bottom-nav';
 export * from './lib/menu/menu';
 export * from './lib/breadcrumb/breadcrumb';
 export * from './lib/sidenav/sidenav';
@@ -48,6 +57,7 @@ export * from './lib/sidenav/sidenav';
 export * from './lib/table/table';
 export * from './lib/table/column-filter';
 export * from './lib/table/column-menu';
+export * from './lib/table/table-extras';
 export * from './lib/chart/chart';
 export * from './lib/chart/sparkline';
 export * from './lib/chart/stat';
@@ -59,6 +69,8 @@ export * from './lib/pagination/pagination';
 export * from './lib/accordion/accordion';
 export * from './lib/empty-state/empty-state';
 export * from './lib/step/step';
+export * from './lib/code-snippet/code-snippet';
+export * from './lib/list/list';
 export * from './lib/stepper/stepper';
 
 // Layouts de página

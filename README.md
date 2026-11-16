@@ -101,13 +101,13 @@ npx ng build zuri         # compila a biblioteca para dist/zuri
 | Grupo | Componentes |
 |---|---|
 | Tema e marca | `ZurThemeService`, `zur-theme-toggle`, `[zurThemeScope]`, `zur-logo` |
-| Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar` |
-| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch` |
-| Navegação | `zur-navbar`, `zur-tabs`, `zur-menu`, `zur-breadcrumb`, `zur-sidenav` |
-| Dados | `table[zur-table]` com `th[zurSortable]`, `zur-pagination` |
-| Conteúdo | `zur-step`, `zur-accordion`, `zur-empty-state` |
+| Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar`, `zur-avatar-group`, `zur-icon` + 47 ícones, `zur-icon-button`, `zur-fab`, `zur-link`, `zur-divider` |
+| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch`, `zur-combobox` (com `multiple`), `zur-date-picker`, `zur-time-picker`, `zur-file-upload`, `zur-chips`, `zur-chip` + `zur-chip-group`, `zur-slider`, `zur-segmented`, `zur-number-input`, `zur-otp-input`, `zur-rating`, `zur-search`, `zur-inline-edit` |
+| Navegação | `zur-navbar`, `zur-tabs`, `zur-menu`, `zur-breadcrumb`, `zur-sidenav`, `zur-bottom-nav` |
+| Dados | `table[zur-table]` (ordenar, selecionar, expandir, filtrar, colunas fixas e redimensionáveis, barra de lote, skeleton), `zur-pagination`, `zur-chart`, `zur-stat`, `zur-sparkline`, `zur-timeline`, `zur-tree`, `zur-list`, `zur-code-snippet` |
+| Conteúdo | `zur-step`, `zur-stepper`, `zur-carousel`, `zur-banner`, `zur-accordion`, `zur-empty-state` |
 | Feedback | `zur-modal`, `ZurToastService`, `[zurTooltip]`, `zur-alert`, `zur-spinner`, `zur-skeleton`, `zur-progress` |
-| Sobreposição | `zur-drawer`, `zur-popover` com `[zurPopoverTrigger]` |
+| Sobreposição | `zur-drawer` (lateral e bottom sheet), `zur-popover` com `[zurPopoverTrigger]`, `ZurDialog`, `zur-context-menu` |
 
 ## Layouts de página
 

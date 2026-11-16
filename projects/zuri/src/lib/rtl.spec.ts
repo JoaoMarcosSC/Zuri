@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { ZurChip, ZurChipGroup } from './chip/chip';
 import { ZurDatePicker } from './date-picker/date-picker';
 import { ZurKanban, ZurKanbanCard, ZurKanbanColumn } from './kanban/kanban';
 import { ZurSegmented } from './segmented/segmented';
@@ -10,7 +11,7 @@ import { ZurTree, ZurTreeNode } from './tree/tree';
 
 /** Em RTL as setas ←→ seguem o sentido de leitura: ← avança, → volta. */
 @Component({
-  imports: [FormsModule, ZurSlider, ZurSegmented, ZurDatePicker, ZurKanban, ZurKanbanCard, ZurStepper, ZurStepperStep, ZurTree],
+  imports: [FormsModule, ZurChip, ZurChipGroup, ZurSlider, ZurSegmented, ZurDatePicker, ZurKanban, ZurKanbanCard, ZurStepper, ZurStepperStep, ZurTree],
   template: `
     <zur-slider label="Altura" [min]="0" [max]="100" [step]="10" [ngModel]="altura()" (ngModelChange)="altura.set($event)" />
     <zur-segmented label="Visão" [options]="visoes" [ngModel]="visao()" (ngModelChange)="visao.set($event)" />
@@ -22,6 +23,11 @@ import { ZurTree, ZurTreeNode } from './tree/tree';
       <zur-stepper-step label="C">c</zur-stepper-step>
     </zur-stepper>
     <zur-tree label="Árvore" [nodes]="nodes" [(expanded)]="open" />
+    <zur-chip-group label="Ambiente" mode="single" [ngModel]="ambiente()" (ngModelChange)="ambiente.set($event)">
+      <zur-chip value="sala">Sala</zur-chip>
+      <zur-chip value="varanda">Varanda</zur-chip>
+      <zur-chip value="quarto">Quarto</zur-chip>
+    </zur-chip-group>
   `,
 })
 class Host {
@@ -36,6 +42,7 @@ class Host {
   etapa = signal(0);
   nodes: ZurTreeNode[] = [{ id: 'pai', label: 'Pai', children: [{ id: 'filho', label: 'Filho' }] }];
   open = signal<string[]>([]);
+  ambiente = signal<string | null>('sala');
 }
 
 async function setup(dir: 'rtl' | 'ltr') {
@@ -110,6 +117,17 @@ for (const dir of ['ltr', 'rtl'] as const) {
       heads[0].focus();
       await press(el.querySelector('zur-stepper .steps')!, forward);
       expect(document.activeElement).toBe(heads[1]);
+    });
+
+    it('grupo de chips: avançar escolhe o chip seguinte e voltar o anterior', async () => {
+      const { el, press, host } = await setup(dir);
+      const chips = Array.from(el.querySelectorAll('zur-chip-group button.body')) as HTMLElement[];
+      chips[0].focus();
+      await press(chips[0], forward);
+      expect(host().ambiente()).toBe('varanda');
+      expect(document.activeElement).toBe(chips[1]);
+      await press(chips[1], backward);
+      expect(host().ambiente()).toBe('sala');
     });
 
     it('árvore: avançar abre o nó e voltar fecha', async () => {

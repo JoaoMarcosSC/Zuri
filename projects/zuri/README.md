@@ -61,12 +61,12 @@ O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha e
 | Grupo | Componentes |
 |---|---|
 | Tema e marca | `ZurThemeService`, `zur-theme-toggle`, `[zurThemeScope]` (tema isolado), `zur-logo` |
-| Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar` |
-| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch`, `zur-combobox`, `zur-date-picker`, `zur-chips`, `zur-slider`, `zur-segmented`, `zur-number-input`, `zur-otp-input`, `zur-rating`, `zur-time-picker` (todos ControlValueAccessor e compatíveis com `[formField]`), `zur-file-upload` |
-| Navegação | `zur-navbar`, `zur-tabs`/`zur-tab`, `zur-menu`/`zur-menu-item`, `zur-breadcrumb`, `zur-sidenav`/`zur-sidenav-item`/`zur-sidenav-label` |
-| Dados | `table[zur-table]` (+ `zurSelectAll`, `zurSelect`, `zurRow`, `zurExpandToggle`, `zur-column-filter`, `zur-column-menu`), `zur-pagination`, `zur-chart`, `zur-stat`, `zur-sparkline`, `zur-timeline`, `zur-tree` |
+| Fundamentos | `button[zur-button]`, `zur-badge`, `zur-card`, `zur-avatar`, `zur-avatar-group`, `zur-icon` (+ conjunto de 47 ícones), `button[zur-icon-button]`, `button[zur-fab]`, `a[zur-link]`, `zur-divider` |
+| Formulários | `zur-input`, `zur-textarea`, `zur-select`, `zur-checkbox`, `zur-radio`, `zur-switch`, `zur-combobox`, `zur-date-picker`, `zur-chips`, `zur-slider`, `zur-segmented`, `zur-number-input`, `zur-otp-input`, `zur-rating`, `zur-time-picker`, `zur-search`, `zur-inline-edit`, `zur-chip` + `zur-chip-group`, `zur-combobox` com `multiple` (todos ControlValueAccessor e compatíveis com `[formField]`), `zur-file-upload` |
+| Navegação | `zur-navbar`, `zur-tabs`/`zur-tab`, `zur-menu`/`zur-menu-item`, `zur-breadcrumb`, `zur-sidenav`/`zur-sidenav-item`/`zur-sidenav-label`, `zur-bottom-nav` + `a[zur-bottom-nav-item]` |
+| Dados | `table[zur-table]` (+ `zurSelectAll`, `zurSelect`, `zurRow`, `zurExpandToggle`, `zur-column-filter`, `zur-column-menu`), `zur-pagination`, `zur-chart`, `zur-stat`, `zur-sparkline`, `zur-timeline`, `zur-tree`, `zur-list` + `zur-list-item`, `zur-table-toolbar`, `th[zurResizable]`, `tbody[zurTableSkeleton]`, `zur-code-snippet` |
 | Conteúdo | `zur-step`, `zur-stepper`, `zur-carousel`, `zur-avatar-group`, `zur-banner`, `zur-accordion`, `zur-empty-state` |
-| Sobreposição | `zur-drawer`, `zur-popover` + `[zurPopoverTrigger]`, `ZurDialog` (`confirm`/`alert`), `zur-context-menu` + `[zurContextMenu]` |
+| Sobreposição | `zur-drawer` (inclusive `side="bottom"`, o bottom sheet), `zur-popover` + `[zurPopoverTrigger]`, `ZurDialog` (`confirm`/`alert`), `zur-context-menu` + `[zurContextMenu]` |
 | Plataforma | `zurDensity` / `ZurDensityService` / `zur-density-toggle` (densidade compacta), RTL em todos os componentes, `tokens.json` e presets do Tailwind (v3 e v4) |
 | Padrões | `zur-chat` (+ `-message`, `-divider`, `-typing`, `-composer`), `zur-command-palette`, `zur-notification-center`, `zur-kanban` + `ng-template[zurKanbanCard]` |
 | Layouts de página | `zur-landing-layout`, `zur-dashboard-layout`, `zur-list-detail-layout`, `zur-form-layout`, `zur-docs-layout`, `zur-auth-layout`, `zur-error-layout` + `zur-sidebar`, `zur-topbar`, `zur-page-header`, `zur-footer` — veja [`LAYOUTS.md`](../../LAYOUTS.md) |

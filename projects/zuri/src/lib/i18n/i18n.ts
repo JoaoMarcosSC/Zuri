@@ -144,6 +144,27 @@ export interface ZurI18n {
   /** Botão que alterna a densidade da interface. */
   densityToCompact: string;
   densityToComfortable: string;
+  /** Busca, edição no lugar e código. */
+  searchLabel: string;
+  copy: string;
+  copied: string;
+  copyFailed: string;
+  edit: string;
+  save: string;
+  inlineEditSaved: string;
+  inlineEditCancelled: string;
+  /** Texto para leitores de tela em links que abrem outra aba. */
+  opensInNewTab: string;
+  /** Seleção múltipla, tabela e navegação. */
+  optionAdded: (label: string) => string;
+  optionRemoved: (label: string) => string;
+  selectedCount: (count: number) => string;
+  clearSelection: string;
+  resizeColumn: (column: string) => string;
+  tableLoading: string;
+  bottomNav: string;
+  sheetHandle: string;
+  badgeCount: (count: number) => string;
 }
 
 export const ZUR_I18N_PT: ZurI18n = {
@@ -246,6 +267,24 @@ export const ZUR_I18N_PT: ZurI18n = {
   statVsPrevious: 'em relação ao período anterior',
   densityToCompact: 'Usar interface compacta',
   densityToComfortable: 'Usar interface confortável',
+  searchLabel: 'Buscar',
+  copy: 'Copiar',
+  copied: 'Copiado',
+  copyFailed: 'Não foi possível copiar',
+  edit: 'Editar',
+  save: 'Salvar',
+  inlineEditSaved: 'Alteração salva',
+  inlineEditCancelled: 'Edição cancelada',
+  opensInNewTab: 'abre em nova aba',
+  optionAdded: (label) => `${label} selecionado`,
+  optionRemoved: (label) => `${label} removido`,
+  selectedCount: (count) => (count === 1 ? '1 selecionada' : `${count} selecionadas`),
+  clearSelection: 'Limpar seleção',
+  resizeColumn: (column) => `Redimensionar coluna ${column}`,
+  tableLoading: 'Carregando dados',
+  bottomNav: 'Navegação inferior',
+  sheetHandle: 'Arraste para baixo para fechar',
+  badgeCount: (count) => (count === 1 ? '1 novo' : `${count} novos`),
 };
 
 export const ZUR_I18N_EN: ZurI18n = {
@@ -348,6 +387,24 @@ export const ZUR_I18N_EN: ZurI18n = {
   statVsPrevious: 'versus the previous period',
   densityToCompact: 'Use compact interface',
   densityToComfortable: 'Use comfortable interface',
+  searchLabel: 'Search',
+  copy: 'Copy',
+  copied: 'Copied',
+  copyFailed: 'Could not copy',
+  edit: 'Edit',
+  save: 'Save',
+  inlineEditSaved: 'Change saved',
+  inlineEditCancelled: 'Edit cancelled',
+  opensInNewTab: 'opens in a new tab',
+  optionAdded: (label) => `${label} selected`,
+  optionRemoved: (label) => `${label} removed`,
+  selectedCount: (count) => `${count} selected`,
+  clearSelection: 'Clear selection',
+  resizeColumn: (column) => `Resize column ${column}`,
+  tableLoading: 'Loading data',
+  bottomNav: 'Bottom navigation',
+  sheetHandle: 'Drag down to close',
+  badgeCount: (count) => `${count} new`,
 };
 
 /** Textos usados pelos componentes. Padrão: português. */

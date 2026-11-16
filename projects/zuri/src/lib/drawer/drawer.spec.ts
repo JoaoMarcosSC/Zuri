@@ -63,4 +63,65 @@ describe('ZurDrawer', () => {
     expect(fixture.componentInstance.aberto()).toBe(false);
     fixture.nativeElement.remove();
   });
+
+});
+
+@Component({
+  imports: [ZurDrawer],
+  template: `<zur-drawer [(open)]="aberto" title="Opções" side="bottom"><button id="dentro">Compartilhar</button></zur-drawer>`,
+})
+class SheetHost {
+  aberto = signal(true);
+}
+
+describe('ZurDrawer como bottom sheet', () => {
+  async function sheet() {
+    const fixture = TestBed.createComponent(SheetHost);
+    document.body.appendChild(fixture.nativeElement);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    const grabber = el.querySelector('.grabber') as HTMLElement;
+    const pointer = async (type: string, y: number) => {
+      grabber.dispatchEvent(new MouseEvent(type, { clientY: y, bubbles: true }));
+      await fixture.whenStable();
+    };
+    return { fixture, el, grabber, pointer };
+  }
+
+  it('tem a alça, o lado bottom e continua sendo um dialog modal', async () => {
+    const { el } = await sheet();
+    expect(el.querySelector('zur-drawer')?.getAttribute('data-side')).toBe('bottom');
+    expect(el.querySelector('.panel')?.getAttribute('role')).toBe('dialog');
+    expect(el.querySelector('.grabber')?.getAttribute('aria-hidden')).toBe('true');
+    expect(el.querySelector('.grabber')?.getAttribute('title')).toBe('Arraste para baixo para fechar');
+  });
+
+  it('arrastar além do limite fecha', async () => {
+    const { fixture, el, pointer } = await sheet();
+    await pointer('pointerdown', 100);
+    await pointer('pointermove', 150);
+    expect((el.querySelector('.panel') as HTMLElement).style.transform).toBe('translateY(50px)');
+    await pointer('pointermove', 260);
+    await pointer('pointerup', 260);
+    expect(fixture.componentInstance.aberto()).toBe(false);
+    expect(el.querySelector('.panel')).toBeNull();
+  });
+
+  it('soltar antes do limite volta ao lugar e não fecha; arrastar para cima não move', async () => {
+    const { fixture, el, pointer } = await sheet();
+    await pointer('pointerdown', 200);
+    await pointer('pointermove', 120); // para cima
+    expect((el.querySelector('.panel') as HTMLElement).style.transform).toBe('');
+    await pointer('pointermove', 240);
+    await pointer('pointerup', 240);
+    expect(fixture.componentInstance.aberto()).toBe(true);
+    expect((el.querySelector('.panel') as HTMLElement).style.transform).toBe('');
+  });
+
+  it('Esc fecha (o teclado não depende do arrastar)', async () => {
+    const { fixture } = await sheet();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    await fixture.whenStable();
+    expect(fixture.componentInstance.aberto()).toBe(false);
+  });
 });

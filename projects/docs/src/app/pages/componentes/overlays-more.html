@@ -1,0 +1,30 @@
+<section id="bottom-sheet" class="component">
+  <h2>Bottom sheet</h2>
+  <p>
+    <code>zur-drawer</code> com <code>side="bottom"</code>: sobe da base da tela, tem alça e fecha arrastando para baixo.
+    Para teclado e leitor de tela continua um diálogo modal (Esc fecha, o foco volta ao gatilho).
+  </p>
+  <div class="demo">
+    <button zur-button (click)="sheet.set(true)">Compartilhar</button>
+    <zur-drawer [open]="sheet()" (openChange)="sheet.set($event)" side="bottom" title="Compartilhar planta">
+      <p style="margin: 0 0 16px">Envie a Monstera deliciosa para um amigo.</p>
+      <button zur-button style="width: 100%" (click)="sheet.set(false)">Copiar link</button>
+    </zur-drawer>
+  </div>
+  <docs-code-block [code]="codeSheet" />
+</section>
+
+<section id="toast-actions" class="component">
+  <h2>Toast com ação</h2>
+  <p>
+    Botão de texto dentro do toast ("Desfazer"), modo persistente e <code>dismissAll</code>. O tempo pausa com o ponteiro ou o foco
+    sobre a pilha, para quem precisa de mais tempo para ler ou alcançar o botão.
+  </p>
+  <div class="demo">
+    <button zur-button size="sm" (click)="remover()">Remover planta</button>
+    <button zur-button size="sm" variant="secondary" (click)="offline()">Simular queda de conexão</button>
+    <button zur-button size="sm" variant="ghost" (click)="limpar()">Fechar todos</button>
+    <p class="readout" aria-live="polite">Status: {{ status() }}</p>
+  </div>
+  <docs-code-block [code]="codeToast" />
+</section>

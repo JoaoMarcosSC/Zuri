@@ -91,6 +91,10 @@ export class App {
         { id: 'badge', label: 'Badge' },
         { id: 'card', label: 'Card' },
         { id: 'avatar', label: 'Avatar' },
+        { id: 'icon', label: 'Ícones' },
+        { id: 'icon-button', label: 'Botão de ícone e FAB' },
+        { id: 'link', label: 'Link' },
+        { id: 'divider', label: 'Divider' },
       ],
     },
     {
@@ -105,9 +109,13 @@ export class App {
         { id: 'combobox', label: 'Combobox' },
         { id: 'date-picker', label: 'Date picker' },
         { id: 'file-upload', label: 'Upload de arquivos' },
-        { id: 'chips', label: 'Chips' },
+        { id: 'chips', label: 'Chips (campo de tags)' },
         { id: 'slider', label: 'Slider' },
         { id: 'segmented', label: 'Segmented' },
+        { id: 'multiselect', label: 'Multiselect' },
+        { id: 'chip', label: 'Chips interativos' },
+        { id: 'search', label: 'Busca' },
+        { id: 'inline-edit', label: 'Edição no lugar' },
       ],
     },
     {
@@ -118,6 +126,7 @@ export class App {
         { id: 'menu', label: 'Menu' },
         { id: 'breadcrumb', label: 'Breadcrumb' },
         { id: 'sidenav', label: 'Sidenav' },
+        { id: 'bottom-nav', label: 'Barra inferior' },
       ],
     },
     {
@@ -130,6 +139,9 @@ export class App {
         { id: 'stat', label: 'KPI e sparkline' },
         { id: 'timeline', label: 'Timeline' },
         { id: 'tree', label: 'Tree' },
+        { id: 'list', label: 'Lista' },
+        { id: 'table-extras', label: 'Tabela: colunas e lote' },
+        { id: 'code-snippet', label: 'Code snippet' },
       ],
     },
     {
@@ -158,6 +170,7 @@ export class App {
       items: [
         { id: 'modal', label: 'Modal' },
         { id: 'toast', label: 'Toast' },
+        { id: 'toast-actions', label: 'Toast com ação' },
         { id: 'tooltip', label: 'Tooltip' },
         { id: 'alert', label: 'Alert' },
         { id: 'spinner', label: 'Spinner & Skeleton' },
@@ -171,6 +184,7 @@ export class App {
         { id: 'popover', label: 'Popover' },
         { id: 'dialog', label: 'Dialog' },
         { id: 'context-menu', label: 'Context menu' },
+        { id: 'bottom-sheet', label: 'Bottom sheet' },
       ],
     },
     {

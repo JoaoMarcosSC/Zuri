@@ -3,6 +3,7 @@ import {
   Component,
   Directive,
   ViewEncapsulation,
+  booleanAttribute,
   computed,
   effect,
   inject,
@@ -27,6 +28,12 @@ export interface ZurColumnFilterChange {
   value: string;
 }
 
+/** Largura nova de uma coluna redimensionada. */
+export interface ZurColumnResize {
+  key: string;
+  width: number;
+}
+
 /**
  * Estilo do Zuri para uma `<table>` nativa: cabeçalho em caption, linhas com
  * hairline, hover e densidade. A ordenação fica com você: marque as colunas com
@@ -47,7 +54,14 @@ export interface ZurColumnFilterChange {
   // As linhas e células vêm do template de quem usa, então os estilos precisam ser
   // globais; todos ficam presos ao seletor table[zur-table].
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'zur-table', '[attr.data-density]': 'density()' },
+  host: {
+    class: 'zur-table',
+    '[attr.data-density]': 'density()',
+    '[attr.data-sticky-header]': 'stickyHeader() ? "" : null',
+    '[attr.data-sticky-first]': 'stickyFirstColumn() ? "" : null',
+    '[attr.data-resizable]': 'resizableCount() > 0 ? "" : null',
+    '[attr.aria-busy]': 'busy() ? true : null',
+  },
   template: `<ng-content />`,
   styles: `
     table.zur-table {
@@ -175,6 +189,85 @@ export interface ZurColumnFilterChange {
       box-shadow: var(--zur-focus-ring);
     }
 
+    /* cabeçalho e primeira coluna fixos: a tabela precisa estar num contêiner com rolagem
+       (veja .zur-table-scroll). Com border-collapse as bordas somem ao rolar, por isso separate. */
+    .zur-table-scroll {
+      background: var(--zur-canvas);
+      overflow: auto;
+      max-height: var(--zur-table-max-height, 420px);
+    }
+    table.zur-table[data-sticky-header],
+    table.zur-table[data-sticky-first] {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    table.zur-table[data-sticky-header] thead th {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 2;
+      background: var(--zur-canvas);
+    }
+    table.zur-table[data-sticky-first] tr > :first-child {
+      position: sticky;
+      inset-inline-start: 0;
+      z-index: 1;
+      background: var(--zur-canvas);
+    }
+    table.zur-table[data-sticky-first] thead tr > :first-child {
+      z-index: 3;
+    }
+    table.zur-table[data-sticky-first] tbody tr:hover > :first-child {
+      background: var(--zur-surface-soft);
+    }
+    table.zur-table[data-sticky-first] tbody tr[aria-selected='true'] > :first-child {
+      background: var(--zur-primary-soft);
+    }
+    table.zur-table[data-sticky-first] tbody tr.zur-row-detail > :first-child {
+      background: var(--zur-surface-soft);
+    }
+
+    /* colunas redimensionáveis */
+    table.zur-table[data-resizable] {
+      table-layout: fixed;
+    }
+    table.zur-table[data-resizable] th[zurSelectAll],
+    table.zur-table[data-resizable] th:has(> input.zur-check) {
+      width: 48px;
+    }
+    table.zur-table th.zur-resizable {
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    table.zur-table .zur-resize-handle {
+      position: absolute;
+      inset-block: 0;
+      inset-inline-end: 0;
+      width: 10px;
+      cursor: col-resize;
+      touch-action: none;
+      user-select: none;
+    }
+    table.zur-table .zur-resize-handle::after {
+      content: '';
+      position: absolute;
+      inset-block: 25%;
+      inset-inline-end: 4px;
+      width: 2px;
+      border-radius: 2px;
+      background: var(--zur-hairline);
+      transition: background-color 120ms ease;
+    }
+    table.zur-table .zur-resize-handle:hover::after,
+    table.zur-table .zur-resize-handle[data-active]::after {
+      background: var(--zur-ink);
+    }
+    table.zur-table .zur-resize-handle:focus-visible {
+      outline: none;
+      box-shadow: var(--zur-focus-ring);
+      border-radius: var(--zur-radius-xs);
+    }
+
     /* linha expansível */
     table.zur-table .zur-expand {
       display: inline-flex;
@@ -223,6 +316,17 @@ export class ZurTable {
   readonly sortChange = output<ZurSort>();
 
   readonly sort = signal<ZurSort | null>(null);
+
+  /** Mantém o cabeçalho visível ao rolar (a tabela vai dentro de `.zur-table-scroll`). */
+  readonly stickyHeader = input(false, { transform: booleanAttribute });
+  /** Mantém a primeira coluna visível na rolagem horizontal. */
+  readonly stickyFirstColumn = input(false, { transform: booleanAttribute });
+  /** Emite a nova largura (px) quando uma coluna `zurResizable` é redimensionada. */
+  readonly columnResize = output<ZurColumnResize>();
+  /** `true` enquanto há um `tbody[zurTableSkeleton]` na tabela (marca `aria-busy`). */
+  readonly busy = signal(false);
+  /** Quantidade de colunas redimensionáveis (liga `table-layout: fixed`). */
+  readonly resizableCount = signal(0);
 
   /** Ids das linhas selecionadas (two-way). Veja `tr[zurRow]`, `th[zurSelectAll]` e `td[zurSelect]`. */
   readonly selected = model<string[]>([]);

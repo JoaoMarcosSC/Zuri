@@ -4,6 +4,43 @@ As mudanças do pacote [`@juau/zuri`](https://www.npmjs.com/package/@juau/zuri) 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.4.0] - 2026-11-15
+
+### Adicionado
+- Ícones: `zur-icon` e um conjunto próprio de 47 ícones (traço de 2 px, grade de 24 px), cada um exportado como
+  constante (`zurIconSearch`, `zurIconTrash`…) para o bundler descartar os não usados. Os direcionais se espelham
+  em RTL. `ZUR_ICON_CATALOG` lista todos.
+- `button[zur-icon-button]` (o `label` é obrigatório e vira o `aria-label`) e `button[zur-fab]` (compacto ou
+  `extended`).
+- Formulários: `multiple` no `zur-combobox` (chips dentro do campo, valor `string[]`), `zur-chip` e
+  `zur-chip-group` (filtro, escolha, ação e removível; `single` é `radiogroup`, `multiple` alterna), `zur-search`,
+  `zur-inline-edit` e `a[zur-link]`. Todos funcionam com `ngModel`, formulários reativos e `[formField]`.
+- `zur-divider` (horizontal, vertical e com rótulo).
+- Listas: `zur-list` e `zur-list-item`, com ícone/avatar, texto secundário, ação e seleção única ou múltipla
+  (`listbox` com roving tabindex).
+- Tabela: `stickyHeader` e `stickyFirstColumn`, `th[zurResizable]` (arrastar ou ←/→, saída `columnResize`),
+  `zur-table-toolbar` (vira barra de lote com a contagem anunciada) e `tbody[zurTableSkeleton]` (estado de
+  carregamento com `aria-busy`).
+- `zur-code-snippet`: bloco de código com botão de copiar.
+- Mobile: `zur-bottom-nav` com `zur-bottom-nav-item` (rótulo, `badge` em número ou ponto, área segura do aparelho) e
+  bottom sheet (`zur-drawer` com `side="bottom"`, alça e arrastar para baixo para fechar).
+- Toast: botão de ação (`{ action: { label, handler } }`), modo `persistent`, `dismissAll()` e `pauseAll()`/`resumeAll()`.
+- Chaves novas no `ZurI18n`, em português e inglês.
+
+### Alterado
+- A interface `ZurI18n` ganhou chaves obrigatórias novas. Quem usa `provideZuriI18n('pt' | 'en' | parcial)` não precisa
+  mudar nada; quem escreveu um objeto `ZurI18n` completo à mão precisa adicionar as chaves novas.
+- `ZurToastService.show()` devolve o `id` do toast (antes era `void`) e o terceiro parâmetro aceita um número (como
+  antes) ou um objeto de opções. O tempo de cada toast **pausa com o ponteiro ou o foco sobre a pilha** e continua de
+  onde parou (WCAG 2.2.1). Com ação, o padrão passa a 8 s.
+- `zur-navbar` no celular: padding e espaços menores, a marca não quebra e os links rolam em vez de espremer.
+- `zur-combobox`: o valor passa a ser `string | string[] | null` conforme `multiple` (sem mudança para quem não usa).
+
+### Corrigido
+- `zurThemeScope` agora segue o tema da página mesmo sem um `zur-theme-toggle` dentro. Antes, uma tela sem botão de
+  tema (login, 404) ficava sempre no tema claro, porque o serviço de tema nunca era criado.
+- `zur-stat`: o sinal da variação ("+12,4%") não vai mais para o fim do número em páginas da direita para a esquerda.
+
 ## [0.3.0] - 2026-11-15
 
 ### Adicionado
@@ -95,6 +132,7 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 - Primeira versão publicada: componentes de fundamentos, formulários, navegação, conteúdo e
   feedback, 7 layouts de página, tema claro/escuro com `zurThemeScope` e o logo `zur-logo`.
 
+[0.4.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.4.0
 [0.3.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.3.0
 [0.2.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.2.0
 [0.1.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.1.0

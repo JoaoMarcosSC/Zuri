@@ -7,14 +7,18 @@ import {
   inject,
   input,
   model,
+  signal,
   untracked,
   viewChild,
 } from '@angular/core';
 import { ZUR_I18N } from '../i18n/i18n';
 import { zurFocusFirst, zurTrapFocus } from '../shared/focus-trap';
 
-/** `start`/`end` seguem a direção de leitura (em RTL trocam de lado); `left`/`right` são físicos. */
-export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right';
+/**
+ * `start`/`end` seguem a direção de leitura (em RTL trocam de lado); `left`/`right` são físicos.
+ * `bottom` é o bottom sheet: sobe da borda inferior, tem alça e fecha arrastando para baixo.
+ */
+export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right' | 'bottom';
 
 /**
  * Painel lateral deslizante (gaveta) sobre a página, para filtros, detalhes ou
@@ -24,6 +28,7 @@ export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right';
  * ```html
  * <button zur-button (click)="filtros = true">Filtros</button>
  * <zur-drawer [(open)]="filtros" title="Filtros">…</zur-drawer>
+ * <zur-drawer [(open)]="opcoes" side="bottom" title="Opções">…</zur-drawer>   // bottom sheet
  * ```
  */
 @Component({
@@ -42,9 +47,22 @@ export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right';
         role="dialog"
         aria-modal="true"
         [attr.aria-label]="title() || null"
+        [class.dragging]="dragging()"
+        [style.transform]="dragY() ? 'translateY(' + dragY() + 'px)' : null"
         tabindex="-1"
         (keydown)="trapFocus($event)"
       >
+        @if (side() === 'bottom') {
+          <div
+            class="grabber"
+            aria-hidden="true"
+            [attr.title]="i18n.sheetHandle"
+            (pointerdown)="dragStart($event)"
+            (pointermove)="dragMove($event)"
+            (pointerup)="dragEnd($event)"
+            (pointercancel)="dragEnd($event)"
+          ><span class="bar"></span></div>
+        }
         <header class="head">
           @if (title()) {
             <h2 class="title">{{ title() }}</h2>
@@ -99,6 +117,45 @@ export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right';
       left: 0;
       right: auto;
       animation-name: zur-drawer-in-left;
+    }
+    /* bottom sheet */
+    :host([data-side='bottom']) .panel {
+      top: auto;
+      inset-block-end: 0;
+      inset-inline: 0;
+      width: auto;
+      max-height: 90vh;
+      padding-block-start: var(--zur-space-xxs);
+      border-start-start-radius: var(--zur-radius-lg);
+      border-start-end-radius: var(--zur-radius-lg);
+      padding-block-end: max(var(--zur-space-lg), env(safe-area-inset-bottom));
+      animation-name: zur-drawer-in-bottom;
+    }
+    .panel.dragging {
+      transition: none;
+      user-select: none;
+    }
+    .panel:not(.dragging) {
+      transition: transform 180ms ease;
+    }
+    .grabber {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      height: 28px;
+      margin-inline: calc(var(--zur-space-lg) * -1);
+      cursor: grab;
+      touch-action: none;
+    }
+    .grabber:active {
+      cursor: grabbing;
+    }
+    .grabber .bar {
+      width: 40px;
+      height: 4px;
+      border-radius: var(--zur-radius-full);
+      background: var(--zur-hairline);
     }
     .panel:focus {
       outline: none;
@@ -165,10 +222,14 @@ export type ZurDrawerSide = 'start' | 'end' | 'left' | 'right';
     @keyframes zur-drawer-in-left {
       from { transform: translateX(-100%); }
     }
+    @keyframes zur-drawer-in-bottom {
+      from { transform: translateY(100%); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .scrim,
       .panel {
         animation: none;
+        transition: none !important;
       }
     }
   `,
@@ -182,6 +243,10 @@ export class ZurDrawer {
   readonly side = input<ZurDrawerSide>('end');
 
   private readonly panel = viewChild<ElementRef<HTMLElement>>('panel');
+  /** Deslocamento (px) do bottom sheet enquanto é arrastado para baixo. */
+  protected readonly dragY = signal(0);
+  protected readonly dragging = signal(false);
+  private dragStartY = 0;
   private returnFocusTo: HTMLElement | null = null;
 
   constructor() {
@@ -206,6 +271,28 @@ export class ZurDrawer {
 
   close(): void {
     this.open.set(false);
+  }
+
+  protected dragStart(event: PointerEvent): void {
+    this.dragStartY = event.clientY;
+    this.dragging.set(true);
+    (event.currentTarget as HTMLElement).setPointerCapture?.(event.pointerId);
+  }
+
+  protected dragMove(event: PointerEvent): void {
+    if (!this.dragging()) return;
+    this.dragY.set(Math.max(0, event.clientY - this.dragStartY));
+  }
+
+  /** Solta: fecha se foi arrastado além de 100 px (ou 30% da altura); senão volta ao lugar. */
+  protected dragEnd(event: PointerEvent): void {
+    if (!this.dragging()) return;
+    this.dragging.set(false);
+    (event.currentTarget as HTMLElement).releasePointerCapture?.(event.pointerId);
+    const height = this.panel()?.nativeElement.offsetHeight ?? 0;
+    const shouldClose = this.dragY() > Math.min(100, height * 0.3 || 100);
+    this.dragY.set(0);
+    if (shouldClose && event.type !== 'pointercancel') this.close();
   }
 
   /** Mantém o Tab circulando dentro do painel. */
