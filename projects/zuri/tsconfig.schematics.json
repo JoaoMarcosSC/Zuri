@@ -13,7 +13,7 @@
     "sourceMap": false,
     "rootDir": "schematics",
     "outDir": "../../dist/zuri/schematics",
-    "types": []
+    "types": ["node"]
   },
   "include": [
     "schematics/**/*.ts"

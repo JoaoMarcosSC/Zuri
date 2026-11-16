@@ -333,6 +333,9 @@ quase-preto, lição direta do Spotify, aplicada só ao tema escuro.
 - Tokens vivem em `:root` (claro) e são redefinidos sob `[data-theme="dark"]`.
 - `ZurThemeService` aplica `data-theme` no `<html>`, persiste em `localStorage`
   (`zur-theme`) e inicializa de `prefers-color-scheme`.
+- `provideZuriTheme({ mode })` define o modo da aplicação (o `ng add` pergunta): `system` segue o sistema
+  (inclusive quando ele muda) até a pessoa escolher no botão; `light`/`dark` fixam o tema e escondem o
+  `zur-theme-toggle`. No modo `system`, um script mínimo no `index.html` aplica o tema antes da primeira pintura.
 - `zur-theme-toggle` é um botão circular (`{rounded.full}`, 44px) que mostra o sol no tema
   escuro e a lua no claro (ícones SVG), com transição suave de 200ms nas cores globais.
 

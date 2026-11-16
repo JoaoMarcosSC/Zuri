@@ -8,6 +8,27 @@
       "type": "string",
       "description": "Projeto que vai receber o Zuri. Padrão: a primeira aplicação do workspace.",
       "$default": { "$source": "projectName" }
+    },
+    "theme": {
+      "type": "string",
+      "enum": ["both", "light", "dark"],
+      "default": "both",
+      "description": "Tema da aplicação: claro e escuro (segue o sistema, com botão sol/lua), só claro ou só escuro.",
+      "x-prompt": {
+        "message": "Qual tema a aplicação vai ter?",
+        "type": "list",
+        "items": [
+          { "value": "both", "label": "Claro e escuro (segue o sistema, com botão sol/lua)" },
+          { "value": "light", "label": "Só claro" },
+          { "value": "dark", "label": "Só escuro" }
+        ]
+      }
+    },
+    "ai": {
+      "type": "boolean",
+      "default": false,
+      "description": "Instala as skills e os agents do Zuri para Claude Code e Codex, e as regras no AGENTS.md.",
+      "x-prompt": "Instalar o modo com IA (skills e agents do Zuri para Claude Code e Codex)?"
     }
   }
 }

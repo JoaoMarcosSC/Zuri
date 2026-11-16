@@ -15,7 +15,30 @@ tintura verde).
 ng add @juau/zuri
 ```
 
-O `ng add` instala o pacote e configura os tokens, a fonte Nunito Sans e o estilo base do `body`. Para fazer à mão, use `npm install @juau/zuri` e siga o setup abaixo.
+O `ng add` instala o pacote e configura os tokens, a fonte Nunito Sans e o estilo base do `body`. Ele pergunta:
+
+- **o tema:** claro e escuro (segue o sistema, com botão sol/lua), só claro ou só escuro — vira um
+  `provideZuriTheme({ mode })` nos providers;
+- **se quer o modo com IA:** instala as skills e os agents do Zuri para Claude Code e Codex e as regras no
+  `AGENTS.md` (veja abaixo).
+
+Sem perguntas: `ng add @juau/zuri --theme=both --ai`. Para fazer à mão, use `npm install @juau/zuri` e siga o setup abaixo.
+
+### Modo com IA
+
+Com `--ai` (ou `ng g @juau/zuri:ai` depois), o projeto recebe:
+
+| Onde | O quê |
+|---|---|
+| `.claude/skills/`, `.agents/skills/` | Skills para Claude Code e Codex: `zuri-iniciar`, `zuri-layout`, `zuri-tela`, `zuri-backend`, `zuri-migrar` |
+| `.claude/agents/`, `.codex/agents/` | Agents `zuri-inventario` e `zuri-revisor` (só leitura) |
+| `AGENTS.md` (+ `CLAUDE.md` com `@AGENTS.md`) | Regras de uso do Zuri e o tema escolhido, para qualquer ferramenta de IA |
+
+Comece com `/zuri-iniciar` (Claude Code) ou `$zuri-iniciar` (Codex): a skill olha o projeto, confirma se é um
+projeto do zero, só com backend ou com frontend existente, e conduz a criação das telas com os componentes do Zuri.
+O material de referência (catálogo gerado da API, regras, receitas, guia de migração) fica em
+`node_modules/@juau/zuri/ai/` e acompanha a versão instalada. Arquivos que você personalizar (apagando a linha
+`zuri:gerado`) não são sobrescritos ao atualizar.
 
 ## Setup
 
@@ -54,7 +77,9 @@ body {
 ```
 
 O `ZurThemeService` aplica `data-theme="dark"` no `<html>`, persiste a escolha em
-`localStorage` (`zur-theme`) e respeita `prefers-color-scheme` na primeira visita.
+`localStorage` (`zur-theme`) e respeita `prefers-color-scheme` na primeira visita. Com
+`provideZuriTheme({ mode: 'system' })` ele liga na partida (mesmo em telas sem botão) e acompanha a troca de tema
+do sistema até a pessoa escolher; com `mode: 'light'` ou `'dark'` o tema fica fixo e o toggle não aparece.
 
 ## Componentes
 

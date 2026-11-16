@@ -48,7 +48,7 @@ Tudo abaixo está rodando na [documentação online](https://joaomarcossc.github
 
 ## Começando
 
-O jeito mais rápido é o `ng add`, que instala o pacote e já configura os tokens, a fonte e o estilo base do `body`:
+O jeito mais rápido é o `ng add`, que instala o pacote e já configura os tokens, a fonte e o estilo base do `body`. Ele pergunta o tema (claro e escuro, só claro ou só escuro) e se você quer o **modo com IA**, que instala skills e agents do Zuri para Claude Code e Codex (comece com `/zuri-iniciar` ou `$zuri-iniciar`):
 
 ```bash
 ng add @juau/zuri

@@ -1,32 +1,36 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ZurStep } from '@juau/zuri';
 import { CodeBlock } from '../../shared/code-block/code-block';
 
 @Component({
   selector: 'docs-instalacao',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CodeBlock, ZurStep],
+  imports: [CodeBlock, ZurStep, RouterLink],
   templateUrl: './instalacao.html',
   styleUrl: './instalacao.css',
 })
 export class Instalacao {
   protected readonly stepInstall = `ng add @juau/zuri
 
-# ou, só instalar (e seguir os passos 2 a 4 à mão):
-npm install @juau/zuri`;
+# sem perguntas:
+ng add @juau/zuri --theme=both --ai      # claro e escuro, com o modo com IA
+ng add @juau/zuri --theme=light          # só claro, sem IA
 
-  protected readonly stepStyles = `/* styles.css global da sua aplicação */
-@import '@juau/zuri/styles/tokens.css';
+# ou só instalar e configurar à mão:
+npm install @juau/zuri
+# styles.css:  @import '@juau/zuri/styles/tokens.css';`;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
+  protected readonly stepTheme = `// app.config.ts (o ng add já faz isto)
+import { provideZuriTheme } from '@juau/zuri';
 
-body {
-  margin: 0;
-  background: var(--zur-canvas);
-  color: var(--zur-body);
-  font: var(--zur-font-body);
-  transition: background-color 200ms ease, color 200ms ease;
-}`;
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZuriTheme({ mode: 'system' }), // claro e escuro, segue o sistema
+    // provideZuriTheme({ mode: 'light' }) // só claro
+    // provideZuriTheme({ mode: 'dark' })  // só escuro
+  ],
+};`;
 
   protected readonly stepShell = `<zur-navbar>
   <strong zurNavbarLogo>Casa Verde</strong>
@@ -48,6 +52,13 @@ body {
   template: \`<button zur-button variant="primary">Comprar</button>\`,
 })
 export class MinhaTela {}`;
+
+  protected readonly stepAiFiles = `.claude/skills/zuri-*/SKILL.md     ← Claude Code
+.claude/agents/zuri-*.md
+.agents/skills/zuri-*/SKILL.md     ← Codex
+.codex/agents/zuri-*.toml
+AGENTS.md                          ← regras do Zuri (Codex, Cursor, Copilot…)
+CLAUDE.md                          ← importa o AGENTS.md (@AGENTS.md)`;
 
   protected readonly stepI18n = `import { provideZuriI18n } from '@juau/zuri';
 

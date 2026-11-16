@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ZuriAi",
+  "title": "Zuri: modo com IA",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Aplicação de onde ler o tema configurado. Padrão: a primeira aplicação do workspace.",
+      "$default": { "$source": "projectName" }
+    },
+    "theme": {
+      "type": "string",
+      "enum": ["both", "light", "dark"],
+      "description": "Tema a registrar nas regras do AGENTS.md. Padrão: o de provideZuriTheme no projeto, ou \"both\"."
+    }
+  }
+}

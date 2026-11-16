@@ -1,6 +1,6 @@
 {
   "name": "@juau/zuri",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Design system para Angular: componentes standalone, layouts de página e tema claro/escuro.",
   "license": "MIT",
   "keywords": [

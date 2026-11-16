@@ -29,6 +29,9 @@ jobs:
       - name: Testes da exportação de tokens (Tailwind e Figma)
         run: npm run test:tokens
 
+      - name: Material de IA e schematics (ng add)
+        run: npm run test:ai
+
       - name: Instalar o Chromium para os testes das stories
         run: npx playwright install --with-deps chromium
 

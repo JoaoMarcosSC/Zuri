@@ -11,8 +11,9 @@
     "storybook": "ng run zuri:storybook",
     "build-storybook": "ng run zuri:build-storybook",
     "test:stories": "vitest --project storybook --run",
-    "build:lib": "ng build zuri && tsc -p projects/zuri/tsconfig.schematics.json && node scripts/export-tokens.mjs",
+    "build:lib": "ng build zuri && tsc -p projects/zuri/tsconfig.schematics.json && node scripts/export-tokens.mjs && node scripts/build-ai.mjs",
     "test:tokens": "node --test scripts/export-tokens.test.mjs",
+    "test:ai": "node --test scripts/ai.test.mjs scripts/schematics.test.mjs",
     "check:ssr": "node scripts/check-ssr.mjs"
   },
   "private": true,

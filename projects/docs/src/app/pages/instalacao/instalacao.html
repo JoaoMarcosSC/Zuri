@@ -1,28 +1,36 @@
 <h1>Instalação</h1>
 <p class="lead">
-  Quatro passos para ter o Zuri rodando na sua aplicação Angular, mais um opcional para mudar o idioma.
+  Um comando instala e configura o Zuri. Ele pergunta o tema da aplicação e se você quer o modo com IA.
 </p>
 
-<zur-step number="1" title="Instale o pacote">
+<zur-step number="1" title="Instale e responda às perguntas">
   <p>
-    O <code>ng add</code> instala o pacote e já faz o passo 2 por você: importa os tokens, aplica
-    o estilo base do <code>body</code> e adiciona a fonte Nunito Sans no <code>index.html</code>.
+    O <code>ng add</code> instala o pacote, importa os tokens, aplica o estilo base do <code>body</code>, adiciona a
+    fonte Nunito Sans e configura o tema. Ele faz duas perguntas:
   </p>
+  <ul class="list">
+    <li><strong>Tema:</strong> claro e escuro (segue o sistema, com botão sol/lua), só claro ou só escuro.</li>
+    <li><strong>Modo com IA:</strong> instala as skills e os agents do Zuri para Claude Code e Codex (passo 5).</li>
+  </ul>
+  <p>Para não responder nada (CI, scripts), passe as respostas como opções:</p>
   <docs-code-block [code]="stepInstall" />
 </zur-step>
 
-<zur-step number="2" title="Importe os tokens globais">
+<zur-step number="2" title="O tema">
   <p>
-    Os temas claro e escuro vivem em <code>@juau/zuri/styles/tokens.css</code> — importe uma
-    vez no <code>styles.css</code> da sua aplicação, junto com a fonte Nunito Sans.
+    O <code>ng add</code> coloca o <code>provideZuriTheme</code> nos providers. Em <code>system</code> o tema segue o
+    sistema operacional até a pessoa escolher no botão, e a escolha fica guardada; um script no
+    <code>index.html</code> aplica o tema antes da primeira pintura, para a página não piscar. Em <code>light</code> ou
+    <code>dark</code> o tema é fixo e o <code>zur-theme-toggle</code> não aparece.
   </p>
-  <docs-code-block [code]="stepStyles" />
+  <docs-code-block [code]="stepTheme" />
 </zur-step>
 
 <zur-step number="3" title="Monte o shell">
   <p>
-    Coloque o <code>zur-theme-toggle</code> na navbar e um único
-    <code>zur-toast-container</code> no shell da aplicação.
+    Coloque um único <code>zur-toast-container</code> no componente raiz. Se o tema for "claro e escuro", ponha o
+    <code>zur-theme-toggle</code> na navbar ou na topbar. Para a estrutura de cada página, veja
+    <a routerLink="/layouts">Layouts</a>.
   </p>
   <docs-code-block [code]="stepShell" />
 </zur-step>
@@ -32,7 +40,40 @@
   <docs-code-block [code]="stepUse" />
 </zur-step>
 
-<zur-step number="5" title="Idioma (opcional)">
+<zur-step number="5" title="Modo com IA (opcional)">
+  <p>
+    A instalação copia para o seu projeto as skills e os agents do Zuri, para o <strong>Claude Code</strong> e para o
+    <strong>Codex</strong>, e coloca as regras de uso no <code>AGENTS.md</code>, que Cursor, Copilot e outras
+    ferramentas também leem. A IA não roda durante a instalação: você a chama depois, no seu editor ou terminal.
+  </p>
+  <docs-code-block [code]="stepAiFiles" />
+  <p>
+    Comece por <code>zuri-iniciar</code> (no Claude Code, <code>/zuri-iniciar</code>; no Codex,
+    <code>$zuri-iniciar</code>). Ela olha o projeto, confirma em que situação você está e conduz o resto:
+  </p>
+  <table class="skills">
+    <thead>
+      <tr><th>Skill ou agent</th><th>Para quê</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>zuri-iniciar</code></td><td>Por onde começar: projeto do zero, só backend ou frontend existente.</td></tr>
+      <tr><td><code>zuri-layout</code></td><td>Escolhe o layout da página e gera o esqueleto.</td></tr>
+      <tr><td><code>zuri-tela</code></td><td>Cria uma tela a partir das receitas: formulário, tabela, painel, login, lista e detalhe.</td></tr>
+      <tr><td><code>zuri-backend</code></td><td>Lê a API (OpenAPI ou rotas do código) e gera serviços e telas.</td></tr>
+      <tr><td><code>zuri-migrar</code></td><td>Aplica o Zuri num frontend existente, uma tela por vez.</td></tr>
+      <tr><td><code>zuri-inventario</code> (agent)</td><td>Levanta o que trocar num frontend existente, sem alterar nada.</td></tr>
+      <tr><td><code>zuri-revisor</code> (agent)</td><td>Revisa as telas contra as regras do Zuri e aponta o que corrigir.</td></tr>
+    </tbody>
+  </table>
+  <p>
+    O material que elas consultam (catálogo da API, regras, receitas, guia de migração) vem dentro do pacote, em
+    <code>node_modules/&#64;juau/zuri/ai/</code>, e acompanha a versão instalada. Para instalar o modo com IA depois, ou
+    atualizar as skills numa versão nova, rode <code>ng g &#64;juau/zuri:ai</code>. Arquivos que você personalizou não são
+    sobrescritos: basta apagar a linha <code>zuri:gerado</code> do arquivo.
+  </p>
+</zur-step>
+
+<zur-step number="6" title="Idioma (opcional)">
   <p>
     Os textos internos dos componentes, como o <code>aria-label</code> do botão de fechar e
     o "Voltar" da lista e detalhe, vêm em português. Para inglês, ou para trocar só alguns,

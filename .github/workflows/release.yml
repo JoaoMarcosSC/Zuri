@@ -49,6 +49,9 @@ jobs:
       - name: Compilar a biblioteca (com o schematic do ng add)
         run: npm run build:lib
 
+      - name: Material de IA e schematics (ng add)
+        run: npm run test:ai
+
       # O Trusted Publishing exige npm 11.5.1 ou mais novo; o npm que vem com o Node 22 é mais antigo.
       - name: Atualizar o npm
         run: npm install -g npm@latest

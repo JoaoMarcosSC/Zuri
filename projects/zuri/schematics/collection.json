@@ -2,9 +2,14 @@
   "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "ng-add": {
-      "description": "Configura o Zuri: tokens, fonte Nunito Sans e estilo base do body.",
+      "description": "Configura o Zuri: tokens, fonte Nunito Sans, estilo base, tema e (opcional) o modo com IA.",
       "factory": "./ng-add/index#ngAdd",
       "schema": "./ng-add/schema.json"
+    },
+    "ai": {
+      "description": "Instala ou atualiza as skills e os agents do Zuri para Claude Code e Codex, e as regras no AGENTS.md.",
+      "factory": "./ai/index#ai",
+      "schema": "./ai/schema.json"
     }
   }
 }

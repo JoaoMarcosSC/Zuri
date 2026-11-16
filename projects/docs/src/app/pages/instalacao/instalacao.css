@@ -27,3 +27,35 @@ zur-step code {
   border-radius: var(--zur-radius-xs);
   font-size: 13px;
 }
+
+.list {
+  margin: 0 0 var(--zur-space-md);
+  padding-inline-start: var(--zur-space-lg);
+  color: var(--zur-body);
+}
+.list li {
+  margin-block-end: var(--zur-space-xxs);
+}
+.skills {
+  width: 100%;
+  margin: 0 0 var(--zur-space-md);
+  border-collapse: collapse;
+  font: var(--zur-font-body-sm);
+  color: var(--zur-body);
+}
+.skills th,
+.skills td {
+  padding: var(--zur-space-xs) var(--zur-space-sm);
+  text-align: start;
+  border-bottom: 1px solid var(--zur-hairline-soft);
+  vertical-align: top;
+}
+.skills th {
+  font: var(--zur-font-caption);
+  color: var(--zur-muted);
+  text-transform: uppercase;
+}
+zur-step a {
+  color: var(--zur-ink);
+  font-weight: 600;
+}

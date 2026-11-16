@@ -2,14 +2,47 @@ import {
   DOCUMENT,
   DestroyRef,
   ElementRef,
+  EnvironmentProviders,
   Injectable,
   InjectionToken,
   effect,
   inject,
+  isDevMode,
+  makeEnvironmentProviders,
+  provideEnvironmentInitializer,
   signal,
 } from '@angular/core';
 
 export type ZurTheme = 'light' | 'dark';
+
+/**
+ * Como o tema da aplicação funciona: `system` segue o sistema operacional até a pessoa escolher
+ * no `zur-theme-toggle` (e guarda a escolha); `light` e `dark` fixam o tema.
+ */
+export type ZurThemeMode = 'system' | 'light' | 'dark';
+
+/** Modo de tema da aplicação. Configure com `provideZuriTheme`. Padrão: `system`. */
+export const ZUR_THEME_MODE = new InjectionToken<ZurThemeMode>('ZUR_THEME_MODE', {
+  providedIn: 'root',
+  factory: () => 'system',
+});
+
+/**
+ * Liga o tema do Zuri na partida da aplicação (mesmo em telas sem botão de tema) e define o modo.
+ *
+ * ```ts
+ * bootstrapApplication(App, { providers: [provideZuriTheme({ mode: 'system' })] });
+ * provideZuriTheme({ mode: 'dark' }); // só escuro: sem botão sol/lua
+ * ```
+ */
+export function provideZuriTheme(config: { mode?: ZurThemeMode } = {}): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    { provide: ZUR_THEME_MODE, useValue: config.mode ?? 'system' },
+    provideEnvironmentInitializer(() => {
+      inject(ZurThemeService);
+    }),
+  ]);
+}
 
 const STORAGE_KEY = 'zur-theme';
 
@@ -36,6 +69,9 @@ export class ZurThemeService {
     ? inject(ZurThemeService, { skipSelf: true, optional: true })
     : null;
 
+  /** Modo da aplicação (`provideZuriTheme`). Num `zurThemeScope` a troca local continua livre. */
+  readonly mode = inject(ZUR_THEME_MODE);
+
   readonly theme = signal<ZurTheme>(this.initialTheme());
 
   constructor() {
@@ -54,6 +90,9 @@ export class ZurThemeService {
       return;
     }
 
+    // Tema fixo: nada de storage, sistema ou sincronização.
+    if (this.isFixed()) return;
+
     // Global: sincroniza o tema entre abas/iframes.
     const win = this.doc.defaultView;
     const onStorage = (event: StorageEvent) => {
@@ -64,7 +103,40 @@ export class ZurThemeService {
       }
     };
     win?.addEventListener('storage', onStorage);
-    inject(DestroyRef).onDestroy(() => win?.removeEventListener('storage', onStorage));
+
+    // Segue a troca de tema do sistema enquanto a pessoa não escolheu no botão.
+    const media = win?.matchMedia?.('(prefers-color-scheme: dark)');
+    const onSystem = (event: MediaQueryListEvent) => {
+      if (this.storedChoice()) return;
+      const next: ZurTheme = event.matches ? 'dark' : 'light';
+      this.theme.set(next);
+      this.apply(next);
+    };
+    media?.addEventListener?.('change', onSystem);
+
+    inject(DestroyRef).onDestroy(() => {
+      win?.removeEventListener('storage', onStorage);
+      media?.removeEventListener?.('change', onSystem);
+    });
+  }
+
+  /** Tema fixo pela aplicação (`provideZuriTheme({ mode: 'light' | 'dark' })`), fora de um escopo. */
+  isFixed(): boolean {
+    return !this.scope && this.mode !== 'system';
+  }
+
+  /** Se faz sentido mostrar um botão de trocar tema aqui. */
+  canToggle(): boolean {
+    return !this.isFixed();
+  }
+
+  private storedChoice(): ZurTheme | null {
+    try {
+      const stored = this.doc.defaultView?.localStorage?.getItem(STORAGE_KEY);
+      return stored === 'light' || stored === 'dark' ? stored : null;
+    } catch {
+      return null;
+    }
   }
 
   toggle(): void {
@@ -72,6 +144,10 @@ export class ZurThemeService {
   }
 
   set(theme: ZurTheme): void {
+    if (this.isFixed()) {
+      if (isDevMode()) console.warn(`[Zuri] O tema está fixo em "${this.mode}" (provideZuriTheme); set("${theme}") foi ignorado.`);
+      return;
+    }
     this.theme.set(theme);
     this.apply(theme);
     if (this.scope) return; // escopo não persiste
@@ -84,11 +160,11 @@ export class ZurThemeService {
 
   private initialTheme(): ZurTheme {
     if (this.parent) return this.parent.theme();
+    const mode = inject(ZUR_THEME_MODE);
+    if (!this.scope && mode !== 'system') return mode;
     try {
-      const stored = this.doc.defaultView?.localStorage?.getItem(STORAGE_KEY);
-      if (stored === 'light' || stored === 'dark') {
-        return stored;
-      }
+      const stored = this.storedChoice();
+      if (stored) return stored;
       return this.doc.defaultView?.matchMedia?.('(prefers-color-scheme: dark)')
         .matches
         ? 'dark'

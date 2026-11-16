@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, isDevMode } from '@angular/core';
 import { ZUR_I18N } from '../i18n/i18n';
 import { ZurThemeService } from './theme.service';
 
 /**
  * Botão circular sol/lua que alterna entre os temas claro e escuro.
- * Mostra a lua no tema claro ("ir para o escuro") e o sol no escuro.
+ * Mostra a lua no tema claro ("ir para o escuro") e o sol no escuro. Com o tema fixo
+ * (`provideZuriTheme({ mode: 'light' | 'dark' })`) não aparece.
  */
 @Component({
   selector: 'zur-theme-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    @if (themeService.canToggle()) {
     <button
       type="button"
       class="toggle"
@@ -30,6 +32,7 @@ import { ZurThemeService } from './theme.service';
         </svg>
       }
     </button>
+    }
   `,
   styles: `
     .toggle {
@@ -64,4 +67,10 @@ export class ZurThemeToggle {
   protected readonly label = computed(() =>
     this.isDark() ? this.i18n.themeToLight : this.i18n.themeToDark,
   );
+
+  constructor() {
+    if (!this.themeService.canToggle() && isDevMode()) {
+      console.warn(`[Zuri] zur-theme-toggle não aparece: o tema está fixo em "${this.themeService.mode}" (provideZuriTheme).`);
+    }
+  }
 }

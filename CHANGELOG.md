@@ -4,6 +4,23 @@ As mudanças do pacote [`@juau/zuri`](https://www.npmjs.com/package/@juau/zuri) 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.5.0] - 2026-11-16
+
+### Adicionado
+- `ng add @juau/zuri` agora pergunta o **tema** (claro e escuro, só claro ou só escuro) e se você quer o
+  **modo com IA**. As respostas também podem vir por opção: `--theme=both|light|dark` e `--ai`.
+- `provideZuriTheme({ mode: 'system' | 'light' | 'dark' })`: liga o tema na partida da aplicação. Em `system`
+  acompanha a troca de tema do sistema até a pessoa escolher no botão; em `light`/`dark` o tema é fixo e o
+  `zur-theme-toggle` não aparece. No modo `system`, o `ng add` coloca um script mínimo no `index.html` que aplica o
+  tema antes da primeira pintura (sem piscar, inclusive com SSR).
+- **Modo com IA** (`ng add @juau/zuri --ai` ou `ng g @juau/zuri:ai`): instala skills para Claude Code
+  (`.claude/skills`) e Codex (`.agents/skills`) — `zuri-iniciar`, `zuri-layout`, `zuri-tela`, `zuri-backend` e
+  `zuri-migrar` —, os agents `zuri-inventario` e `zuri-revisor` (`.claude/agents` e `.codex/agents`), as regras do
+  Zuri num bloco do `AGENTS.md` e o import `@AGENTS.md` no `CLAUDE.md`. Arquivos personalizados não são sobrescritos.
+- Material de referência dentro do pacote, em `@juau/zuri/ai/`: catálogo da API gerado do código, regras, guia de
+  layouts, receitas de telas (formulário, CRUD com tabela, dashboard, login, lista e detalhe) e guia de migração de
+  HTML puro, Angular Material, Bootstrap e PrimeNG.
+
 ## [0.4.0] - 2026-11-15
 
 ### Adicionado
@@ -132,6 +149,7 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 - Primeira versão publicada: componentes de fundamentos, formulários, navegação, conteúdo e
   feedback, 7 layouts de página, tema claro/escuro com `zurThemeScope` e o logo `zur-logo`.
 
+[0.5.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.5.0
 [0.4.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.4.0
 [0.3.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.3.0
 [0.2.0]: https://github.com/JoaoMarcosSC/Zuri/releases/tag/v0.2.0
