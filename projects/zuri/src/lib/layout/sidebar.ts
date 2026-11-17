@@ -8,7 +8,7 @@ import { ZurShellState } from './shell-state';
  * `zur-docs-layout`). O botão que a controla vive no `zur-topbar`.
  *
  * Slots: `[zurSidebarHeader]` (logo), conteúdo padrão (`zur-sidenav`),
- * `[zurSidebarFooter]`.
+ * `[zurSidebarFooter]`. No mobile, clicar num link da gaveta a fecha.
  */
 @Component({
   selector: 'zur-sidebar',
@@ -18,6 +18,7 @@ import { ZurShellState } from './shell-state';
     '[attr.data-viewport]': 'shell.viewport()',
     '[attr.data-open]': 'shell.drawerOpen()',
     '(document:keydown.escape)': 'shell.closeDrawer()',
+    '(click)': 'onClick($event)',
   },
   template: `
     <div class="scrim" aria-hidden="true" (click)="shell.closeDrawer()"></div>
@@ -153,5 +154,12 @@ export class ZurSidebar implements OnInit {
 
   ngOnInit(): void {
     this.shell.hasSidebar.set(true);
+  }
+
+  /** No mobile, escolher um destino na gaveta a fecha (o conteúdo novo fica visível). */
+  protected onClick(event: MouseEvent): void {
+    if (this.shell.viewport() !== 'mobile' || !this.shell.drawerOpen()) return;
+    const target = event.target as HTMLElement | null;
+    if (target?.closest('a[href], [zur-sidenav-item]')) this.shell.closeDrawer();
   }
 }

@@ -121,7 +121,7 @@ export class LayoutDemo {
 
   /**
    * Os links da demo usam href="#". Com <base href="/">, isso navegaria o iframe
-   * para a home — então bloqueamos esses cliques.
+   * para a home, então bloqueamos esses cliques.
    */
   protected blockPlaceholderLinks(event: Event): void {
     const link = (event.target as HTMLElement | null)?.closest('a');

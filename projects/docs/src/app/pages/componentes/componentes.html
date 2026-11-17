@@ -1,6 +1,6 @@
 <h1>Componentes</h1>
 <p class="lead">
-  Cada seção mostra o componente rodando de verdade — não é um mockup — seguido do
+  Cada seção mostra o componente funcionando de verdade, não uma imagem, seguido do
   código exato usado na demo.
 </p>
 
@@ -9,7 +9,9 @@
 
 <section id="button" class="component">
   <h2>Button</h2>
-  <p>Variantes <code>primary</code>, <code>secondary</code>, <code>ghost</code> e <code>pill</code>.</p>
+  <p>
+    Quatro estilos: <code>primary</code> para a ação principal, <code>secondary</code> com contorno, <code>ghost</code> só com texto e <code>pill</code>, arredondado.
+  </p>
   <div class="demo">
     <button zur-button variant="primary">Comprar agora</button>
     <button zur-button variant="secondary">Cancelar</button>
@@ -21,7 +23,9 @@
 
 <section id="badge" class="component">
   <h2>Badge</h2>
-  <p>Pill nas cores soft do sistema.</p>
+  <p>
+    Uma etiqueta em formato de pílula, nas cores suaves do sistema.
+  </p>
   <div class="demo">
     <zur-badge color="mint">NOVO</zur-badge>
     <zur-badge color="success">Entregue</zur-badge>
@@ -33,7 +37,9 @@
 
 <section id="card" class="component">
   <h2>Card</h2>
-  <p>Superfície 14px com hairline; eleva ao tier único de sombra com <code>interactive</code>.</p>
+  <p>
+    Uma superfície com cantos de 14px e borda fina. Com <code>interactive</code>, ganha sombra ao passar o mouse.
+  </p>
   <div class="demo">
     <zur-card [interactive]="true" style="max-width: 320px;">
       <zur-badge color="mint">DESTAQUE</zur-badge>
@@ -47,7 +53,9 @@
 
 <section id="avatar" class="component">
   <h2>Avatar</h2>
-  <p>Círculo com iniciais derivadas do nome, ou imagem.</p>
+  <p>
+    Mostra as iniciais tiradas do nome ou uma foto, dentro de um círculo.
+  </p>
   <div class="demo">
     <zur-avatar name="Ana Silva" size="sm" />
     <zur-avatar name="João Marcos" size="md" />
@@ -60,9 +68,7 @@
 <section id="logo" class="component">
   <h2>Logo</h2>
   <p>
-    Z com broto + wordmark. Usa as cores dos tokens, então acompanha o tema. Variantes
-    <code>horizontal</code>, <code>symbol</code> e <code>auto</code> (vira símbolo na sidebar
-    recolhida).
+    O Z com um broto ao lado do nome. As cores vêm dos tokens, então o logo muda junto com o tema. Há três variantes: <code>horizontal</code>, <code>symbol</code> e <code>auto</code>, que vira só o símbolo quando a sidebar recolhe.
   </p>
   <div class="demo demo-logos">
     <div class="logo-box" data-theme="light">
@@ -102,7 +108,9 @@
 
 <section id="input" class="component">
   <h2>Input</h2>
-  <p>56px, label em caption acima, foco com borda 2px ink.</p>
+  <p>
+    Campo de 56px com o rótulo em cima. No foco, ganha uma borda mais grossa na cor do texto.
+  </p>
   <div class="demo demo-form">
     <zur-input
       label="E-mail"
@@ -117,7 +125,9 @@
 
 <section id="select" class="component">
   <h2>Select</h2>
-  <p>Mesmo chrome do input, com seta customizada.</p>
+  <p>
+    Tem o mesmo visual do input, com uma seta própria.
+  </p>
   <div class="demo demo-form">
     <zur-select
       label="Categoria"
@@ -132,7 +142,9 @@
 
 <section id="checkbox" class="component">
   <h2>Checkbox</h2>
-  <p>20px, marcado em menta com check em tinta.</p>
+  <p>
+    Caixa de 20px. Marcada, fica menta com o check escuro.
+  </p>
   <div class="demo">
     <zur-checkbox [ngModel]="aceito()" (ngModelChange)="aceito.set($event)">
       Aceito os termos de uso
@@ -157,7 +169,9 @@
 
 <section id="switch" class="component">
   <h2>Switch</h2>
-  <p>Trilho pill 44×24px; ligado = menta.</p>
+  <p>
+    Um trilho arredondado de 44 por 24px que fica menta quando está ligado.
+  </p>
   <div class="demo">
     <zur-switch [ngModel]="notificacoes()" (ngModelChange)="notificacoes.set($event)">
       Receber notificações
@@ -191,8 +205,7 @@
 <section id="navbar" class="component">
   <h2>Navbar</h2>
   <p>
-    80px, canvas com hairline inferior; hospeda o toggle de tema (aqui isolado com
-    <code>zurThemeScope</code>, então só a demo muda).
+    Barra de 80px com uma linha fina embaixo, onde costuma ficar o botão de tema. Aqui ele está isolado com <code>zurThemeScope</code>, então troca só a demo.
   </p>
   <div class="demo demo-navbar" zurThemeScope>
     <zur-navbar>
@@ -211,7 +224,9 @@
 
 <section id="tabs" class="component">
   <h2>Tabs</h2>
-  <p>Sublinhado 2px ink na aba ativa.</p>
+  <p>
+    A aba ativa ganha um sublinhado de 2px na cor do texto.
+  </p>
   <div class="demo demo-form">
     <zur-tabs [index]="tabIndex()" (indexChange)="tabIndex.set($event)">
       <zur-tab label="Descrição">Folhas grandes e recortadas, ótima para luz indireta.</zur-tab>
@@ -224,7 +239,9 @@
 
 <section id="menu" class="component">
   <h2>Menu</h2>
-  <p>Dropdown no tier único de sombra; fecha ao clicar fora ou ESC.</p>
+  <p>
+    Lista de ações que abre sobre a página, com a sombra do sistema. Fecha ao clicar fora ou com Esc.
+  </p>
   <div class="demo">
     <zur-menu>
       <button zur-button variant="secondary" size="sm" zurMenuTrigger>Conta ▾</button>
@@ -238,7 +255,9 @@
 
 <section id="breadcrumb" class="component">
   <h2>Breadcrumb</h2>
-  <p>Caption muted com separador "/".</p>
+  <p>
+    Texto pequeno e discreto, com "/" separando os níveis.
+  </p>
   <div class="demo">
     <zur-breadcrumb [items]="breadcrumbItems" />
   </div>
@@ -313,7 +332,9 @@
 
 <section id="step" class="component">
   <h2>Step</h2>
-  <p>Passo numerado com círculo verde e conteúdo projetado abaixo do título.</p>
+  <p>
+    Um passo numerado, com o número num círculo verde e o conteúdo logo abaixo do título.
+  </p>
   <div class="demo demo-column">
     <zur-step number="1" title="Instale o pacote">
       <p class="step-text">Conteúdo do passo, qualquer markup.</p>
@@ -372,7 +393,9 @@
 
 <section id="modal" class="component">
   <h2>Modal</h2>
-  <p>20px, padding 32px, scrim 50%; fecha por ESC, clique fora ou ×.</p>
+  <p>
+    Janela com cantos de 20px e espaço interno de 32px sobre um fundo escurecido. Fecha com Esc, clique fora ou no ×.
+  </p>
   <div class="demo">
     <button zur-button (click)="modalOpen.set(true)">Abrir modal</button>
     <zur-modal [open]="modalOpen()" (openChange)="modalOpen.set($event)" title="Confirmar pedido">
@@ -390,7 +413,9 @@
 
 <section id="toast" class="component">
   <h2>Toast</h2>
-  <p>Service + container único no shell; auto-dismiss em 4s.</p>
+  <p>
+    Aviso rápido no rodapé da tela, que some sozinho em 4 segundos. Use o serviço e coloque um único container no shell da aplicação.
+  </p>
   <div class="demo">
     <button zur-button size="sm" (click)="showToast('success')">Sucesso</button>
     <button zur-button variant="secondary" size="sm" (click)="showToast('error')">Erro</button>
@@ -401,7 +426,9 @@
 
 <section id="tooltip" class="component">
   <h2>Tooltip</h2>
-  <p>Directive; bolha ink 8px com caption invertida.</p>
+  <p>
+    Uma diretiva que mostra uma dica curta num balão escuro ao passar o mouse ou focar o elemento.
+  </p>
   <div class="demo">
     <button zur-button variant="secondary" zurTooltip="Salvar nos favoritos">♥ Favoritar</button>
   </div>
@@ -410,7 +437,9 @@
 
 <section id="alert" class="component">
   <h2>Alert</h2>
-  <p>Bandas soft das cores semânticas, com ícone e raio 14px.</p>
+  <p>
+    Faixa com fundo suave na cor do aviso, ícone e cantos de 14px.
+  </p>
   <div class="demo demo-column">
     <zur-alert kind="success">Pedido confirmado com sucesso.</zur-alert>
     <zur-alert kind="info">A entrega sai em até 2 dias úteis.</zur-alert>
@@ -422,7 +451,9 @@
 
 <section id="spinner" class="component">
   <h2>Spinner &amp; Skeleton</h2>
-  <p>Anel giratório em menta e placeholder pulsante para carregamento.</p>
+  <p>
+    Um anel menta girando e blocos que pulsam no lugar do conteúdo enquanto ele carrega.
+  </p>
   <div class="demo">
     <zur-spinner size="sm" />
     <zur-spinner size="md" />

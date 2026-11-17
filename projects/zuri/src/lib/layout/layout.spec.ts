@@ -163,3 +163,22 @@ describe('ZurErrorLayout', () => {
     expect(el.querySelector('.description')?.textContent).toContain('Sumiu.');
   });
 });
+
+describe('ZurSidebar no mobile', () => {
+  it('clicar num link da gaveta fecha a gaveta; no desktop nada muda', async () => {
+    setWidth(390);
+    const fixture = TestBed.createComponent(DashboardHost);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+    const sidebar = el.querySelector('zur-sidebar') as HTMLElement;
+    (el.querySelector('zur-topbar button.menu') as HTMLButtonElement).click();
+    await fixture.whenStable();
+    expect(sidebar.getAttribute('data-open')).toBe('true');
+    const link = el.querySelector('a[zur-sidenav-item]') as HTMLAnchorElement;
+    link.addEventListener('click', (e) => e.preventDefault()); // jsdom não navega
+    link.click();
+    await fixture.whenStable();
+    expect(sidebar.getAttribute('data-open')).toBe('false');
+    setWidth(1280);
+  });
+});

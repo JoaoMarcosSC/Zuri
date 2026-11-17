@@ -26,7 +26,7 @@
 
 <section id="rating" class="component">
   <h2>Rating</h2>
-  <p>Editável é um <code>radiogroup</code> (setas trocam a nota); <code>readonly</code> é uma imagem com texto ("4,5 de 5") e aceita frações. Estrelas em ink, como no Airbnb.</p>
+  <p>Editável é um <code>radiogroup</code> (setas trocam a nota); <code>readonly</code> é uma imagem com texto ("4,5 de 5") e aceita frações. As estrelas usam a cor do texto, como no Airbnb, e não a menta.</p>
   <div class="demo">
     <zur-rating label="Sua nota" [ngModel]="nota()" (ngModelChange)="nota.set($event)" />
     <zur-rating size="sm" readonly [value]="4.5" />

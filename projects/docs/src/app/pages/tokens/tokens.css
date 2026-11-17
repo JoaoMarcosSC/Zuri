@@ -97,3 +97,17 @@ h1 {
   box-shadow: var(--zur-shadow-float);
   border: none;
 }
+
+.export {
+  display: grid;
+  gap: var(--zur-space-lg);
+  margin-top: var(--zur-space-lg);
+}
+.export-item {
+  min-width: 0; /* sem isto, a linha de código mais longa alarga o bloco além da coluna */
+}
+.export-item h3 {
+  margin: 0 0 var(--zur-space-xs);
+  font: var(--zur-font-title);
+  color: var(--zur-ink);
+}

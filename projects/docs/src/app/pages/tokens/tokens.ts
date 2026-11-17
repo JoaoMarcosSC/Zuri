@@ -93,7 +93,7 @@ module.exports = {
 @import '@juau/zuri/styles/tokens.css';
 @import '@juau/zuri/tailwind-theme.css';   /* @theme inline: bg-primary, text-ink, rounded-md… */`;
 
-  protected readonly codeFigma = `// tokens.json — formato W3C Design Tokens; cada token traz os dois temas:
+  protected readonly codeFigma = `// tokens.json no formato W3C Design Tokens; cada token traz os dois temas:
 {
   "color": {
     "primary": {

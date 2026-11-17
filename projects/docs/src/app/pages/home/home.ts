@@ -21,25 +21,25 @@ export class Home {
       badge: 'Paleta',
       title: 'Verde-menta fresco',
       description:
-        'Uma única voltagem de marca sobre neutros com tintura sage — inspirada em Jobright e Wise.',
+        'Uma cor de marca só, sobre cinzas levemente esverdeados. A referência foi Jobright e Wise.',
     },
     {
       badge: 'Temas',
       title: 'Claro e escuro, de verdade',
       description:
-        'Alterne pelo botão sol/lua na barra lateral. O escuro é quase-preto, inspirado na imersão do Spotify, com leve tintura verde — não cinza genérico.',
+        'O botão de sol e lua fica na barra lateral. O escuro é quase preto, com um toque de verde, no espírito do Spotify. Nada de cinza genérico.',
     },
     {
       badge: 'Formas',
       title: 'Suave, com uma sombra só',
       description:
-        'Botões a 8px, cards a 14px, pills em raio total — e um único tier de elevação, como no Airbnb.',
+        'Botões com 8px de raio, cards com 14px e pílulas redondas. Sombra, só uma, e só no que flutua, como no Airbnb.',
     },
     {
       badge: 'Tipografia',
       title: 'Nunito Sans arredondada',
       description:
-        'Terminais arredondados e peso moderado — calorosa sem perder legibilidade em UI densa.',
+        'Letras de pontas arredondadas e peso moderado. É acolhedora e continua legível em telas cheias de informação.',
     },
   ];
 

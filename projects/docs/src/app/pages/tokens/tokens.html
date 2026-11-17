@@ -90,18 +90,29 @@
 
 <section class="group">
   <h2>Como consumir</h2>
-  <p>Os tokens funcionam como CSS puro — use <code>var(--zur-*)</code> em qualquer lugar.</p>
+  <p>Os tokens são CSS puro: use <code>var(--zur-*)</code> onde quiser.</p>
   <docs-code-block [code]="cssSnippet" />
 </section>
 
 <section class="group">
   <h2>Exportar para Tailwind e Figma</h2>
   <p>
-    O pacote publica os tokens em outros formatos, gerados do mesmo <code>tokens.css</code>. Os valores
-    do Tailwind apontam para <code>var(--zur-*)</code>, então o tema claro/escuro continua trocando em
-    tempo de execução.
+    O pacote traz os tokens também em outros formatos, todos gerados do mesmo <code>tokens.css</code>.
+    No Tailwind, os valores apontam para <code>var(--zur-*)</code>, então a troca entre claro e escuro
+    continua funcionando com a página aberta.
   </p>
-  <docs-code-block [code]="codeTailwind3" />
-  <docs-code-block [code]="codeTailwind4" />
-  <docs-code-block [code]="codeFigma" />
+  <div class="export">
+    <div class="export-item">
+      <h3>Tailwind v3</h3>
+      <docs-code-block [code]="codeTailwind3" />
+    </div>
+    <div class="export-item">
+      <h3>Tailwind v4</h3>
+      <docs-code-block [code]="codeTailwind4" />
+    </div>
+    <div class="export-item">
+      <h3>Figma e outras ferramentas</h3>
+      <docs-code-block [code]="codeFigma" />
+    </div>
+  </div>
 </section>

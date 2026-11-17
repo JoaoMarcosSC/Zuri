@@ -4,6 +4,11 @@ As mudanças do pacote [`@juau/zuri`](https://www.npmjs.com/package/@juau/zuri) 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o
 [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [Não publicado]
+
+### Corrigido
+- `zur-sidebar` no celular: escolher um link na gaveta agora a fecha. Antes ela continuava aberta por cima do conteúdo.
+
 ## [0.5.0] - 2026-11-16
 
 ### Adicionado
